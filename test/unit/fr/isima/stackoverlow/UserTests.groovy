@@ -8,6 +8,13 @@ package fr.isima.stackoverlow
 @TestFor(User)
 class UserTests {
 
+	@Before
+	public void before() {
+		User.where{}.deleteAll()
+	}
+	
+	
+	@Test
     void testCreateUser() {
 		/*def location = new Location(name: 'Turin', country: 'it',
 			address: 'Turin')

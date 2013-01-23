@@ -9,6 +9,8 @@ import org.junit.*
 @TestFor(QuestionService)
 @Mock([User,Question])
 class QuestionServiceTests {
+	
+	@Test
 	void testVoteUp() {
 		
 		Object obj;
@@ -25,8 +27,9 @@ class QuestionServiceTests {
 		obj = q.save()
 		assertNotNull(obj)
 		
-		MessageVotableService mServ = new MessageVotableService()
+		QuestionService mServ = new MessageVotableService()
 		res = mServ.voteUp(u, q)
 		assertTrue(res)
 	}
+	
 }

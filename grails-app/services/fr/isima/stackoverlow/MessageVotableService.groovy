@@ -1,20 +1,24 @@
 package fr.isima.stackoverlow
 
+import java.awt.image.renderable.ParameterBlock;
+
 class MessageVotableService {
+	
 	// Vote positif par l'utilisateur
 	def voteUp(User u, MessageVotable m) {
-		Vote v = null;
-		for (Vote vote : Vote.findAll())
-			if (vote.user.equals(u) && vote.messageVotable.equals(m)) {
+		
+		Vote v = null
+		for (Vote vote : Vote.where{})
+			if (vote.user.id == u.id && vote.messageVotable.id == m.id) {
 				v = vote
 				break
 			}
 		
-		//Vote v = Vote.findAll //AllByUserAndMessageVotable(u, m)
+			
 		// Utilisateur a déjà voté
-		if (v) {
+		if (v != null) {
 			if (v.mark == 1) // déjà voté à +1
-				return false;
+				return false
 			else if (v.mark == -1) // annuler vote
 				v.delete()
 		}
@@ -24,9 +28,10 @@ class MessageVotableService {
 				user: u,
 				messageVotable: m)
 			Vote vSaved = v.save()
-			if (!vSaved)
+			if (! vSaved)
 				return false
 		}
+		
 		return true
 	}
 	
