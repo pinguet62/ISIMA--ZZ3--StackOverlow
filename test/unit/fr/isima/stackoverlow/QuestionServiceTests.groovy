@@ -3,11 +3,12 @@ package fr.isima.stackoverlow
 
 
 import grails.test.mixin.*
+
 import org.junit.*
 
 
 @TestFor(QuestionService)
-@Mock([User,Question])
+@Mock([User,Question,Vote])
 class QuestionServiceTests {
 	
 	@Test
@@ -27,7 +28,7 @@ class QuestionServiceTests {
 		obj = q.save()
 		assertNotNull(obj)
 		
-		QuestionService mServ = new MessageVotableService()
+		MessageVotableService mServ = new MessageVotableService()
 		res = mServ.voteUp(u, q)
 		assertTrue(res)
 	}
