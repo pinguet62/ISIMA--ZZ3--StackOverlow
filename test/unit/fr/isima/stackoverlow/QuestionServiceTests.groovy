@@ -33,4 +33,11 @@ class QuestionServiceTests {
 		assertTrue(res)
 	}
 	
+	
+	@Test
+	void testGetMark()
+	{
+		
+	}
+	
 }
