@@ -1,18 +1,14 @@
 package fr.isima.stackoverlow
 
+import org.junit.Test
 
-
-import grails.test.mixin.*
-import org.junit.*
-
-
+// TODO
 @TestFor(QuestionService)
-@Mock([User,Question])
+@Mock([Question, Message])
 class QuestionServiceTests {
 	
 	@Test
 	void testVoteUp() {
-		
 		Object obj;
 		Boolean res;
 		

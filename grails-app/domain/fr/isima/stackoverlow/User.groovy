@@ -1,6 +1,11 @@
 package fr.isima.stackoverlow
 
+/**
+ * Utilisateur
+ * @author Julien
+ */
 class User {
+	
 	// Attributs
 	String name
 	String mail
@@ -11,4 +16,5 @@ class User {
 	
 	static constraints = {
     }
+	
 }

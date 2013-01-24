@@ -1,18 +1,14 @@
 package fr.isima.stackoverlow
 
+import org.junit.Test;
 
-
-import grails.test.mixin.*
-
-import org.junit.*
-
-/**
- * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
- */
+// TODO
 @TestFor(Message)
 class MessageTests {
-
+	
+	@Test
     void testSomething() {
        fail "Implement me"
     }
+	
 }

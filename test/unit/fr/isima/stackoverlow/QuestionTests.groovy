@@ -1,15 +1,8 @@
 package fr.isima.stackoverlow
 
+import org.junit.Test
 
-
-import javax.validation.constraints.AssertTrue;
-
-import grails.test.mixin.*
-import org.junit.*
-
-/**
- * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
- */
+// TODO
 @TestFor(Question)
 class QuestionTests {
 

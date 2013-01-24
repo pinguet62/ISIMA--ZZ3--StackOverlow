@@ -2,6 +2,7 @@ package fr.isima.stackoverlow
 
 import java.awt.image.renderable.ParameterBlock;
 
+// TODO
 class MessageVotableService {
 	
 	// Vote positif par l'utilisateur

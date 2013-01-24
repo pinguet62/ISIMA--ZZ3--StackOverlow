@@ -49,6 +49,9 @@ Configuration de l'IDE :
 
 
 Git :
+	Téléchercher dépot :
+		git clone http://github.com/pinguet62/StackOverlow.git
+	
     Commandes :
         git commit -a -m "message personnel"
         git pull
@@ -56,23 +59,23 @@ Git :
 
 
 Fichier .gitgnore :
-*.iws
-*Db.properties
-*Db.script
-.settings
-stacktrace.log
-/*.zip
-/plugin.xml
-/*.log
-/*DB.*
-/cobertura.ser
-.DS_Store
-/target/
-/out/
-/web-app/plugins
-/web-app/WEB-INF/classes
-/.link_to_grails_plugins/
-/target-eclipse/
-
-.classpath
-.project
+	*.iws
+	*Db.properties
+	*Db.script
+	.settings
+	stacktrace.log
+	/*.zip
+	/plugin.xml
+	/*.log
+	/*DB.*
+	/cobertura.ser
+	.DS_Store
+	/target/
+	/out/
+	/web-app/plugins
+	/web-app/WEB-INF/classes
+	/.link_to_grails_plugins/
+	/target-eclipse/
+	
+	.classpath
+	.project

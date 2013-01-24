@@ -1,6 +1,11 @@
 package fr.isima.stackoverlow
 
+/**
+ * Vote positif ou négatif d'un utilisateur sur un message votable
+ * @author Julien
+ */
 class Vote {
+	
 	// Attributs
 	int mark = 0
 	
@@ -9,4 +14,5 @@ class Vote {
 	
     static constraints = {
     }
+	
 }

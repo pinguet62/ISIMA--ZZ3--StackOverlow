@@ -1,13 +1,10 @@
 package fr.isima.stackoverlow
 
+import org.junit.Test
 
-
-/**
- * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
- */
 @TestFor(User)
 class UserTests {
-
+	
 	@Before
 	public void before() {
 		User.where{}.deleteAll()
@@ -15,22 +12,37 @@ class UserTests {
 	
 	
 	@Test
-    void testCreateUser() {
-		/*def location = new Location(name: 'Turin', country: 'it',
-			address: 'Turin')
-			.addToWarehouses(name:'Turin Warehouse 1')
-			.addToWarehouses(name:'Turin Warehouse 2')
-			.save()*/
+    void create() {
+		User user = new User(name:'name', mail:'adresse@mail.com', password:'password')
 		
-		User u1 = new User(name:'Julien', mail:'ju@leboulet.com', password:'moimoi')
+		def obj = user.save()
+		assertNotNull(obj)
 		
-		def u2 = User.get(1)
-		assertNull(u2)
-		
-		u1.save()
-		
-		def u3 = User.get(1)
-		assertNotNull(u3)
-		assertEquals(u1, u3)
+		assertEquals(User.getAll().size(), 1)
+		assertEquals(User.get(1), user)
     }
+	
+	
+	@Test
+	void delete() {
+		User user = new User(name:'name', mail:'adresse@mail.com', password:'password')
+		
+		user.save()
+		
+		user.delete()
+		assertEquals(User.getAll().size(), 0)
+	}
+	
+	
+	@Test
+	void update() {
+		User user = new User(name:'name', mail:'adresse@mail.com', password:'password')
+		user.save()
+		
+		String newName = "newName"
+		user.setName(newName)
+		user.save()
+		assertEquals(User.get(1).getName(), newName)
+	}
+	
 }

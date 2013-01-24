@@ -1,12 +1,14 @@
 package fr.isima.stackoverlow
 
-import grails.test.mixin.*
+import org.junit.Test
 
-import org.junit.*
-
+// TODO
 @TestFor(VoteService)
 class VoteServiceTests {
 	
-	
+	@Test
+	void testSomething() {
+		fail "Implement me"
+	}
 	
 }

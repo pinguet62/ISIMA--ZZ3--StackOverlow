@@ -1,17 +1,14 @@
 package fr.isima.stackoverlow
 
+import org.junit.Test;
 
-
-import grails.test.mixin.*
-import org.junit.*
-
-/**
- * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
- */
+// TODO
 @TestFor(MessageVotableService)
 class MessageVotableServiceTests {
-
+	
+	@Test
     void testSomething() {
         fail "Implement me"
     }
+	
 }
