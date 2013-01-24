@@ -9,7 +9,7 @@ import fr.isima.stackoverflow.ServiceException
 class UserService {
 	
 	/**
-	 * Utilisateur existant
+	 * Existant
 	 * @param user Utilisateur
 	 * @return Vrai ou Faux
 	 */
@@ -19,7 +19,7 @@ class UserService {
 	
 	
 	/**
-	 * Nom d'utilisateur disponible
+	 * Nom disponible
 	 * @param name Nom d'utilisateur
 	 * @return Vrai ou Faux
 	 */
@@ -29,7 +29,7 @@ class UserService {
 	
 	
 	/**
-	 * Création d'un nouvel utilisateur
+	 * Création
 	 * @param user Utilisateur
 	 * @exception IllegalArgumentException Utilisateur déjà existant
 	 * @exception ServiceException Impossible de créer l'utilisateur
@@ -48,7 +48,7 @@ class UserService {
 	
 	
 	/**
-	 * Mettre à jour les informations
+	 * Mettre à jour
 	 * @param user Utilisateur
 	 * @exception IllegalArgumentException Utilisateur innexistant
 	 * @exception ServiceException Impossible de mettre à jour l'utilisateur
@@ -67,7 +67,7 @@ class UserService {
 	
 	
 	/**
-	 * Suppression
+	 * Supprimer
 	 * @param user Utilisateur
 	 * @exception IllegalArgumentException Utilisateur innexistant
 	 * @exception ServiceException Impossible de supprimer l'utilisateur

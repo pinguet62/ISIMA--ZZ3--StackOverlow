@@ -26,7 +26,7 @@ class VoteTests{
 
 		qBdd.increaseMark()
 		qBdd.increaseMark()
-		print qBdd.mark()
+		println qBdd.mark()
 		
 	}
 	

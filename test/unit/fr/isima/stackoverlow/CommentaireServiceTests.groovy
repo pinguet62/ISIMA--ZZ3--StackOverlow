@@ -21,27 +21,33 @@ class CommentaireServiceTests {
 	
 	@Test
     void add() {
-		User user = new User(name:'name', mail:'adresse@mail.com', password:'password').save()
+		User user = new User(name:'name', mail:'adresse@mail.com', password:'password')
 		
 		// Question
-        Question question = new Question(titre:"titre", content:"content", date:new Date(), user: user).save()
-		Commentaire commentaire1 = new Commentaire(content:"content", date:new Date(), user: user, messageVotable: question).save()
+        Question question = new Question(titre:"titre", content:"content", date: new Date(), user: user)
+		Commentaire commentaire1 = new Commentaire(content:"content", date: new Date(), user: user, messageVotable: question)
 		service.add(question, commentaire1)
 		assertEquals(Commentaire.findAll().size(), 1)
 		
 		// Réponse
-		Response reponse = new Response(content:"content", date:new Date(), user: user, question: question).save()
-		Commentaire commentaire2 = new Commentaire(content:"content", date:new Date(), user: user, messageVotable: reponse).save()
+		Response reponse = new Response(content:"content", date:new Date(), user: user, question: question)
+		Commentaire commentaire2 = new Commentaire(content:"content", date: new Date(), user: user, messageVotable: reponse)
 		service.add(reponse, commentaire2)
 		assertEquals(Commentaire.findAll().size(), 2)
     }
 	
 	
 	@Test
+	void update() {
+		// TODO
+	}
+	
+	
+	@Test
 	void disable() {
-		User user = new User(name:'name', mail:'adresse@mail.com', password:'password').save()
-		Question question = new Question(titre:"titre", content:"content", date:new Date(), user: user).save()
-		Commentaire commentaire = new Commentaire(content:"content", date:new Date(), user: user, messageVotable: question).save()
+		User user = new User(name:'name', mail:'adresse@mail.com', password:'password')
+		Question question = new Question(titre:"titre", content:"content", date: new Date(), user: user)
+		Commentaire commentaire = new Commentaire(content:"content", date: new Date(), user: user, messageVotable: question)
 		service.add(question, commentaire)
 		assertEquals(Commentaire.findAll().size(), 1)
 		
@@ -52,9 +58,9 @@ class CommentaireServiceTests {
 	
 	@Test
 	void delete() {
-		User user = new User(name:'name', mail:'adresse@mail.com', password:'password').save()
-		Question question = new Question(titre:"titre", content:"content", date:new Date(), user: user).save()
-		Commentaire commentaire = new Commentaire(content:"content", date:new Date(), user: user, messageVotable: question).save()
+		User user = new User(name:'name', mail:'adresse@mail.com', password:'password')
+		Question question = new Question(titre:"titre", content:"content", date: new Date(), user: user)
+		Commentaire commentaire = new Commentaire(content:"content", date: new Date(), user: user, messageVotable: question)
 		service.add(question, commentaire)
 		assertEquals(Commentaire.findAll().size(), 1)
 		
