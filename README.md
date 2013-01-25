@@ -28,8 +28,39 @@ sur:
 http://stackoverflow.com/questions/1720533/abstract-classes-in-gorm-relationships
 http://stackoverflow.com/questions/2096891/grails-find-by-non-native-types
 
+<meta name="layout" content="main">
+<!-- CSS -->
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.min.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap-responsive.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.min.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'layout.css')}" type="text/css">
+<!-- JavaScript -->
+<g:javascript src="bootstrap.js"/>
+<g:javascript src="bootstrap.min.js"/>
+<g:javascript src="jquery.js"/>
+<g:javascript src="jquery-layout.js"/>
+<g:javascript src="jquery-ui.js"/>
 
 
+
+Structure de la page & CSS :
+    site.header : custom-header
+    site.page : container
+        page.header : header
+        page.content : content
+            question.header : question-header
+            question.sidebar : sidebar
+            question.content : mainbar
+                question : question
+                responses : answers
+                	response.header : answers-header
+                	response.reponse : answer-2097396
+                	...
+                	response.reponse : answer-2101136
+                	reponse.posterReponse : post-form
+    site.footer : footer
 
 
 
