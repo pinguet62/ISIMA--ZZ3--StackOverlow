@@ -9,30 +9,30 @@ import fr.isima.stackoverflow.ServiceException
 class MessageService {
 	
 	/**
-	 * Créer une nouvelle question
+	 * Créer
 	 * @param message Message
-	 * @exception Impossible de créer la question
+	 * @exception ServiceException Echec de la création du message
 	 */
 	def create(Message message) {
 		def obj = message.save()
 		
 		// Echec
 		if (obj == null)
-			throw new ServiceException("Impossible de créer le message")
+			throw new ServiceException("Echec de la création du message")
 	}
 	
 	
     /**
 	 * Mettre à jour
 	 * @param message Message
-	 * @exception ServiceException Impossible de mettre à jour le message
+	 * @exception ServiceException Echec de la mise à jour du message
 	 */
 	def update(Message message) {
 		def obj = message.save()
 		
 		// Echec
 		if (obj == null)
-			throw new ServiceException("Impossible de mettre à jour le message")
+			throw new ServiceException("Echec de la mise à jour du message")
 	}
 	
 	
@@ -48,7 +48,7 @@ class MessageService {
 	/**
 	 * Supprimer
 	 * @param message Message
-	 * @exception ServiceException Impossible de supprimer le message
+	 * @exception ServiceException Echec de la suppression du message
 	 */
 	def delete(Message message) {
 		message.delete()
@@ -56,7 +56,7 @@ class MessageService {
 		// Echec
 		Class type = message.getClass()
 		if (type.findById(message.id) != null)
-			throw new ServiceException("Impossible de supprimer le message")
+			throw new ServiceException("Echec de la suppression du message")
 	}
 	
 }

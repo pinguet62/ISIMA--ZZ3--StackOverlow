@@ -19,8 +19,11 @@ class QuestionServiceTests {
 	
 	@Test
 	void create() {
-		User user = new User(name:'name', mail:'adresse@mail.com', password:'password')
-		Question question = new Question(titre:"titre", content:"content", date:new Date(), user: user)
+		User user = new User(name:"userName", mail:"userAdresse@mail.com", password:"userPassword")
+		user.save()
+		
+		Question question = new Question(title:"titre", content:"content", date: new Date())
+		question.author = user
 		
 		service.create(question)
 		assertEquals(Question.findAll().size(), 1)
@@ -29,19 +32,22 @@ class QuestionServiceTests {
 	
 	@Test
 	void update() {
-		// Création
-		User user = new User(name:'name', mail:'adresse@mail.com', password:'password')
-		Question question = new Question(titre:"titre", content:"content", date:new Date(), user: user)
+		User user = new User(name:"userName", mail:"userAdresse@mail.com", password:"userPassword")
+		user.save()
+		
+		Question question = new Question(title:"titre", content:"content", date: new Date())
+		question.author = user
+		
 		service.create(question)
-		// Modification
-		String newTitre = "newTitre"
+		
+		String newTitle = "newTitle"
 		String newContent = "newContent"
-		question.titre = newTitre
+		question.title = newTitle
 		question.content = newContent
 		service.update(question)
-		// Vérification
+		
 		Question qModif = Question.findById(question.id)
-		assertEquals(qModif.titre, newTitre)
+		assertEquals(qModif.title, newTitle)
 		assertEquals(qModif.content, newContent)
 	}
 	

@@ -1,14 +1,23 @@
 package fr.isima.stackoverlow
 
+import org.junit.Before
 import org.junit.Test
 
-// TODO
 @TestFor(Tag)
 class TagTests {
 	
+	@Before
+	public void before() {
+		Tag.where{}.deleteAll()
+	}
+	
+	
 	@Test
-    void testSomething() {
-       fail "Implement me"
-    }
+	void tag() {
+		Tag tag = new Tag(name: "tagName")
+		tag.save()
+		
+		assertEquals(Tag.list().size(), 1)
+	}
 	
 }

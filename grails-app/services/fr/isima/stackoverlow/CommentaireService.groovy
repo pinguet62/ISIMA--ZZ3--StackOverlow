@@ -14,17 +14,19 @@ class CommentaireService extends MessageService {
 	 * Ajouter à un message votable
 	 * @param message Message commentable
 	 * @param commentaire Commentaire
-	 * @exception ServiceException Impossible de créer le commentaire
+	 * @exception ServiceException Echec de la création du commentaire
+	 * @exception ServiceException Echec de l'ajout du commentaire
 	 */
     def add(MessageVotable message, Commentaire commentaire) {
 		def obj = commentaire.save()
+		// Echec
 		if (obj == null)
-			throw new ServiceException("Impossible de créer le commentaire")
+			throw new ServiceException("Echec de la création du commentaire")
 		
 		message.addToCommentaires(commentaire)
-		
 		// Echec
-		// TODO
+		if (Commentaire.findByMessageVotableAndId(message, commentaire.id) == null)
+			throw new ServiceException("Echec de l'ajout du commentaire")
     }
 	
 }

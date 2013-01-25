@@ -1,63 +1,173 @@
 package fr.isima.stackoverlow
 
-import org.junit.Before;
+import org.junit.Before
 import org.junit.Test
 
-// TODO
 @TestFor(VoteService)
-@Mock([User, Question, Vote])
+@Mock([User, Question, Response, Vote])
 class VoteServiceTests {
 	
-	User u
-	User u2
-	Object obj
-	Question q
-	Boolean res
+	VoteService service = new VoteService()
 	
 	
-	@Before 
-	public void setUp() {
-		u = new User(name:'Julien', mail:'mail@mail.com', password:'moimoi')
-		u2 = new User(name:'Pierre', mail:'mailmail@mail.com', password:'mm')
-		u.save()
-		u2.save()
-		q = new Question(titre:"mytitle",
-			content:"mycontent",
-			date:new Date(),
-			user: u)
-		q.save()
+	@Before
+	void before() {
+		User.where{}.deleteAll()
+		Question.where{}.deleteAll()
+		Response.where{}.deleteAll()
+		Vote.where{}.deleteAll()
 	}
 	
 	
 	@Test
-	void testVoteUp() {
-		MessageVotableService mServ = new MessageVotableService()
-		res = mServ.voteUp(u, q)
-		assertTrue(res)
+	void getMark_user() {
+		User user1 = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
+		user1.save()
+		User user2 = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
+		user2.save()
 		
-		res = mServ.voteUp(u, q)
-		assertFalse(res)
+		Question question = new Question(title: "title", content: "content", date: new Date())
+		question.author = user1
+		question.save()
+		
+		Vote vote1 = new Vote(mark: +1)
+		vote1.user = user1
+		vote1.messageVotable = question
+		vote1.save()
+		Vote vote2 = new Vote(mark: +1)
+		vote2.user = user2
+		vote2.messageVotable = question
+		vote2.save()
+		
+		def note = service.getMark(user1)
+		assertEquals(note, +2)
 	}
 	
 	
 	@Test
-	void testGetMark()
-	{
-		int nbVote = -1
-		MessageVotableService mServ = new MessageVotableService()
+	void getMark_message() {
+		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
+		user.save()
 		
-		nbVote= mServ.getMark(q)
-		//assertEquals(nbVote, 0)
-		print nbVote
-		mServ.voteUp(u, q)
-		nbVote= mServ.getMark(q)
-		//assertEquals(nbVote, 1)
-		print nbVote
+		Question question = new Question(title: "title", content: "content", date: new Date())
+		question.author = user
+		question.save()
 		
-		mServ.voteUp(u2, q)
-		nbVote= mServ.getMark(q)
-		//assertEquals(nbVote, 2)
-		print nbVote
+		Vote vote = new Vote(mark: -1)
+		vote.user = user
+		vote.messageVotable = question
+		vote.save()
+		
+		def note = service.getMark(question)
+		assertEquals(note, -1)
+	}
+	
+	
+	@Test
+	void voteUp_new() {
+		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
+		user.save()
+		
+		Question question = new Question(title: "title", content: "content", date: new Date())
+		question.author = user
+		question.save()
+		
+		service.voteUp(question, user)
+		assertNotNull(Vote.findByUserAndMessageVotable(user, question))
+	}
+	
+	
+	@Test
+	void voteUp_annulerNegatif() {
+		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
+		user.save()
+		
+		Question question = new Question(title: "title", content: "content", date: new Date())
+		question.author = user
+		question.save()
+		
+		Vote vote = new Vote(mark: -1)
+		vote.user = user
+		vote.messageVotable = question
+		vote.save()
+		
+		assertNotNull(Vote.findByUserAndMessageVotable(user, question))
+		service.voteUp(question, user)
+		assertNull(Vote.findByUserAndMessageVotable(user, question))
+	}
+	
+	
+	@Test
+	void voteUp_dejaVote() {
+		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
+		user.save()
+		
+		Question question = new Question(title: "title", content: "content", date: new Date())
+		question.author = user
+		question.save()
+		
+		Vote vote = new Vote(mark: +1)
+		vote.user = user
+		vote.messageVotable = question
+		vote.save()
+		
+		assertNotNull(Vote.findByUserAndMessageVotable(user, question))
+		service.voteUp(question, user)
+		assertNotNull(Vote.findByUserAndMessageVotable(user, question))
+	}
+	
+	
+	@Test
+	void voteDown_new() {
+		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
+		user.save()
+		
+		Question question = new Question(title: "title", content: "content", date: new Date())
+		question.author = user
+		question.save()
+		
+		service.voteDown(question, user)
+		assertNotNull(Vote.findByUserAndMessageVotable(user, question))
+	}
+	
+	
+	@Test
+	void voteDown_annulerPositif() {
+		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
+		user.save()
+		
+		Question question = new Question(title: "title", content: "content", date: new Date())
+		question.author = user
+		question.save()
+		
+		Vote vote = new Vote(mark: +1)
+		vote.user = user
+		vote.messageVotable = question
+		vote.save()
+		
+		assertNotNull(Vote.findByUserAndMessageVotable(user, question))
+		service.voteDown(question, user)
+		assertNull(Vote.findByUserAndMessageVotable(user, question))
+	}
+	
+	
+	@Test
+	void voteDown_dejaVote() {
+		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
+		user.save()
+		
+		Question question = new Question(title: "title", content: "content", date: new Date())
+		question.author = user
+		question.save()
+		
+		Vote vote = new Vote(mark: -1)
+		vote.user = user
+		vote.messageVotable = question
+		vote.save()
+		
+		assertNotNull(Vote.findByUserAndMessageVotable(user, question))
+		service.voteDown(question, user)
+		assertNotNull(Vote.findByUserAndMessageVotable(user, question))
 	}
 	
 }

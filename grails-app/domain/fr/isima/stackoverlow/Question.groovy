@@ -7,12 +7,14 @@ package fr.isima.stackoverlow
 class Question extends MessageVotable {
 	
 	// Attributs
-	String titre
+	String title
 	
 	// Liens avec la BDD
-	static hasMany = [responses: Response, tag: Tag]
+	static hasMany = [responses: Response, tags: Tag]
+	
 	
     static constraints = {
+		title(unique: true, minSize: 1)
     }
 	
 }

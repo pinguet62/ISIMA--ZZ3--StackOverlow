@@ -1,71 +1,115 @@
 package fr.isima.stackoverlow
 
+import fr.isima.stackoverflow.ServiceException
+
 // TODO
 class VoteService {
 	
-	// Vote positif par l'utilisateur
-	def voteUp(User u, MessageVotable m) {
-		Vote v = null;
-		
-		
-		List<Vote> lst=Vote.list()
-		for (Vote vote : lst)
-			if (vote.user.equals(u) && vote.messageVotable.equals(m)) {
-				v = vote
-				break
-			}
-		
-		//Vote v = Vote.findAll //AllByUserAndMessageVotable(u, m)
-		// Utilisateur a déjà voté
-		if (v) {
-			if (v.mark == 1) // déjà voté à +1
-				return false;
-			else if (v.mark == -1) // annuler vote
-				v.delete()
-		}
-		// Nouveau vote
-		else {
-			v = new Vote(mark: +1,
-				user: u,
-				messageVotable: m)
-			Vote vSaved = v.save()
-			if (!vSaved)
-				return false
-		}
-		return true
+	/**
+	 * Calculer la note d'un utilisateur
+	 * @param user Utilisateur
+	 * @return Note
+	 */
+	def getMark(User user) {
+		int note = 0
+		for (Vote vote : Vote.list())
+			if (vote.messageVotable.author.equals(user))
+				note += vote.mark
+		return note
 	}
 	
 	
-	// Vote négatif par l'utilisateur
-	def voteDown(User u, MessageVotable m) {
-		// Utilisateur a déjà voté
-		Vote v = Vote.findByUserAndMessageVotable(u, m)
-		if (v) {
-			if (v.mark == -1) // déjà voté à +1
-				return false;
-			else if (v.mark == +1) // annuler vote
-				v.delete()
-		}
-		// Nouveau vote
-		else {
-			v = new Vote(mark: -1,
-				user: u,
-				messageVotable: m)
-			Vote vSaved = v.save()
-			if (!vSaved)
-				return false
-		}
-		return true
-	}
-	
-	
-	// Obtenir la note totale
-	def getMark(MessageVotable m) {
-		int note = 0;
-		Vote.findByMessageVotable(m).each {
+	/**
+	 * Calculer la note d'une message
+	 * @param message Message
+	 * @return Note
+	 */
+	def getMark(MessageVotable message) {
+		int note = 0
+		Vote.findByMessageVotable(message).each {
 			note += it.mark
 		}
 		return note
+	}
+	
+	
+	
+	/**
+	 * Vote positif
+	 * @param message Message
+	 * @param user Utilisateur
+	 * @exception ServiceException Echec du vote
+	 */
+	def voteUp(MessageVotable message, User user) {
+		Vote vote = Vote.findByUserAndMessageVotable(user, message)
+		// Nouveau vote
+		if (vote == null) {
+			vote = new Vote(mark: +1)
+			vote.user = user
+			vote.messageVotable = message
+			def obj = vote.save()
+			// Echec
+			if (obj == null)
+				throw new ServiceException("Echec du vote")
+		}
+		// Utilisateur a déjà voté
+		else {
+			if (vote.mark == +1)
+				return
+			else if (vote.mark == 0) {
+				vote.mark = +1
+				def obj = vote.save()
+				// Echec
+				if (obj == null)
+					throw new ServiceException("Echec du vote")
+			} else if (vote.mark == -1)
+				vote.mark = 0
+				vote.save()
+				vote.delete()
+				// Echec
+				if (Vote.findById(vote.id) != null)
+					throw new ServiceException("Echec du vote")
+		}
+		
+	}
+	
+	
+	/**
+	 * Vote négatif
+	 * @param message Message
+	 * @param user Utilisateur
+	 * @exception ServiceException Echec du vote
+	 */
+	def voteDown(MessageVotable message, User user) {
+		Vote vote = Vote.findByUserAndMessageVotable(user, message)
+		// Nouveau vote
+		if (vote == null) {
+			vote = new Vote(mark: -1)
+			vote.user = user
+			vote.messageVotable = message
+			def obj = vote.save()
+			// Echec
+			if (obj == null)
+				throw new ServiceException("Echec du vote")
+		}
+		// Utilisateur a déjà voté
+		else {
+			if (vote.mark == -1)
+				return
+			else if (vote.mark == 0) {
+				vote.mark = -1
+				def obj = vote.save()
+				// Echec
+				if (obj == null)
+					throw new ServiceException("Echec du vote")
+			} else if (vote.mark == +1)
+				vote.mark = 0
+				vote.save()
+				vote.delete()
+				// Echec
+				if (Vote.findById(vote.id) != null)
+					throw new ServiceException("Echec du vote")
+		}
 	}
 	
 }

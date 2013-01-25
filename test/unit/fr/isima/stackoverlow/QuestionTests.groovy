@@ -1,28 +1,47 @@
 package fr.isima.stackoverlow
 
+import org.junit.Before
 import org.junit.Test
 
-// TODO
 @TestFor(Question)
+@Mock([User, Tag])
 class QuestionTests {
-
-    void testNewQuestion() {
-		mockDomain(User)
-		User u1 = new User(name:'Julien', mail:'julienTheBeauGosseOf62@msn.com', password:'moimoi')
-		u1.save()
-		
-		Question q = new Question(titre:"IE : de la merde, ou pire ?",
-			content:"Est-ce que Internet Explorer est bien ?",
-			date:new Date(),
-			user: u1)
-		
-		
-		def qq = q.save()
-		
-		assertNotNull(qq)
-		
-		def qBdd = Question.get(1)
-		assertNotNull(qBdd)
-		assertTrue(qBdd.content.equals(q.content))
+	
+	@Before
+	void before() {
+		User.where{}.deleteAll()
+		Question.where{}.deleteAll()
+		Tag.where{}.deleteAll()
 	}
+	
+	
+	@Test
+	void question() {
+		User user = new User(name:"userName", mail:"userAdresse@mail.com", password:"userPassword")
+		user.save()
+		
+		Question question = new Question(title: "title", content: "content", date: new Date())
+		question.author = user
+		question.save()
+		
+		assertEquals(Question.findAll().size(), 1)
+	}
+	
+	
+	@Test
+	void tag() {
+		User user = new User(name:"userName", mail:"userAdresse@mail.com", password:"userPassword")
+		user.save()
+		
+		Tag tag = new Tag(name: "tag")
+		tag.save()
+		
+		Question question = new Question(title: "title", content: "content", date: new Date())
+		question.author = user
+		question.addToTags(tag)
+		question.save()
+		
+		assertEquals(Question.findAll().size(), 1)
+	}
+	
 }

@@ -3,6 +3,16 @@ StackOverlow
 
 StackOverflow par les nuls...
 
+
+Remarques :
+	Certains constructeurs, comme Question, ne fonctionne pas lorsque l'on passe un attribut lié à la BDD en paramètre.
+	Par exemple Question question = new Question(title: "title", content: "content", date: new Date(), user: user) ne fonctionne pas.
+	Alors faisons Question question = new Question(title: "title", content: "content", date: new Date())
+					question.user = user
+	De même lorsque l'on essaye de faire un save() sur la même ligne que le constructeur.
+
+
+
 Grails
 Backend & frontend
 Backend : use RESTful API
@@ -17,6 +27,9 @@ email(blank:false, nullable:false,email:true)
 sur: 
 http://stackoverflow.com/questions/1720533/abstract-classes-in-gorm-relationships
 http://stackoverflow.com/questions/2096891/grails-find-by-non-native-types
+
+
+
 
 
 
@@ -54,8 +67,11 @@ Git :
 	
     Commandes :
         git commit -a -m "message personnel"
+        	A faire régulièrement, avec chaque petite fonctionnalité que tu implémentes
         git pull
+        	Il peut y avoir des conflits, une fois que tu les as corrigées tu peux refaire "git pull" et tester si ça marche encore
         git push
+
 
 
 Fichier .gitgnore :

@@ -8,13 +8,15 @@ abstract class Message {
 	
 	// Attributs
 	String content
-	Boolean display = true
 	Date date = new Date()
+	Boolean display = true
 	
 	// Liens avec la BDD
-	static belongsTo = [user: User]
+	static belongsTo = [author: User]
+	
 	
     static constraints = {
+		content(minSize: 1)
     }
 	
 }

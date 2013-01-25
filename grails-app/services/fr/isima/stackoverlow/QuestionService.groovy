@@ -26,7 +26,7 @@ class QuestionService extends MessageVotableService {
 	/**
 	 * Supprimer
 	 * @param question Question
-	 * @exception ServiceException Impossible de supprimer la question
+	 * @exception ServiceException Echec de la suppression du message
 	 */
 	def delete(Question question) {
 		// Cascade
@@ -39,7 +39,7 @@ class QuestionService extends MessageVotableService {
 		
 		// Echec
 		if (Question.findById(question.id) != null)
-			throw new ServiceException("Impossible de supprimer la question")
+			throw new ServiceException("Echec de la suppression du message")
 	}
 	
 }

@@ -6,43 +6,67 @@ import org.junit.Test
 class UserTests {
 	
 	@Before
-	public void before() {
+	void before() {
 		User.where{}.deleteAll()
 	}
 	
 	
 	@Test
-    void create() {
-		User user = new User(name:'name', mail:'adresse@mail.com', password:'password')
-		
-		def obj = user.save()
-		assertNotNull(obj)
-		
-		assertEquals(User.getAll().size(), 1)
-		assertEquals(User.get(1), user)
-    }
-	
-	
-	@Test
-	void delete() {
-		User user = new User(name:'name', mail:'adresse@mail.com', password:'password')
-		
+	void save_update_delete() {
+		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
+		// Save
+		assertEquals(User.findAll().size(), 0)
 		user.save()
-		
+		assertEquals(User.findAll().size(), 1)
+		// Update
+		String newName = "newUserName"
+		String newMail = "newUserAdresse@mail.com"
+		String newPassword = "newUserPassword"
+		user.name = newName
+		user.mail = newMail
+		user.password = newPassword
+		user.save()
+		assertEquals(User.findAll().size(), 1)
+		User newUser = User.get(1)
+		assertEquals(user.name, newName)
+		assertEquals(user.mail, newMail)
+		assertEquals(user.password, newPassword)
+		// Delete
 		user.delete()
-		assertEquals(User.getAll().size(), 0)
+		assertEquals(User.findAll().size(), 0)
 	}
 	
 	
 	@Test
-	void update() {
-		User user = new User(name:'name', mail:'adresse@mail.com', password:'password')
-		user.save()
-		
-		String newName = "newName"
-		user.setName(newName)
-		user.save()
-		assertEquals(User.get(1).getName(), newName)
+	void name() {
+		// minSize
+		assertNull(new User(name: "n", mail: "userAdresse@email.com", password: "userPassword").save())
+		// nullable
+		assertNull(new User(name: null, mail: "userAdresse@mail.com", password: "userPassword").save())
+		// unique
+		assertNotNull(new User(name: "userName", mail: "user1Adresse@mail.com", password: "userPassword").save())
+		assertNull(new User(name: "userName", mail: "user2Adresse@mail.com", password: "userPassword").save())
+	}
+	
+	
+	@Test
+	void mail() {
+		// email
+		assertNull(new User(name: "userName", mail: "a", password: "userPassword").save())
+		// nullable
+		assertNull(new User(name: "userName", mail:null, password: "userPassword").save())
+		// unique
+		assertNotNull(new User(name: "user1Name", mail: "userAdresse@mail.com", password: "userPassword").save())
+		assertNull(new User(name: "user2Name", mail: "userAdresse@mail.com", password: "userPassword").save())
+	}
+	
+	
+	@Test
+	void password() {
+		// minSize
+		assertNull(new User(name: "userName", mail: "userAdresse@email.com", password: "p").save())
+		// nullable
+		assertNull(new User(name: "userName", mail: "userAdresse@mail.com", password: null).save())
 	}
 	
 }

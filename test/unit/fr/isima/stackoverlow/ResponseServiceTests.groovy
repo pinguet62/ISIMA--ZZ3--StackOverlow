@@ -20,28 +20,43 @@ class ResponseServiceTests {
 	
 	@Test
 	void create() {
-		User user = new User(name:'name', mail:'adresse@mail.com', password:'password')
-		Question question = new Question(titre:"titre", content:"content", date: new Date(), user: user)
-		Response reponse = new Response(content: "content", date: new Date(), user: user, question: question)
+		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
+		user.save()
 		
-		service.create(reponse)
-		assertEquals(Response.findAll().size(), 1)
+		Question question = new Question(title: "title", content: "content", date: new Date())
+		question.author = user
+		question.save()
+		
+		Response response = new Response(content: "content", date: new Date())
+		response.author = user
+		response.question = question
+		
+		service.create(response)
+		assertEquals(Response.list().size(), 1)
 	}
 	
 	
 	@Test
 	void update() {
 		// Création
-		User user = new User(name:'name', mail:'adresse@mail.com', password:'password')
-		Question question = new Question(titre:"titre", content:"content", date:new Date(), user: user)
-		Response reponse = new Response(content: "content", date: new Date(), user: user, question: question)
-		service.create(reponse)
-		// Modification
+		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
+		user.save()
+		
+		Question question = new Question(title: "title", content: "content", date: new Date())
+		question.author = user
+		question.save()
+		
+		Response response = new Response(content: "content", date: new Date())
+		response.author = user
+		response.question = question
+		
+		service.create(response)
+		
 		String newContent = "newContent"
-		reponse.content = newContent
-		service.update(reponse)
-		// Vérification
-		Response rModif = Response.findById(reponse.id)
+		response.content = newContent
+		service.update(response)
+		
+		Response rModif = Response.findById(response.id)
 		assertEquals(rModif.content, newContent)
 	}
 	

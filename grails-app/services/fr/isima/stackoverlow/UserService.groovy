@@ -32,18 +32,18 @@ class UserService {
 	 * Création
 	 * @param user Utilisateur
 	 * @exception IllegalArgumentException Utilisateur déjà existant
-	 * @exception ServiceException Impossible de créer l'utilisateur
+	 * @exception ServiceException Echec de la création
 	 */
     def create(User user) {
 		// Test
-		if (! disponible(user.getName()))
+		if (! disponible(user.name))
 			throw new IllegalArgumentException("Utilisateur déjà existant")
 		
 		def obj = user.save()
 		
 		// Echec
 		if (obj == null)
-			throw new ServiceException("Impossible de créer l'utilisateur")
+			throw new ServiceException("Echec de la création")
     }
 	
 	
@@ -51,7 +51,7 @@ class UserService {
 	 * Mettre à jour
 	 * @param user Utilisateur
 	 * @exception IllegalArgumentException Utilisateur innexistant
-	 * @exception ServiceException Impossible de mettre à jour l'utilisateur
+	 * @exception ServiceException Echec de la mise à jour
 	 */
 	def update(User user) {
 		// Test
@@ -62,7 +62,7 @@ class UserService {
 		
 		// Echec
 		if (obj == null)
-			throw new ServiceException("Impossible de mettre à jour l'utilisateur")
+			throw new ServiceException("Echec de la mise à jour")
 	}
 	
 	
@@ -70,7 +70,7 @@ class UserService {
 	 * Supprimer
 	 * @param user Utilisateur
 	 * @exception IllegalArgumentException Utilisateur innexistant
-	 * @exception ServiceException Impossible de supprimer l'utilisateur
+	 * @exception ServiceException Echec de la suppression
 	 */
 	def delete(User user) {
 		// Test
@@ -81,7 +81,7 @@ class UserService {
 		
 		// Echec
 		if (exists(user))
-			throw new ServiceException("Impossible de supprimer l'utilisateur")
+			throw new ServiceException("Echec de la suppression")
 	}
 	
 }

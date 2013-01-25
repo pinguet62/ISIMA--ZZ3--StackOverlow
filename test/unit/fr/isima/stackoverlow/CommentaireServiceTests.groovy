@@ -20,20 +20,43 @@ class CommentaireServiceTests {
 	
 	
 	@Test
-    void add() {
-		User user = new User(name:'name', mail:'adresse@mail.com', password:'password')
+    void add_Question() {
+		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
+		user.save()
 		
-		// Question
-        Question question = new Question(titre:"titre", content:"content", date: new Date(), user: user)
-		Commentaire commentaire1 = new Commentaire(content:"content", date: new Date(), user: user, messageVotable: question)
-		service.add(question, commentaire1)
-		assertEquals(Commentaire.findAll().size(), 1)
+		Question question = new Question(title: "title", content: "content", date: new Date())
+		question.author = user
+		question.save()
 		
-		// Réponse
-		Response reponse = new Response(content:"content", date:new Date(), user: user, question: question)
-		Commentaire commentaire2 = new Commentaire(content:"content", date: new Date(), user: user, messageVotable: reponse)
-		service.add(reponse, commentaire2)
-		assertEquals(Commentaire.findAll().size(), 2)
+		Commentaire commentaire = new Commentaire(content:"content", date: new Date())
+		commentaire.author = user
+		commentaire.messageVotable = question
+		
+		service.add(question, commentaire)
+		assertEquals(Commentaire.list().size(), 1)
+	}
+	
+	
+	@Test
+	void add_Response() {
+		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
+		user.save()
+		
+		Question question = new Question(title: "title", content: "content", date: new Date())
+		question.author = user
+		question.save()
+		
+		Response response = new Response(content: "content", date: new Date())
+		response.author = user
+		response.question = question
+		response.save()
+		
+		Commentaire commentaire = new Commentaire(content: "content", date: new Date())
+		commentaire.author = user
+		commentaire.messageVotable = response
+		
+		service.add(response, commentaire)
+		assertEquals(Commentaire.list().size(), 1)
     }
 	
 	
@@ -45,11 +68,19 @@ class CommentaireServiceTests {
 	
 	@Test
 	void disable() {
-		User user = new User(name:'name', mail:'adresse@mail.com', password:'password')
-		Question question = new Question(titre:"titre", content:"content", date: new Date(), user: user)
-		Commentaire commentaire = new Commentaire(content:"content", date: new Date(), user: user, messageVotable: question)
+		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
+		user.save()
+		
+		Question question = new Question(titre: "titre", content: "content", date: new Date())
+		question.author = user
+		question.save()
+		
+		Commentaire commentaire = new Commentaire(content: "content", date: new Date())
+		commentaire.author = user
+		commentaire.messageVotable = question
+		
 		service.add(question, commentaire)
-		assertEquals(Commentaire.findAll().size(), 1)
+		assertEquals(Commentaire.list().size(), 1)
 		
 		service.disable(commentaire)
 		assertFalse(commentaire.display)
@@ -58,14 +89,22 @@ class CommentaireServiceTests {
 	
 	@Test
 	void delete() {
-		User user = new User(name:'name', mail:'adresse@mail.com', password:'password')
-		Question question = new Question(titre:"titre", content:"content", date: new Date(), user: user)
-		Commentaire commentaire = new Commentaire(content:"content", date: new Date(), user: user, messageVotable: question)
+		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
+		user.save()
+		
+		Question question = new Question(titre: "titre", content: "content", date: new Date())
+		question.author = user
+		question.save()
+		
+		Commentaire commentaire = new Commentaire(content: "content", date: new Date())
+		commentaire.author = user
+		commentaire.messageVotable = question
+		
 		service.add(question, commentaire)
-		assertEquals(Commentaire.findAll().size(), 1)
+		assertEquals(Commentaire.list().size(), 1)
 		
 		service.delete(commentaire)
-		assertEquals(Commentaire.findAll().size(), 0)
+		assertEquals(Commentaire.list().size(), 0)
 	}
 	
 }
