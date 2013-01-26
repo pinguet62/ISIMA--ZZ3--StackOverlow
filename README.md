@@ -4,6 +4,13 @@ StackOverlow
 StackOverflow par les nuls...
 
 
+
+Notes diverses :
+	return render(...) dans les controlleurs pour afficher la vue, car la fonction ne quitte pas méthode
+	${message} permet de récupérer un paramètre dans la vue
+
+
+
 Remarques :
 	Certains constructeurs, comme Question, ne fonctionne pas lorsque l'on passe un attribut lié à la BDD en paramètre.
 	Par exemple Question question = new Question(title: "title", content: "content", date: new Date(), user: user) ne fonctionne pas.
@@ -13,35 +20,19 @@ Remarques :
 
 
 
-Grails
-Backend & frontend
-Backend : use RESTful API
-frontend : appli cliente HTML5 & JavaScript
-admin 
+Sites webs :
+	Appel d'un controller dans une vue :
+		http://stackoverflow.com/questions/6346975/grails-call-controller-method-from-view
+		http://grails.1312388.n4.nabble.com/How-to-call-a-controller-Methord-from-a-GSP-td1322019.html
 
 
-pensé a mettre des cobtraiten sur les clase du model genre :
-email(blank:false, nullable:false,email:true)
-        password(blank:false, password:true)
 
-sur: 
-http://stackoverflow.com/questions/1720533/abstract-classes-in-gorm-relationships
-http://stackoverflow.com/questions/2096891/grails-find-by-non-native-types
-
-<meta name="layout" content="main">
-<!-- CSS -->
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.css')}" type="text/css">
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.min.css')}" type="text/css">
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.css')}" type="text/css">
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap-responsive.css')}" type="text/css">
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.min.css')}" type="text/css">
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'layout.css')}" type="text/css">
-<!-- JavaScript -->
-<g:javascript src="bootstrap.js"/>
-<g:javascript src="bootstrap.min.js"/>
-<g:javascript src="jquery.js"/>
-<g:javascript src="jquery-layout.js"/>
-<g:javascript src="jquery-ui.js"/>
+Objectifs du projet :
+	Grails
+	Backend & frontend
+	Backend : use RESTful API
+	frontend : appli cliente HTML5 & JavaScript
+	admin 
 
 
 
@@ -64,18 +55,16 @@ Structure de la page & CSS :
 
 
 
-Créer un nouveau projet à partir des sources existantes :
-    Ouvrir le workspace désiré
-    File > Import...
-        Grails > Grails Project > Next
-            Location: > Browse... > "Chemin vers le répertoire" > OK
-            Décocher "Copy resources into workspace"
-            Install: > "Choisir l'installation de Grails"
-            Finish
-
-
-
 Configuration de l'IDE :
+	Importer projet :
+		Ouvrir le workspace désiré
+	    File > Import...
+	        Grails > Grails Project > Next
+	            Location: > Browse... > "Chemin vers le répertoire" > OK
+	            Décocher "Copy resources into workspace"
+	            Install: > "Choisir l'installation de Grails"
+	            Finish
+	
     Java :
         Window > Preferences
             Java > Installed JREs
@@ -126,3 +115,21 @@ Fichier .gitgnore :
 	
 	.classpath
 	.project
+
+
+
+<meta name="layout" content="main">
+<!-- CSS -->
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.min.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap-responsive.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.min.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'layout.css')}" type="text/css">
+<!-- JavaScript -->
+<g:javascript src="bootstrap.js"/>
+<g:javascript src="bootstrap.min.js"/>
+<g:javascript src="jquery.js"/>
+<g:javascript src="jquery-layout.js"/>
+<g:javascript src="jquery-ui.js"/>
+

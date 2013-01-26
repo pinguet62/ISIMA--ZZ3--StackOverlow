@@ -17,7 +17,7 @@ class QuestionTests {
 	
 	@Test
 	void question() {
-		User user = new User(name:"userName", mail:"userAdresse@mail.com", password:"userPassword")
+		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
 		user.save()
 		
 		Question question = new Question(title: "title", content: "content", date: new Date())
@@ -30,7 +30,7 @@ class QuestionTests {
 	
 	@Test
 	void tag() {
-		User user = new User(name:"userName", mail:"userAdresse@mail.com", password:"userPassword")
+		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
 		user.save()
 		
 		Tag tag = new Tag(name: "tag")
