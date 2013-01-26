@@ -19,4 +19,8 @@ abstract class Message {
 		content(minSize: 1)
     }
 	
+	
+	/*User getQuestionAuthor() {
+	}*/
+	
 }

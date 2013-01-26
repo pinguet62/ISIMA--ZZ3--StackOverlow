@@ -73,7 +73,7 @@
 						<div id="answers-header">
 							<div class="subheader answers-subheader">
 								<g:if test="${question.responses == null}"><h2>0 Answers</h2></g:if>
-								<g:if test="${question.responses != null}"><h2>${question.responses.size()} Answers</h2></g:if>
+								<g:else><h2>${question.responses.size()} Answers</h2></g:else>
 							</div>
 						</div>
 						
@@ -96,16 +96,7 @@
 													<table>
 														<tbody>
 															<g:each var="commentaire" in="${response.commentaires}">
-																<tr id="comment-${response.id}" class="comment">
-																	<td></td>
-																	<td class="comment-text">
-																		<div>
-																			<span class="comment-copy">${commentaire.content}</span>
-																			<a class="comment-user" href="/user/${commentaire.author.id}">${commentaire.author.name}</a>
-																			<span class="comment-date" dir="ltr">${commentaire.date}</span>
-																		</div>
-																	</td>
-																</tr>
+																<g:commentaire var="${commentaire}"/>
 															</g:each>
 														</tbody>
 													</table>

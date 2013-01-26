@@ -13,4 +13,9 @@ class Commentaire extends Message {
     static constraints = {
     }
 	
+	
+	/*User getQuestionAuthor() {
+		return messageVotable.getQuestionAuthor()
+	}*/
+	
 }

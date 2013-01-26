@@ -18,6 +18,11 @@ class Question extends MessageVotable {
     }
 	
 	
+	/*User getQuestionAuthor() {
+		return author
+	}*/
+	
+	
 	/**
 	 * Représentation sous forme de String
 	 * @return String

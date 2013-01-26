@@ -13,4 +13,8 @@ abstract class MessageVotable extends Message {
     static constraints = { 
     }
 	
+	
+	/*User getQuestionAuthor() {
+	}*/
+	
 }

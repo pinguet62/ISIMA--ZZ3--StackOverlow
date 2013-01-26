@@ -13,4 +13,9 @@ class Response extends MessageVotable {
     static constraints = {
     }
 	
+	
+	/*User getQuestionAuthor() {
+		return question.getQuestionAuthor()
+	}*/
+	
 }
