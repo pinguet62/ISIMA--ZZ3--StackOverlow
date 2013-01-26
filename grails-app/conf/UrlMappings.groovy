@@ -11,18 +11,23 @@ class UrlMappings {
 		
 		
 		// Questions
+		"/question/form"(controller: "response", action: "form")
+		"/question/create/$id"(controller: "response", action: "create")
+		"/question/delete/$id"(controller: "response", action: "delete")
 		"/question/$id"(controller: "question", action: "show")
 		"/question/error"(view: "/question/error")
-		/*"/question/$id" {
-			controller: "question"
-			action: "show"
-			constraints {
-				// TODO: 0<id
-			}
-		}*/
+		
+		
+		// Response
+		"/response/create/$id"(controller: "response", action: "create")
+		"/response/delete/$id"(controller: "response", action: "delete")
 		
 		
 		// User
+		"/user/create"(controller: "user", action: "create")
+		"/user/delete"(controller: "user", action: "delete")
+		"/user/login"(controller: "user", action: "login")
+		"/user/logout"(controller: "user", action: "logout")
 		"/user/$id"(controller: "user", action: "show")
 		
 		

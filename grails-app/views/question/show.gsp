@@ -10,7 +10,15 @@
 				<div id="topbar">
 					<div id="hlinks">
 						<span id="hlinks-user">
-							<a class="profile-link" href="/user/1"></a> <!-- TODO -->
+							<g:if test="${fr.isima.stackoverlow.UserController.isConnected()}">
+								<a class="profile-link" href="/user/${fr.isima.stackoverlow.UserController.getUser().id}">${fr.isima.stackoverlow.UserController.getUser().name}</a>
+								<a href="/user/logout">log out</a>
+							</g:if>
+						</span>
+						<span id="hlinks-nav">
+							<g:if test="${! fr.isima.stackoverlow.UserController.isConnected()}">
+								<a href="/user/login">log in</a>
+							</g:if>
 						</span>
 					</div>
 				</div>
@@ -29,7 +37,7 @@
 					</div>
 					<div class="nav askquestion">
 						<ul>
-							<li><a id="nav-askquestion" href="/question/create">Ask Question</a></li>
+							<li><a id="nav-askquestion" href="/question/new">Ask Question</a></li>
 						</ul>
 					</div>
 				</div>
@@ -40,7 +48,7 @@
 					<h1>${question.title}</h1>
 				</div>
 				<div class="sidebar">
-					Sidebar
+					Sidebar: tag ...
 				</div>
 				<div id="mainbar">
 					<div class="question" id="question">
@@ -69,49 +77,45 @@
 							</div>
 						</div>
 						
-						<g:if test="${question.responses != null}">
-							<g:each var="response" in="${question.responses}">
-								<div id="answer-${response.id}" class="answer accepted-answer">
-									<table>
-										<tbody>
-											<tr>
-												<td class="votecell">vote +/-</td>
-												<td class="answercell">
-													<div class="post-text">
-														<p>${response.content}</p>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td class="votecell"></td>
-												<td>
-													<div class="comments-${response.id}" class="comments">
-														<table>
-															<tbody>
-																<g:if test="${response.commentaires != null}">
-																	<g:each var="commentaire" in="${response.commentaires}">
-																		<tr id="comment-${response.id}" class="comment">
-																			<td></td>
-																			<td class="comment-text">
-																				<div>
-																					<span class="comment-copy">${commentaire.content}</span>
-																					<a class="comment-user" href="/user/${commentaire.author.id}">${commentaire.author.name}</a>
-																					<span class="comment-date" dir="ltr">${commentaire.date}</span>
-																				</div>
-																			</td>
-																		</tr>
-																	</g:each>
-																</g:if>
-															</tbody>
-														</table>
-													</div>
-												</td>
-											</tr>
-										<tbody>
-									</table>
-								</div>
-							</g:each>
-						</g:if>
+						<g:each var="response" in="${question.responses}">
+							<div id="answer-${response.id}" class="answer accepted-answer">
+								<table>
+									<tbody>
+										<tr>
+											<td class="votecell">vote +/-</td>
+											<td class="answercell">
+												<div class="post-text">
+													<p>${response.content}</p>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td class="votecell"></td>
+											<td>
+												<div class="comments-${response.id}" class="comments">
+													<table>
+														<tbody>
+															<g:each var="commentaire" in="${response.commentaires}">
+																<tr id="comment-${response.id}" class="comment">
+																	<td></td>
+																	<td class="comment-text">
+																		<div>
+																			<span class="comment-copy">${commentaire.content}</span>
+																			<a class="comment-user" href="/user/${commentaire.author.id}">${commentaire.author.name}</a>
+																			<span class="comment-date" dir="ltr">${commentaire.date}</span>
+																		</div>
+																	</td>
+																</tr>
+															</g:each>
+														</tbody>
+													</table>
+												</div>
+											</td>
+										</tr>
+									<tbody>
+								</table>
+							</div>
+						</g:each>
 						
 						<form id="post-form" action="/response/create/${question.id}" method="post" class="post-form">
 							<h2 class="space">Your Answer</h2>

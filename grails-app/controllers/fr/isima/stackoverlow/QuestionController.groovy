@@ -12,10 +12,18 @@ class QuestionController {
 		Question question = Question.findById(params.id)
 		
 		// DEBUG
+		// Session
+		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword") // tmp
+		session["user"] = user
 		// Question
 		User userQ = new User(name: "userQName", mail: "userQAdresse@mail.com", password: "userQPassword")
 		question = new Question(title: "titleQ", content: "contentQ", date: new Date())
 		question.author = userQ
+		// Tags
+		Tag tag1 = new Tag(name: "tag1")
+		question.addToTags(tag1)
+		Tag tag2 = new Tag(name: "tag2")
+		question.addToTags(tag2)
 		//     Commentaires 1
 		User userQC1 = new User(name: "userQC1Name", mail: "userQC1Adresse@mail.com", password: "userQC1Password")
 		userQC1.save()
@@ -68,9 +76,18 @@ class QuestionController {
 		
 		// Inexistante
 		if (question == null) {
-			return render(view: "/question/error", model: [message: "Question inexistante"])
+			return render(view: "/question/error", model: [session: session])
 		}
-		return render(view: "/question/show", model: [question: question])
+		return render(view: "/question/show", model: [session: session, question: question])
+	}
+	
+	
+	/**
+	 * Afficher la liste des questions
+	 * @return Liste
+	 */
+	def all() {
+		// TODO
 	}
 	
 }
