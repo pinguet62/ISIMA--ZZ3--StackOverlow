@@ -12,6 +12,7 @@ class UrlMappings {
 		
 		// Questions
 		"/question/$id"(controller: "question", action: "show")
+		"/question/error"(view: "/question/error")
 		/*"/question/$id" {
 			controller: "question"
 			action: "show"
@@ -22,15 +23,11 @@ class UrlMappings {
 		
 		
 		// User
-		"/question/error"(view: "/question/error")
 		"/user/$id"(controller: "user", action: "show")
-		/*"/user/$id" {
-			controller: "user"
-			action: "show"
-			constraints {
-				// TODO: 0<id
-			}
-		}*/
+		
+		
+		// Tags
+		"/tag/$id"(controller: "tag", action: "show")
 		
 		
 		"/"(view: "/index")

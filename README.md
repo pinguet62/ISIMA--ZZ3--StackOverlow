@@ -27,6 +27,11 @@ Sites webs :
 
 
 
+TODO :
+	Méthodes toString() des domains
+
+
+
 Objectifs du projet :
 	Grails
 	Backend & frontend

@@ -22,4 +22,12 @@ class User {
 		password(minSize: 5)
     }
 	
+	
+	/**
+	 * Représentation sous forme de String
+	 * @return String
+	 */
+	String toString() {
+		return String.format("Name: %s, Mail: %s, Password: %s, Admin: %s", name, mail, password, admin.toString())
+	}
 }
