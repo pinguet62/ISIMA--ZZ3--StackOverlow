@@ -1,4 +1,4 @@
-package fr.isima.stackoverflow
+package fr.isima.stackoverlow
 
 /**
  * Exception levée lorsqu'une erreur est survenue lors d'une action d'un service

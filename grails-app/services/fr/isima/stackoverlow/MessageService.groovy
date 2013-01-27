@@ -1,6 +1,6 @@
 package fr.isima.stackoverlow
 
-import fr.isima.stackoverflow.ServiceException
+import fr.isima.stackoverlow.ServiceException
 
 /**
  * Gestion des messages

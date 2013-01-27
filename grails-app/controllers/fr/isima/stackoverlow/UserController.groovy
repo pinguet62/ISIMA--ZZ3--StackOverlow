@@ -3,28 +3,41 @@ package fr.isima.stackoverlow
 import javax.servlet.http.HttpSession;
 
 class UserController {
-
-	static scaffold = true // ?
-	
 	
 	/**
 	 * Connexion
+	 * @param TODO
 	 */
 	def login() {
-		// TODO
-		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword") // tmp
-		session["user"] = user
+		def serv = new UserService();
+		
+		// Retour du formulaire
+		def name = ""
+		def password = ""
+		
+		def u = User.findByName(name)
+		
+		if (serv.exists(u)) {
+			//session ouverte
+			session.user = u
+			return u // il faut faire render() vers une page :p
+		}
+		else {
+			//refus ouverture session
+			return null // il faut faire render() vers une page :p
+		}
 	}
 	
 	
 	/**
 	 * Déconnexion
+	 * @return Index du forum
+	 * @TODO Retourner vers la page précédente
 	 */
 	def logout() {
 		println "Logout"
-		// TODO
-		//session.invalidate()
-		session["user"] = null
+		
+		session.user = null
 		render(view: "/index")
 	}
 	
@@ -33,8 +46,8 @@ class UserController {
 	 * Test si l'utilisateur est connecté
 	 * @return Vrai ou Faux
 	 */
-	static def isConnected() {
-		return new UserController().session.user != null
+	def isConnected(User u) {
+		return session.user != null
 	}
 	
 	
@@ -69,8 +82,8 @@ class UserController {
 	 * @return Liste
 	 */
 	def all() {
-		// TODO
-		render(view: "/user/all")
+		List<User> lst = User.list();
+		render(view: "/user/all", model: [listUsers: lst])
 	}
 	
 }
