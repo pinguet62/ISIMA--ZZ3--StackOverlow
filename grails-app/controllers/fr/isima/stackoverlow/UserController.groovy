@@ -1,6 +1,6 @@
 package fr.isima.stackoverlow
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession
 
 class UserController {
 	
@@ -46,8 +46,8 @@ class UserController {
 	 * Test si l'utilisateur est connecté
 	 * @return Vrai ou Faux
 	 */
-	def isConnected(User u) {
-		return session.user != null
+	static def isConnected() {
+		return new UserController().session.user != null
 	}
 	
 	
