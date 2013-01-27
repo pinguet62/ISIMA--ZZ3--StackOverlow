@@ -20,9 +20,12 @@ class UserController {
 	/**
 	 * Déconnexion
 	 */
-	def logOut() {
+	def logout() {
+		println "Logout"
 		// TODO
-		session.invalidate()
+		//session.invalidate()
+		session["user"] = null
+		render(view: "/index")
 	}
 	
 	

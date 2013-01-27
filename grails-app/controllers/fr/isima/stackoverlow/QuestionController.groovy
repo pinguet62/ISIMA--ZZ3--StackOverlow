@@ -3,6 +3,15 @@ package fr.isima.stackoverlow
 class QuestionController {
 	
 	/**
+	 * Créer une question
+	 * @param 
+	 * @return Affichage de la question
+	 */
+	def create() {
+		
+	}
+	
+	/**
 	 * Afficher une question
 	 * @param id Identifiant de la question
 	 * @return Affichage de la question <br/>
@@ -13,7 +22,7 @@ class QuestionController {
 		
 		// DEBUG
 		// Session
-		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword") // tmp
+		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
 		session["user"] = user
 		// Question
 		User userQ = new User(name: "userQName", mail: "userQAdresse@mail.com", password: "userQPassword")
@@ -73,7 +82,7 @@ class QuestionController {
 		commentaireR2C2.author = userR2C2
 		commentaireR2C2.messageVotable = responseR2
 		responseR2.addToCommentaires(commentaireR2C2)
-		
+		println "question"
 		// Inexistante
 		if (question == null) {
 			return render(view: "/question/error", model: [session: session])

@@ -10,12 +10,13 @@ class UrlMappings {
 		}
 		
 		
-		// Questions
-		"/question/form"(controller: "response", action: "form")
-		"/question/create/$id"(controller: "response", action: "create")
-		"/question/delete/$id"(controller: "response", action: "delete")
-		"/question/$id"(controller: "question", action: "show")
+		// Question
 		"/question/error"(view: "/question/error")
+		"/question/new"(view: "/question/new")
+		"/question/create/$id"(controller: "question", action: "create")
+		"/question/delete/$id"(controller: "question", action: "delete")
+		"/question/$id"(controller: "question", action: "show")
+		"/question/all"(controller: "question", action: "all")
 		
 		
 		// Response
@@ -24,15 +25,23 @@ class UrlMappings {
 		
 		
 		// User
+		"/user/error"(view: "/user/error")
+		"/user/new"(view: "/user/new")
 		"/user/create"(controller: "user", action: "create")
 		"/user/delete"(controller: "user", action: "delete")
 		"/user/login"(controller: "user", action: "login")
 		"/user/logout"(controller: "user", action: "logout")
 		"/user/$id"(controller: "user", action: "show")
+		"/user/all"(controller: "user", action: "all")
 		
 		
-		// Tags
+		// Tag
 		"/tag/$id"(controller: "tag", action: "show")
+		"/tag/all"(controller: "tag", action: "all")
+		
+		
+		// StackOverflow : essayer de rediriger les liens de StackOverflow vers notre application
+		"/users/logout"(controller: "user", action: "logout")
 		
 		
 		"/"(view: "/index")

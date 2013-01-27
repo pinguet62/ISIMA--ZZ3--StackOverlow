@@ -20,18 +20,27 @@ class VoteService {
 	
 	
 	/**
-	 * Calculer la note d'une message
+	 * Calculer la note d'un message
 	 * @param message Message
 	 * @return Note
 	 */
 	def getMark(MessageVotable message) {
+		return VoteService.getMarkStatic(message)
+	}
+	
+	
+	/**
+	 * Calculer la note d'un message
+	 * @param message Message
+	 * @return Note
+	 */
+	static def getMarkStatic(MessageVotable message) {
 		int note = 0
 		Vote.findByMessageVotable(message).each {
 			note += it.mark
 		}
 		return note
 	}
-	
 	
 	
 	/**
