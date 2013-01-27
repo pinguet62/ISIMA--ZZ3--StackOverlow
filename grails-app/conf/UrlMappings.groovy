@@ -29,6 +29,7 @@ class UrlMappings {
 		"/user/login"(controller: "user", action: "login")
 		"/user/logout"(controller: "user", action: "logout")
 		"/user/$id"(controller: "user", action: "show")
+		"/user/all"(controller: "user", action: "all")
 		
 		
 		// Tags

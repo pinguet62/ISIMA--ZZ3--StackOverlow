@@ -11,18 +11,35 @@ class UserController {
 	 * Connexion
 	 */
 	def login() {
-		// TODO
-		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword") // tmp
-		session["user"] = user
+		def serv = new UserService();
+		
+		//retour du formulaire
+		def name = ""
+		def password = ""
+		
+		def u = User.findByName(name)
+		
+		if(serv.exists(u))
+		{
+			//session ouverte
+			session[u] = true
+			return u
+			
+		}
+		else
+		{
+			//refus ouverture session
+			return null
+		}
+		
 	}
 	
 	
 	/**
 	 * Déconnexion
 	 */
-	def logOut() {
-		// TODO
-		session.invalidate()
+	def logOut(User u) {
+		session[u] = false
 	}
 	
 	
@@ -30,8 +47,8 @@ class UserController {
 	 * Test si l'utilisateur est connecté
 	 * @return Vrai ou Faux
 	 */
-	static def isConnected() {
-		return new UserController().session.user != null
+	def isConnected(User u) {
+		return session[u]== true
 	}
 	
 	
@@ -66,7 +83,8 @@ class UserController {
 	 * @return Liste
 	 */
 	def all() {
-		// TODO
+		
+		List<User> lst = User.list();
 		render(view: "/user/all")
 	}
 	
