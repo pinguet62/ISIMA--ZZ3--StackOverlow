@@ -13,11 +13,13 @@ Notes diverses :
 
 Remarques :
 	Certains constructeurs, comme Question, ne fonctionne pas lorsque l'on passe un attribut lié à la BDD en paramètre.
-	Par exemple Question question = new Question(title: "title", content: "content", date: new Date(), user: user) ne fonctionne pas.
-	Alors faisons Question question = new Question(title: "title", content: "content", date: new Date())
-					question.user = user
-	De même lorsque l'on essaye de faire un save() sur la même ligne que le constructeur.
-
+		Par exemple Question question = new Question(title: "title", content: "content", date: new Date(), user: user) ne fonctionne pas.
+		Alors faisons Question question = new Question(title: "title", content: "content", date: new Date())
+						question.user = user
+		De même lorsque l'on essaye de faire un save() sur la même ligne que le constructeur.
+	On peut arréter le serveur sans fermer Eclipse :
+		créer un fichier .kill-run-app dans le répertoire du projet
+		Il sera supprimé automatiquement...
 
 
 Sites webs :

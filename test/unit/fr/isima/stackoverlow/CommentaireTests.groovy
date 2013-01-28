@@ -18,19 +18,32 @@ class CommentaireTests {
 	
 	@Test
 	void question() {
-		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
-		user.save()
-		
-		Question question = new Question(title: "title", content: "content", date: new Date())
-		question.author = user
+		// Question
+		// - utilisateur
+		User userQ = new User(name:"userQName", mail:"userQAdresse@mail.com", password:"userQPassword")
+		userQ.save()
+		assertEquals(User.list().size(), 1)
+		assertNotNull(User.findById(userQ.id))
+		// - question
+		Question question = new Question(title: "titleQ", content: "contentQ", date: new Date())
+		question.author = userQ
 		question.save()
+		assertEquals(Question.list().size(), 1)
+		assertEquals(User.findById(userQ.id).messages.size(), 1)
 		
-		Commentaire commentaire = new Commentaire(content: "content", date: new Date())
-		commentaire.author = user
+		// Commentaire
+		// - utilisateur
+		User userC = new User(name:"userCName", mail:"userCAdresse@mail.com", password:"userCPassword")
+		userC.save()
+		assertEquals(User.list().size(), 2)
+		assertNotNull(User.findById(userC.id))
+		// - commentaire
+		Commentaire commentaire = new Commentaire(content: "contentC", date: new Date())
+		commentaire.author = userC
 		commentaire.messageVotable = question
 		commentaire.save()
-		
-		assertEquals(Commentaire.findAll().size(), 1)
+		assertEquals(Commentaire.list().size(), 1)
+		assertNotNull(Commentaire.findById(commentaire.id))
 	}
 	
 	
@@ -53,7 +66,7 @@ class CommentaireTests {
 		commentaire.messageVotable = response
 		commentaire.save()
 		
-		assertEquals(Commentaire.findAll().size(), 1)
+		assertEquals(Commentaire.list().size(), 1)
 	}
 	
 }

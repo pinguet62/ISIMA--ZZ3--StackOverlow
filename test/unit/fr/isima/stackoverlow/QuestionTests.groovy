@@ -16,32 +16,37 @@ class QuestionTests {
 	
 	
 	@Test
-	void question() {
-		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
-		user.save()
+	void user() {
+		User userQ = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
+		userQ.save()
+		assertEquals(User.list().size(), 1)
 		
 		Question question = new Question(title: "title", content: "content", date: new Date())
-		question.author = user
+		question.author = userQ
 		question.save()
+		assertEquals(Question.list().size(), 1)
 		
-		assertEquals(Question.findAll().size(), 1)
+		assertEquals(User.findById(userQ.id).messages.size(), 1)
 	}
 	
 	
 	@Test
 	void tag() {
-		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
-		user.save()
+		User userQ = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
+		userQ.save()
+		assertEquals(User.list().size(), 1)
 		
 		Tag tag = new Tag(name: "tag")
 		tag.save()
+		assertEquals(Tag.list().size(), 1)
 		
 		Question question = new Question(title: "title", content: "content", date: new Date())
-		question.author = user
+		question.author = userQ
 		question.addToTags(tag)
 		question.save()
+		assertEquals(Question.list().size(), 1)
 		
-		assertEquals(Question.findAll().size(), 1)
+		assertEquals(Question.findById(question.id).tags.size(), 1)
 	}
 	
 }

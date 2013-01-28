@@ -82,7 +82,7 @@ class QuestionController {
 		commentaireR2C2.author = userR2C2
 		commentaireR2C2.messageVotable = responseR2
 		responseR2.addToCommentaires(commentaireR2C2)
-		println "question"
+		
 		// Inexistante
 		if (question == null) {
 			return render(view: "/question/error", model: [session: session])
