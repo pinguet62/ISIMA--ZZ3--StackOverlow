@@ -43,25 +43,6 @@ Objectifs du projet :
 
 
 
-Structure de la page & CSS :
-    site.header : custom-header
-    site.page : container
-        page.header : header
-        page.content : content
-            question.header : question-header
-            question.sidebar : sidebar
-            question.content : mainbar
-                question : question
-                responses : answers
-                	response.header : answers-header
-                	response.reponse : answer-2097396
-                	...
-                	response.reponse : answer-2101136
-                	reponse.posterReponse : post-form
-    site.footer : footer
-
-
-
 Configuration de l'IDE :
 	Importer projet :
 		Ouvrir le workspace désiré
