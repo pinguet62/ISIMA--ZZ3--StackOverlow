@@ -2,6 +2,10 @@ package fr.isima.stackoverlow
 
 import javax.servlet.http.HttpSession
 
+/**
+ * Controlleur des pages des utilisateurs
+ * @author Julien
+ */
 class UserController {
 	
 	/**

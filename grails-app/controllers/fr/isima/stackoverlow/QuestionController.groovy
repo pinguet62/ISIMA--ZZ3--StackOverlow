@@ -1,5 +1,9 @@
 package fr.isima.stackoverlow
 
+/**
+ * Controlleur des pages des questions
+ * @author Julien
+ */
 class QuestionController {
 	
 	/**
@@ -32,16 +36,30 @@ class QuestionController {
 		} else if (! question.display)
 			return render(view: "/question/moderationDeleted")
 		else
-			return render(view: "/question/show", model: [session: session, question: question])
+			return render(view: "/question/show", model: [question: question])
 	}
 	
 	
 	/**
 	 * Afficher la liste des questions
+	 * @param page Numéro de page
 	 * @return Liste
 	 */
 	def all() {
-		// TODO
+		int page = 1
+		if (params.page == null)
+			page = params.page
+		
+		int nbParPage = 15
+		
+		// Liste des questions
+		int premier = nbParPage*(page-1)
+		int dernier = nbParPage*page -1
+		List<Question> listQuestions = new QuestionService().getDesc(premier, dernier)
+		
+		// Liste des pages
+		
+		return render(view: "/question/all", model: [listQuestions: listQuestions])
 	}
 	
 }

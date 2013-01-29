@@ -12,17 +12,6 @@
 				<div id="question-header">
 					<h1>${question.title}</h1>
 				</div>
-				<div class="sidebar">
-					<div class="module question-stats">
-						<p class="label-key">tagged</p>
-						<div class="tagged">
-							<g:each var="tag" in="${question.tags}">
-								<g:render template="/tag/iconeAndCount" model="[tag: tag]"/>
-								<br></br>
-							</g:each>
-						</div>
-					</div>
-				</div>
 				<div id="mainbar">
 					<div class="question" id="question">
 						<table>
@@ -108,6 +97,17 @@
 								<input type="submit" tabindex="110" value="Post Your Answer"></input>
 							</div>
 						</form>
+					</div>
+				</div>
+				<div class="sidebar">
+					<div class="module question-stats">
+						<p class="label-key">tagged</p>
+						<div class="tagged">
+							<g:each var="tag" in="${question.tags}">
+								<g:render template="/tag/iconeAndCount" model="[tag: tag]"/>
+								<br></br>
+							</g:each>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -16,7 +16,7 @@ class UrlMappings {
 		"/question/create/$id"(controller: "question", action: "create")
 		"/question/delete/$id"(controller: "question", action: "delete")
 		"/question/$id"(controller: "question", action: "show")
-		"/question/all"(controller: "question", action: "all")
+		"/question/all/$page"(controller: "question", action: "all")
 		
 		
 		// Response
