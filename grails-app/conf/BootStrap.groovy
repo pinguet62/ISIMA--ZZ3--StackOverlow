@@ -3,6 +3,7 @@ import fr.isima.stackoverlow.Question
 import fr.isima.stackoverlow.Response
 import fr.isima.stackoverlow.Tag
 import fr.isima.stackoverlow.User
+import fr.isima.stackoverlow.Vote
 
 class BootStrap {
 
@@ -180,21 +181,42 @@ class BootStrap {
 			questionQ3.addToTags(tagQ3T1)
 			tagQ3T1.save()
 		
-		User JJ = new User(name: "Jean63",admin: false, mail: "jean-retyui@outlook.com", password: "uiop")
+		User JJ = new User(name: "Jean63",admin: false, mail: "jean-retyui@outlook.com", password: "ufdfdiop")
 		JJ.save()
 			Question questionQ4 = new Question(title: "Qu'est ce qu'un bean?", content: "Bonjour, j'ai eu un cour sur les JavaBeans. Je n'ai absuloment rien compris, car ce qui se passé par la fenetre etait bien plus interessant. Quelqu'un peut-il m'expliquer rapidement? vite car j'ai piscine dans 15 minute.<br>Merci, et bisous", date: new Date())
-			questionQ4.author = PM
+			questionQ4.author = JJ
 			questionQ4.save()
 			
 			Tag tagQ4T1 = new Tag(name: "JAVA")
 			questionQ4.addToTags(tagQ4T1)
 			tagQ4T1.save()
 			
+			Vote v = new Vote()
+			v.messageVotable = questionQ4
+			v.user = JJ
+			v.mark= +1
+			v.save()
+			
+			Vote v2 = new Vote()
+			v2.messageVotable = questionQ4
+			v2.user = PM
+			v2.mark= +1
+			v2.save()
+			
+			
+			Vote v3 = new Vote()
+			v3.messageVotable = questionQ3
+			v3.user = PM;
+			v3.mark= +1;
+			v3.save()
+			
+			
 		println "BDD initiate :"
 		println "- " + User.all.size() + " users"
 		println "- " + Question.all.size() + " questions"
 		println "- " + Response.all.size() + " reponses"
 		println "- " + Commentaire.all.size() + " comments"
+		println "- " + Vote.all.size() + " votes"
 	}
 	
 	
