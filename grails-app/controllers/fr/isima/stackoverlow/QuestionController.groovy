@@ -27,7 +27,7 @@ class QuestionController {
 		
 		// DEBUG
 		// Session
-		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
+		User user = new User(name: "userDebugName", mail: "userDebugAdresse@mail.com", password: "userDebugPassword")
 		session.user = user
 		
 		// Inexistante
@@ -47,8 +47,8 @@ class QuestionController {
 	 */
 	def all() {
 		int page = 1
-		if (params.page == null)
-			page = params.page
+		if (params.page != null)
+			page = params.page.toInteger()
 		
 		int nbParPage = 15
 		
@@ -58,8 +58,32 @@ class QuestionController {
 		List<Question> listQuestions = new QuestionService().getDesc(premier, dernier)
 		
 		// Liste des pages
+		int nbPages = Math.ceil(Question.count / nbParPage)
+		def listPages = []
+		if (nbPages <= 3)
+			for (int i=1 ; i<=nbPages ; i++)
+				listPages.add(i)
+		else if (nbPages == 4) {
+			if (page == 1)
+				listPages = [1, 2, 4]
+			else if (page == 2 || page == 3)
+				listPages = [1, 2, 3, 4]
+			else
+				listPages = [1, 3, 4]
+		} else {
+			if (page == 1)
+				listPages = [1, 2, nbPages]
+			else if (page == 2)
+				listPages = [1, 2, 3, nbPages]
+			else if (page == nbPages-1)
+				listPages = [1, nbPages-2, nbPages-1, nbPages]
+			else if (page == nbPages)
+				listPages = [1, nbPages-1, nbPages]
+			else
+				listPages = [1, page-1, page, page+1, nbPages]
+		}
 		
-		return render(view: "/question/all", model: [listQuestions: listQuestions])
+		return render(view: "/question/all", model: [listQuestions: listQuestions, currentPage: page, listPages: listPages])
 	}
 	
 }
