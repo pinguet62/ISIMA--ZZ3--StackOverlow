@@ -7,13 +7,13 @@ import fr.isima.stackoverlow.User
 class BootStrap {
 
 	/**
-	 * Code exécuté lors du lancement de l'application
-	 * On y rempli la BDD avec des données permettants de tester l'application
+	 * Code lunch when we lunch the application
+	 * We fill the database with mock information in order to test our website
 	 */
     def init = { servletContext ->
 		
 		// Question Q1
-		User userQ1 = new User(name: "userQ1Name", mail: "userQ1Adresse@mail.com", password: "userQ1Password")
+		User userQ1 = new User(name: "userQ1Name",admin: true, mail: "userQ1Adresse@mail.com", password: "userQ1Password")
 		userQ1.save()
 		Question questionQ1 = new Question(title: "titleQ1", content: "contentQ1", date: new Date())
 		questionQ1.author = userQ1
@@ -169,12 +169,32 @@ class BootStrap {
 				commentaireQ2R2C2.messageVotable = responseQ2R2
 				responseQ2R2.addToCommentaires(commentaireQ2R2C2)
 				commentaireQ2R2C2.save()
+				
+				
+		User PM = new User(name: "Paul Machon",admin: false, mail: "paulMach@outlook.com", password: "azerty")
+		PM.save()
+			Question questionQ3 = new Question(title: "Probleme compilation", content: "Bonjour, grand programmeur en C, je ne parvien pas a compiler mon programme: <br> l'erreur est la suivante: missing function 'Main' in 'monAppli.c.'<br> quelqu'un peut-il m'aider?", date: new Date())
+			questionQ3.author = PM
+			questionQ3.save()
+			Tag tagQ3T1 = new Tag(name: "C/C++")
+			questionQ3.addToTags(tagQ3T1)
+			tagQ3T1.save()
 		
-		println "BDD initialisée :"
-		println "- " + User.all.size() + " utilisateurs"
+		User JJ = new User(name: "Jean63",admin: false, mail: "jean-retyui@outlook.com", password: "uiop")
+		JJ.save()
+			Question questionQ4 = new Question(title: "Qu'est ce qu'un bean?", content: "Bonjour, j'ai eu un cour sur les JavaBeans. Je n'ai absuloment rien compris, car ce qui se passé par la fenetre etait bien plus interessant. Quelqu'un peut-il m'expliquer rapidement? vite car j'ai piscine dans 15 minute.<br>Merci, et bisous", date: new Date())
+			questionQ4.author = PM
+			questionQ4.save()
+			
+			Tag tagQ4T1 = new Tag(name: "JAVA")
+			questionQ4.addToTags(tagQ4T1)
+			tagQ4T1.save()
+			
+		println "BDD initiate :"
+		println "- " + User.all.size() + " users"
 		println "- " + Question.all.size() + " questions"
-		println "- " + Response.all.size() + " réponses"
-		println "- " + Commentaire.all.size() + " commentaires"
+		println "- " + Response.all.size() + " reponses"
+		println "- " + Commentaire.all.size() + " comments"
 	}
 	
 	

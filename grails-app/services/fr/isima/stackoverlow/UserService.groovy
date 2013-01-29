@@ -85,9 +85,5 @@ class UserService {
 	}
 	
 	
-	def getRank(User user)
-	{
-		return 18
-	}
 	
 }
