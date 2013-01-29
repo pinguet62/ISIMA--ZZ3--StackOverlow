@@ -28,7 +28,7 @@ class UserController {
 			//refus ouverture session
 			//return null // il faut faire render() vers une page :p
 			ServiceException exp = new ServiceException("Wrong authenification")
-			render(view:"error.gsp",exception:exp)
+			render(view:"/error",exception:exp)
 		}
 	}
 	
@@ -77,7 +77,7 @@ class UserController {
 		if (user == null) {
 			return render(view: "/user/error")
 		}
-		render(view: "/user/show", model: [user: user])
+		return render(view: "/user/show", model: [user: user])
 	}
 	
 	
@@ -87,7 +87,7 @@ class UserController {
 	 */
 	def all() {
 		List<User> lst = User.list();
-		render(view: "/user/all", model: [listUsers: lst])
+		return render(view: "/user/all", model: [listUsers: lst])
 	}
 	
 }

@@ -84,4 +84,10 @@ class UserService {
 			throw new ServiceException("Echec de la suppression")
 	}
 	
+	
+	def getRank(User user)
+	{
+		return 18
+	}
+	
 }
