@@ -6,9 +6,9 @@ import fr.isima.stackoverlow.ServiceException
 class VoteService {
 	
 	/**
-	 * Calculer la note d'un utilisateur
-	 * @param user Utilisateur
-	 * @return Note
+	 * Compute the mark of a user
+	 * @param user the user
+	 * @return mark
 	 */
 	def getMark(User user) {
 		int note = 0
@@ -20,9 +20,9 @@ class VoteService {
 	
 	
 	/**
-	 * Calculer la note d'un message
-	 * @param message Message
-	 * @return Note
+	 * Compute the mark of a message
+	 * @param message the message
+	 * @return the mark
 	 */
 	def getMark(MessageVotable message) {
 		return VoteService.getMarkStatic(message)
@@ -30,9 +30,9 @@ class VoteService {
 	
 	
 	/**
-	 * Calculer la note d'un message
-	 * @param message Message
-	 * @return Note
+	 * Compute the mark of a message but static
+	 * @param message the message
+	 * @return the mark
 	 */
 	static def getMarkStatic(MessageVotable message) {
 		int note = 0
@@ -44,10 +44,10 @@ class VoteService {
 	
 	
 	/**
-	 * Vote positif
-	 * @param message Message
-	 * @param user Utilisateur
-	 * @exception ServiceException Echec du vote
+	 * Vote up
+	 * @param message the message
+	 * @param user the user
+	 * @exception ServiceException if the vote fail
 	 */
 	def voteUp(MessageVotable message, User user) {
 		Vote vote = Vote.findByUserAndMessageVotable(user, message)
@@ -84,10 +84,10 @@ class VoteService {
 	
 	
 	/**
-	 * Vote négatif
-	 * @param message Message
-	 * @param user Utilisateur
-	 * @exception ServiceException Echec du vote
+	 * Vote down
+	 * @param message the message to vote
+	 * @param user the vote
+	 * @exception ServiceException fail of the vote
 	 */
 	def voteDown(MessageVotable message, User user) {
 		Vote vote = Vote.findByUserAndMessageVotable(user, message)

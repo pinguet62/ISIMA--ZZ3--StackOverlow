@@ -2,15 +2,16 @@ package fr.isima.stackoverlow
 
 import javax.servlet.http.HttpSession
 
+import com.sun.xml.internal.bind.v2.TODO;
+
 /**
- * Controlleur des pages des utilisateurs
+ * Controller of User's pages
  * @author Julien
  */
 class UserController {
 	
 	/**
-	 * Connexion
-	 * @param TODO
+	 * Login method
 	 */
 	def login() {
 		def serv = new UserService();
@@ -25,34 +26,33 @@ class UserController {
 			//session ouverte
 			session.user = u
 			//return u // il faut faire render() vers une page :p
-			//this.
+			return render(view:"/index")
 			
 		}
 		else {
 			//refus ouverture session
-			//return null // il faut faire render() vers une page :p
 			ServiceException exp = new ServiceException("Wrong authenification")
-			render(view:"error.gsp",exception:exp)
+			return render(view:"/error",exception:exp)
 		}
 	}
 	
 	
 	/**
-	 * Déconnexion
-	 * @return Index du forum
+	 * logout
+	 * @return Index of site
 	 * @TODO Retourner vers la page précédente
 	 */
 	def logout() {
 		println "Logout"
 		
 		session.user = null
-		render(view: "/index")
+		return render(view: "/index")
 	}
 	
 	
 	/**
-	 * Test si l'utilisateur est connecté
-	 * @return Vrai ou Faux
+	 * check if a user is connected
+	 * @return true or false
 	 */
 	static def isConnected() {
 		return new UserController().session.user != null
@@ -60,9 +60,9 @@ class UserController {
 	
 	
 	/**
-	 * Obtenir l'utilisateur
-	 * @return Utilisateur <br/>
-	 *         null s'il n'est pas connecté
+	 * get the user
+	 * @return the current user <br/>
+	 *         null if he is not connected
 	 */
 	static def getUser() {
 		return new UserController().session.user
@@ -70,10 +70,10 @@ class UserController {
 	
 	
 	/**
-	 * Afficher un profil
-	 * @param id Identifiant de l'utilisateur
-	 * @return Affichage du profil <br/>
-	 *         Page d'erreur si inexistant
+	 * display a user profile
+	 * @param id user id
+	 * @return display the profile <br/>
+	 *         error page if not exist
 	 */
 	def show() {
 		User user = User.findById(params.id)
@@ -81,17 +81,85 @@ class UserController {
 		if (user == null) {
 			return render(view: "/user/error")
 		}
-		render(view: "/user/show", model: [user: user])
+		return render(view: "/user/show", model: [user: user])
 	}
 	
 	
 	/**
-	 * Afficher la liste des utilisateurs
-	 * @return Liste
+	 * Display a list of all users
+	 * @return render to the users page
+	 * 
 	 */
 	def all() {
 		List<User> lst = User.list();
-		render(view: "/user/all", model: [listUsers: lst])
+		return render(view: "/user/all", model: [listUsers: lst])
 	}
+	
+	/**
+	 * create an user
+	 * @return render Index
+	 */
+	def createUser()
+	{
+		//retour du formulaire
+		def name = ""
+		def password = ""
+		def mail =""
+		def admin = false
+		
+		User u = new User()
+		u.name = name
+		u.mail = mail
+		u.password = password
+		u.admin = admin
+		
+		UserService serv = new UserService()
+		serv.create(u)
+		this.login()
+		return render(view: "/index")
+	}
+	
+	/**
+	 * delete an user
+	 * @return render Index
+	 */
+	def deleteUser()
+	{
+		//retou de formulaire
+		def name = ""
+		def password = ""
+		def mail =""
+		def admin = false
+		
+		User u = new User()
+		UserService serv= new UserService()
+		serv.delete(u)
+		return render(view: "/index")
+	}
+	
+	
+	/**
+	 * delete an user
+	 *{@link TODO} faire en sorte de redirigé sur la page précedente
+	 * @return render Index
+	 */
+	def updateUser()
+	{
+		//retour de formulaire
+		def name = ""
+		def password = ""
+		def mail =""
+		def admin = false
+		
+		User u = new User()
+		UserService serv= new UserService()
+		serv.update(u)
+		return render(view: "/index")
+	}
+	
+	
+	
+	
+	
 	
 }
