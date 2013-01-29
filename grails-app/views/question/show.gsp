@@ -5,23 +5,12 @@
 	</head>
 	
 	<body class="question-page">
-		<div id="custom-header"></div>
+		<div id="custom-header"/>
 		<div class="container">
 			<g:render template="/header" model="[locality: 'question']"/>
 			<div id="content">
 				<div id="question-header">
 					<h1>${question.title}</h1>
-				</div>
-				<div class="sidebar">
-					<div class="module question-stats">
-						<p class="label-key">tagged</p>
-						<div class="tagged">
-							<g:each var="tag" in="${question.tags}">
-								<g:render template="/tag/iconeAndCount" model="[tag: tag]"/>
-								<br></br>
-							</g:each>
-						</div>
-					</div>
 				</div>
 				<div id="mainbar">
 					<div class="question" id="question">
@@ -46,40 +35,51 @@
 					<div id="answers">
 						<div id="answers-header">
 							<div class="subheader answers-subheader">
-								<h2>${question.responses == null ? 0 : question.responses.size()} Answers</h2>
+								<h2>
+									<g:if test="${question.responses == null}">
+										0 Answer
+									</g:if>
+									<g:else>
+										${question.responses.size()} Answers
+									</g:else>
+								</h2>
 							</div>
 						</div>
 						<g:each var="response" in="${question.responses}">
-							<div id="answer-${response.id}" class="answer">
-								<table>
-									<tbody>
-										<tr>
-											<td class="votecell">
-												<g:render template="/question/voteCell" model="[message: message]"/>
-											</td>
-											<td class="answercell">
-												<div class="post-text">
-													<p>${response.content}</p>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td class="votecell"></td>
-											<td>
-												<div class="comments-${response}" class="comments">
-													<table>
-														<tbody>
-															<g:each var="commentaire" in="${response.commentaires}">
-																<g:render template="/question/commentaire" model="[commentaire: commentaire]"/>
-															</g:each>
-														</tbody>
-													</table>
-												</div>
-											</td>
-										</tr>
-									<tbody>
-								</table>
-							</div>
+							<g:if test="${response.display}">
+								<div id="answer-${response.id}" class="answer">
+									<table>
+										<tbody>
+											<tr>
+												<td class="votecell">
+													<g:render template="/question/voteCell" model="[message: message]"/>
+												</td>
+												<td class="answercell">
+													<div class="post-text">
+														<p>${response.content}</p>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td class="votecell"></td>
+												<td>
+													<div class="comments-${response}" class="comments">
+														<table>
+															<tbody>
+																<g:each var="commentaire" in="${response.commentaires}">
+																	<g:if test="${commentaire.display}">
+																		<g:render template="/question/commentaire" model="[commentaire: commentaire]"/>
+																	</g:if>
+																</g:each>
+															</tbody>
+														</table>
+													</div>
+												</td>
+											</tr>
+										<tbody>
+									</table>
+								</div>
+							</g:if>
 						</g:each>
 						<form id="post-form" action="/response/create/${question.id}" method="post" class="post-form">
 							<h2 class="space">Your Answer</h2>
@@ -97,6 +97,17 @@
 								<input type="submit" tabindex="110" value="Post Your Answer"></input>
 							</div>
 						</form>
+					</div>
+				</div>
+				<div class="sidebar">
+					<div class="module question-stats">
+						<p class="label-key">tagged</p>
+						<div class="tagged">
+							<g:each var="tag" in="${question.tags}">
+								<g:render template="/tag/iconeAndCount" model="[tag: tag]"/>
+								<br></br>
+							</g:each>
+						</div>
 					</div>
 				</div>
 			</div>

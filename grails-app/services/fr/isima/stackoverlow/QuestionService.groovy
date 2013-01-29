@@ -9,6 +9,25 @@ import fr.isima.stackoverlow.ServiceException
 class QuestionService extends MessageVotableService {
 	
 	/**
+	 * Obtenir la liste des questions, triée par ordre décroissant
+	 * @param premier Id de la première question
+	 * @param dernier Id de la dernière question
+	 * @return Liste de questions
+	 * @exception IllegalArgumentException Indices incorrects
+	 * @TODO
+	 */
+	def getDesc(int premier, int dernier) {
+		// Tests
+		if (premier < 0 || dernier < premier)
+			throw new IllegalArgumentException("Indices incorrects")
+		
+		int nb = dernier - premier + 1
+		List<Question> listTags = Question.findAll([offset: premier, max: nb, order: "desc"])
+		return listTags
+	}
+	
+	
+	/**
 	 * Cacher
 	 * @param question Question
 	 */
