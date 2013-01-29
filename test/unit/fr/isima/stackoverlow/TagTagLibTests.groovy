@@ -1,6 +1,6 @@
 package fr.isima.stackoverlow
 
-@TestFor(TagTagLib)
+//@TestFor(TagTagLib)
 @Ignore
 class TagTagLibTests {
 }

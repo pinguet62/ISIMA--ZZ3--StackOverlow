@@ -11,6 +11,11 @@ class BootStrap {
 	 * On y rempli la BDD avec des données permettants de tester l'application
 	 */
     def init = { servletContext ->
+		// Administrateur
+		User admin1 = new User(name: "adminustrator1Name", mail: "adminustrator1Adresse@mail.com", password: "adminustrator1Password", admin: true)
+		admin1.save()
+		User admin2 = new User(name: "adminustrator2Name", mail: "adminustrator2Adresse@mail.com", password: "adminustrator2Password", admin: true)
+		admin2.save()
 		
 		// Question Q1
 		User userQ1 = new User(name: "userQ1Name", mail: "userQ1Adresse@mail.com", password: "userQ1Password")

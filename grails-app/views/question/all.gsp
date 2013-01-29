@@ -46,7 +46,7 @@
 								</div>
 								<div class="summary">
 									<h3>
-										<a class="question-hyperlink" href="/question/${question.id}">
+										<a class="question-hyperlink" href="/StackOverlow/question/${question.id}">
 											${question.title}
 										</a>
 									</h3>
@@ -64,8 +64,37 @@
 						</g:each>
 					</div>
 					<br class="cbt"></br>
-					<div class="page-sizer fr">nombre par page</div>
-					<div class="pager fl">pages</div>
+					<div class="page-sizer fr">
+						<a class="page-numbers current" title="show 15 items per page" href="/questions?pagesize=15&sort=newest">15</a>
+						<a class="page-numbers " title="show 30 items per page" href="/questions?pagesize=30&sort=newest">30</a>
+						<a class="page-numbers " title="show 50 items per page" href="/questions?pagesize=50&sort=newest">50</a>
+						<span class="page-numbers desc">per page</span>
+					</div>
+					<div class="pager fl"> <!-- TODO: bug probable -->
+						<g:if test="${currentPage != 1}">
+							<a rel="prev" title="go to page ${currentPage-1}" href="/StackOverlow/question/all/${currentPage-1}">
+								<span class="page-numbers prev">prev </span>
+							</a>
+						</g:if>
+						<g:each var="page" in="${listPages}">
+							<g:if test="${page != 1  &&  ! listPages.contain(page-1)}">
+								<span class="page-numbers dots">...</span>
+							</g:if>
+							<g:if test="${page == courrentPage}">
+								<span class="page-numbers current">${page}</span>
+							</g:if>
+							<g:else>
+								<a title="go to page ${page}" href="/StackOverlow/question/all/${page}">
+									<span class="page-numbers">${page}</span>
+								</a>
+							</g:else>
+						</g:each>
+						<g:if test="${currentPage != listPages.last()}">
+							<a rel="next" title="go to page ${currentPage+1}" href="/StackOverlow/question/all/${currentPage+1}">
+								<span class="page-numbers next"> next</span>
+							</a>
+						</g:if>
+					</div>
 				</div>
 				<div class="sidebar">
 					<div id="questions-count" class="module">

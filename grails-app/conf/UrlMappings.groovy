@@ -16,6 +16,7 @@ class UrlMappings {
 		"/question/create/$id"(controller: "question", action: "create")
 		"/question/delete/$id"(controller: "question", action: "delete")
 		"/question/$id"(controller: "question", action: "show")
+		"/question/all/"(controller: "question", action: "all") // page 1
 		"/question/all/$page"(controller: "question", action: "all")
 		
 		
@@ -32,12 +33,14 @@ class UrlMappings {
 		"/user/login"(controller: "user", action: "login")
 		"/user/logout"(controller: "user", action: "logout")
 		"/user/$id"(controller: "user", action: "show")
-		"/user/all"(controller: "user", action: "all")
+		"/user/all"(controller: "user", action: "all") // page 1
+		"/user/all/$page"(controller: "user", action: "all")
 		
 		
 		// Tag
 		"/tag/$id"(controller: "tag", action: "show")
-		"/tag/all"(controller: "tag", action: "all")
+		"/tag/all"(controller: "tag", action: "all") // page 1
+		"/tag/all/$page"(controller: "tag", action: "all")
 		
 		
 		// StackOverflow : essayer de rediriger les liens de StackOverflow vers notre application
