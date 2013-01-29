@@ -24,11 +24,15 @@ class UserController {
 		if (serv.exists(u)) {
 			//session ouverte
 			session.user = u
-			return u // il faut faire render() vers une page :p
+			//return u // il faut faire render() vers une page :p
+			//this.
+			
 		}
 		else {
 			//refus ouverture session
-			return null // il faut faire render() vers une page :p
+			//return null // il faut faire render() vers une page :p
+			ServiceException exp = new ServiceException("Wrong authenification")
+			render(view:"error.gsp",exception:exp)
 		}
 	}
 	
