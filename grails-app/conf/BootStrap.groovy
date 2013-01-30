@@ -175,26 +175,32 @@ class BootStrap {
 				responseQ2R2.addToCommentaires(commentaireQ2R2C2)
 				commentaireQ2R2C2.save()
 				
-				
-		User PM = new User(name: "Paul Machon",admin: false, mail: "paulMach@outlook.com", password: "azerty")
+		// Question Q3
+		// - utilisateur
+		User PM = new User(name: "Paul Machon", mail: "paulMach@outlook.com", password: "azerty")
 		PM.save()
-			Question questionQ3 = new Question(title: "Probleme compilation", content: "Bonjour, grand programmeur en C, je ne parvien pas a compiler mon programme: <br> l'erreur est la suivante: missing function 'Main' in 'monAppli.c.'<br> quelqu'un peut-il m'aider?", date: new Date())
-			questionQ3.author = PM
-			questionQ3.save()
-			Tag tagQ3T1 = new Tag(name: "C/C++")
-			questionQ3.addToTags(tagQ3T1)
-			tagQ3T1.save()
+		// - question
+		Question questionQ3 = new Question(title: "Probleme compilation", content: "Bonjour, grand programmeur en C, je ne parvien pas a compiler mon programme: <br> l'erreur est la suivante: missing function 'Main' in 'monAppli.c.'<br> quelqu'un peut-il m'aider?", date: new Date())
+		questionQ3.author = PM
+		questionQ3.save()
+		// - tag
+		Tag tagQ3T1 = new Tag(name: "C/C++")
+		questionQ3.addToTags(tagQ3T1)
+		tagQ3T1.save()
 		
-		User JJ = new User(name: "Jean63",admin: false, mail: "jean-retyui@outlook.com", password: "uiop")
-		JJ.save()
-			Question questionQ4 = new Question(title: "Qu'est ce qu'un bean?", content: "Bonjour, j'ai eu un cour sur les JavaBeans. Je n'ai absuloment rien compris, car ce qui se passé par la fenetre etait bien plus interessant. Quelqu'un peut-il m'expliquer rapidement? vite car j'ai piscine dans 15 minute.<br>Merci, et bisous", date: new Date())
-			questionQ4.author = PM
-			questionQ4.save()
-			
-			Tag tagQ4T1 = new Tag(name: "JAVA")
-			questionQ4.addToTags(tagQ4T1)
-			tagQ4T1.save()
-			
+		// Question Q4
+		// - utilisateur
+		User userQ4 = new User(name: "Jean63",mail: "jean-retyui@outlook.com", password: "uiopaaaz")
+		userQ4.save()
+		// - question
+		Question questionQ4 = new Question(title: "Qu'est ce qu'un bean?", content: "Bonjour, j'ai eu un cour sur les JavaBeans. Je n'ai absuloment rien compris, car ce qui se passe par la fenetre etait bien plus interessant. Quelqu'un peut-il m'expliquer rapidement? vite car j'ai piscine dans 15 minute.<br>Merci, et bisous", date: new Date())
+		questionQ4.author = PM
+		questionQ4.save()
+		// - tag
+		Tag tagQ4T1 = new Tag(name: "JAVA")
+		questionQ4.addToTags(tagQ4T1)
+		tagQ4T1.save()
+		
 		println "BDD initiate :"
 		println "- " + User.all.size() + " users"
 		println "- " + Question.all.size() + " questions"

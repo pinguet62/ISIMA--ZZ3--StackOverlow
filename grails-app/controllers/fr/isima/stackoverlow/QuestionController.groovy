@@ -43,19 +43,23 @@ class QuestionController {
 	/**
 	 * Afficher la liste des questions
 	 * @param page Numéro de page
-	 * @return Liste
+	 * @return Affiche la liste des questions <br/>
+	 *         Page d'erreur si inexistante
 	 */
 	def all() {
 		int page = 1
 		if (params.page != null)
 			page = params.page.toInteger()
 		
+		// Paramètre
 		int nbParPage = 15
 		
 		// Liste des questions
 		int premier = nbParPage*(page-1)
 		int dernier = nbParPage*page -1
 		List<Question> listQuestions = new QuestionService().getDesc(premier, dernier)
+		if (listQuestions.isEmpty())
+			return render(view: "/question/nonexistent")
 		
 		// Liste des pages
 		int nbPages = Math.ceil(Question.count / nbParPage)

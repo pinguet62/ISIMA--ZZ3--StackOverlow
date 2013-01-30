@@ -1,3 +1,9 @@
+<!-- Afficher la liste des question -->
+<!-- @param listQuestions Liste de questions -->
+<!-- @param currentPage Numéro de page courrante -->
+<!-- @param listPages Liste des numéros de page -->
+<!-- @TODO Gérer le nombre de questions par page -->
+
 <html>
 	<head>
 		<meta name="layout" content="main">
@@ -5,7 +11,7 @@
 	</head>
 	
 	<body class="question-page">
-		<div id="custom-header"/>
+		<div id="custom-header"></div>
 		<div class="container">
 			<g:render template="/header" model="[locality: 'question']"/>
 			<div id="content">
