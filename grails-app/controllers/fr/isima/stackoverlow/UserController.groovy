@@ -92,10 +92,18 @@ class UserController {
 	 */
 	def all() {
 		def param=params.sort
+		if(param==null)
+		{
+			param="nofilter"
+		}
 		List<User> lst=null;
 		UserService serv = new UserService();
 		switch(param)
 		{
+			case "nofilter":
+				lst = User.list();
+				break;
+			
 			case "mark": 
 				lst = serv.getUserWithMark();
 				break;
@@ -108,7 +116,7 @@ class UserController {
 				break;
 		}
 		
-		return render(view: "/user/all", model: [listUsers: lst])
+		return render(view: "/user/all", model: [listUsers: lst, view: param])
 	}
 	
 	/**
