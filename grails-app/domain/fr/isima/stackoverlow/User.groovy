@@ -9,6 +9,7 @@ class User {
 	// Attributs
 	String name
 	String mail
+	String avatarUrl;
 	String password
 	Boolean admin = false
 	

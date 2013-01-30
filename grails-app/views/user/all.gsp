@@ -76,9 +76,15 @@
 								<div class="user-gravatar48">
 									<a href="/StackOverlow/user/${user.id}">
 									<div class="">
-										<!-- <img width="48" height="48" alt"" src="http://www.clker.com/cliparts/b/1/f/a/1195445301811339265dagobert83_female_user_icon.svg.med.png"> -->
-										<g:img dir="images" file="avatar.jpg" width="48" height="48"/>
-										
+										<g:if test="${user.avatarUrl.equals('')}">
+											<g:img dir="images/avatar" file="default.jpg" width="48" height="48"/>
+										</g:if>
+										<g:elseif test="${user.avatarUrl.substring(0, 4).equals('http')}">
+											<img src="${user.avatarUrl}" alt="" width="48" height="48">
+										</g:elseif>
+										<g:else>
+											<g:img dir="" file="${user.avatarUrl}" width="48" height="48"/>
+										</g:else>
 									</div>
 									</a>
 								</div>
