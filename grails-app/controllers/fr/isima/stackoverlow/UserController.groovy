@@ -91,7 +91,23 @@ class UserController {
 	 * 
 	 */
 	def all() {
-		List<User> lst = User.list();
+		def param=params.sort
+		List<User> lst=null;
+		UserService serv = new UserService();
+		switch(param)
+		{
+			case "mark": 
+				lst = serv.getUserWithMark();
+				break;
+			
+			case "admin":
+				lst = User.findAllByAdmin(true);
+				break;		
+			default: 
+				lst = User.list();
+				break;
+		}
+		
 		return render(view: "/user/all", model: [listUsers: lst])
 	}
 	

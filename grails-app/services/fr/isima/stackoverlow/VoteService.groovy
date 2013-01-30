@@ -2,7 +2,10 @@ package fr.isima.stackoverlow
 
 import fr.isima.stackoverlow.ServiceException
 
-// TODO
+/**
+ * Gestion des votes
+ * @author Julien
+ */
 class VoteService {
 	
 	/**
@@ -11,11 +14,11 @@ class VoteService {
 	 * @return mark
 	 */
 	def getMark(User user) {
-		int note = 0
-		for (Vote vote : Vote.list())
-			if (vote.messageVotable.author.equals(user))
-				note += vote.mark
-		return note
+		def res = Vote.executeQuery("SELECT sum(v.mark) FROM Vote AS v WHERE v.user = :u", [u: user])
+		if (res[0] == null)
+			return 0
+		else
+			return res[0]
 	}
 	
 	
@@ -25,21 +28,11 @@ class VoteService {
 	 * @return the mark
 	 */
 	def getMark(MessageVotable message) {
-		return VoteService.getMarkStatic(message)
-	}
-	
-	
-	/**
-	 * Compute the mark of a message but static
-	 * @param message the message
-	 * @return the mark
-	 */
-	static def getMarkStatic(MessageVotable message) {
-		int note = 0
-		Vote.findByMessageVotable(message).each {
-			note += it.mark
-		}
-		return note
+		def res = Vote.executeQuery("SELECT sum(v.mark) FROM Vote AS v WHERE v.messageVotable = :m", [m: message])
+		if (res[0] == null)
+			return 0
+		else
+			return res[0]
 	}
 	
 	
@@ -47,9 +40,15 @@ class VoteService {
 	 * Vote up
 	 * @param message the message
 	 * @param user the user
+	 * @exception ServiceException Impossible de voter pour soi
 	 * @exception ServiceException if the vote fail
 	 */
 	def voteUp(MessageVotable message, User user) {
+		// Test
+		// - l'utilisateur vote pour son propre message
+		if (message.author.id == user.id)
+			throw new ServiceException("Impossible de voter pour soi")
+		
 		Vote vote = Vote.findByUserAndMessageVotable(user, message)
 		// Nouveau vote
 		if (vote == null) {
@@ -87,9 +86,15 @@ class VoteService {
 	 * Vote down
 	 * @param message the message to vote
 	 * @param user the vote
+	 * @exception ServiceException Impossible de voter pour soi
 	 * @exception ServiceException fail of the vote
 	 */
 	def voteDown(MessageVotable message, User user) {
+		// Test
+		// - l'utilisateur vote pour son propre message
+		if (message.author.id == user.id)
+			throw new ServiceException("Impossible de voter pour soi")
+		
 		Vote vote = Vote.findByUserAndMessageVotable(user, message)
 		// Nouveau vote
 		if (vote == null) {

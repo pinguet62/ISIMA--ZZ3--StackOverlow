@@ -22,27 +22,29 @@ class CommentaireTests {
 		// - utilisateur
 		User userQ = new User(name:"userQName", mail:"userQAdresse@mail.com", password:"userQPassword")
 		userQ.save()
-		assertEquals(User.list().size(), 1)
+		assertEquals(User.count, 1)
 		assertNotNull(User.findById(userQ.id))
 		// - question
 		Question question = new Question(title: "titleQ", content: "contentQ", date: new Date())
 		question.author = userQ
+		userQ.addToMessages(question)
 		question.save()
-		assertEquals(Question.list().size(), 1)
+		assertEquals(Question.count, 1)
+		assertNotNull(Question.findById(question.id))
 		assertEquals(User.findById(userQ.id).messages.size(), 1)
 		
 		// Commentaire
 		// - utilisateur
 		User userC = new User(name:"userCName", mail:"userCAdresse@mail.com", password:"userCPassword")
 		userC.save()
-		assertEquals(User.list().size(), 2)
+		assertEquals(User.count, 2)
 		assertNotNull(User.findById(userC.id))
 		// - commentaire
 		Commentaire commentaire = new Commentaire(content: "contentC", date: new Date())
 		commentaire.author = userC
 		commentaire.messageVotable = question
 		commentaire.save()
-		assertEquals(Commentaire.list().size(), 1)
+		assertEquals(Commentaire.count, 1)
 		assertNotNull(Commentaire.findById(commentaire.id))
 	}
 	
@@ -66,7 +68,7 @@ class CommentaireTests {
 		commentaire.messageVotable = response
 		commentaire.save()
 		
-		assertEquals(Commentaire.list().size(), 1)
+		assertEquals(Commentaire.count, 1)
 	}
 	
 }

@@ -17,7 +17,7 @@
 						<table>
 							<tr>
 								<td class="votecell">
-									<g:render template="/question/voteCell" model="[message: message]"/>
+									<g:render template="/question/voteCell" model="[message: question]"/>
 								</td>
 								<td class="postcell">
 									<div class="post-text">
@@ -52,7 +52,7 @@
 										<tbody>
 											<tr>
 												<td class="votecell">
-													<g:render template="/question/voteCell" model="[message: message]"/>
+													<g:render template="/question/voteCell" model="[message: response]"/>
 												</td>
 												<td class="answercell">
 													<div class="post-text">

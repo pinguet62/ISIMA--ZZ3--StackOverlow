@@ -86,7 +86,7 @@
 							<g:if test="${page != 1  &&  ! listPages.contain(page-1)}">
 								<span class="page-numbers dots">...</span>
 							</g:if>
-							<g:if test="${page == courrentPage}">
+							<g:if test="${page == currentPage}">
 								<span class="page-numbers current">${page}</span>
 							</g:if>
 							<g:else>

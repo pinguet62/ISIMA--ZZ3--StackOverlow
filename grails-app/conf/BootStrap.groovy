@@ -3,6 +3,7 @@ import fr.isima.stackoverlow.Question
 import fr.isima.stackoverlow.Response
 import fr.isima.stackoverlow.Tag
 import fr.isima.stackoverlow.User
+import fr.isima.stackoverlow.Vote
 
 class BootStrap {
 
@@ -18,7 +19,7 @@ class BootStrap {
 		admin2.save()
 		
 		// Question Q1
-		User userQ1 = new User(name: "userQ1Name",admin: true, mail: "userQ1Adresse@mail.com", password: "userQ1Password")
+		User userQ1 = new User(name: "userQ1Name", mail: "userQ1Adresse@mail.com", password: "userQ1Password")
 		userQ1.save()
 		Question questionQ1 = new Question(title: "titleQ1", content: "contentQ1", date: new Date())
 		questionQ1.author = userQ1
@@ -71,6 +72,16 @@ class BootStrap {
 				commentaireQ1R1C2.messageVotable = responseQ1R1
 				responseQ1R1.addToCommentaires(commentaireQ1R1C2)
 				commentaireQ1R1C2.save()
+				// Vote Q1R1V1
+				Vote voteQ1R1V1 = new Vote(mark: +1)
+				voteQ1R1V1.user = userQ1R1C1
+				voteQ1R1V1.messageVotable = responseQ1R1
+				voteQ1R1V1.save()
+				// Vote Q1R1V2
+				Vote voteQ1R1V2 = new Vote(mark: +1)
+				voteQ1R1V2.user = userQ1R1C2
+				voteQ1R1V2.messageVotable = responseQ1R1
+				voteQ1R1V2.save()
 			// Reponse Q1R2
 			User userQ1R2 = new User(name: "userQ1R2Name", mail: "userQ1R2Adresse@mail.com", password: "userQ1R2Password")
 			userQ1R2.save()
@@ -95,6 +106,26 @@ class BootStrap {
 				commentaireQ1R2C2.messageVotable = responseQ1R2
 				responseQ1R2.addToCommentaires(commentaireQ1R2C2)
 				commentaireQ1R2C2.save()
+				// Vote Q1R2V1
+				Vote voteQ1R2V1 = new Vote(mark: +1)
+				voteQ1R2V1.user = userQ1R2C1
+				voteQ1R2V1.messageVotable = responseQ1R2
+				voteQ1R2V1.save()
+				// Vote Q1R2V2
+				Vote voteQ1R2V2 = new Vote(mark: -1)
+				voteQ1R2V2.user = userQ1R2C2
+				voteQ1R2V2.messageVotable = responseQ1R2
+				voteQ1R2V2.save()
+		// Vote Q1V1
+		Vote voteQ1V1 = new Vote(mark: -1)
+		voteQ1V1.user = userQ1R1
+		voteQ1V1.messageVotable = questionQ1
+		voteQ1V1.save()
+		// Vote Q1V2
+		Vote voteQ1V2 = new Vote(mark: -1)
+		voteQ1V2.user = userQ1R2
+		voteQ1V2.messageVotable = questionQ1
+		voteQ1V2.save()
 		
 		// Question Q2
 		User userQ2 = new User(name: "userQ2Name", mail: "userQ2Adresse@mail.com", password: "userQ2Password")
@@ -174,38 +205,36 @@ class BootStrap {
 				commentaireQ2R2C2.messageVotable = responseQ2R2
 				responseQ2R2.addToCommentaires(commentaireQ2R2C2)
 				commentaireQ2R2C2.save()
-				
+		
 		// Question Q3
-		// - utilisateur
-		User PM = new User(name: "Paul Machon", mail: "paulMach@outlook.com", password: "azerty")
-		PM.save()
-		// - question
+		User userQ3 = new User(name: "Paul Machon", mail: "paulMach@outlook.com", password: "azerty")
+		userQ3.save()
 		Question questionQ3 = new Question(title: "Probleme compilation", content: "Bonjour, grand programmeur en C, je ne parvien pas a compiler mon programme: <br> l'erreur est la suivante: missing function 'Main' in 'monAppli.c.'<br> quelqu'un peut-il m'aider?", date: new Date())
-		questionQ3.author = PM
+		questionQ3.author = userQ3
 		questionQ3.save()
-		// - tag
+		// Tag Q3T1
 		Tag tagQ3T1 = new Tag(name: "C/C++")
 		questionQ3.addToTags(tagQ3T1)
 		tagQ3T1.save()
 		
 		// Question Q4
-		// - utilisateur
 		User userQ4 = new User(name: "Jean63",mail: "jean-retyui@outlook.com", password: "uiopaaaz")
 		userQ4.save()
-		// - question
-		Question questionQ4 = new Question(title: "Qu'est ce qu'un bean?", content: "Bonjour, j'ai eu un cour sur les JavaBeans. Je n'ai absuloment rien compris, car ce qui se passe par la fenetre etait bien plus interessant. Quelqu'un peut-il m'expliquer rapidement? vite car j'ai piscine dans 15 minute.<br>Merci, et bisous", date: new Date())
-		questionQ4.author = PM
+		Question questionQ4 = new Question(title: "Qu'est ce qu'un bean?", content: "Bonjour.\n\nJ'ai eu un cours sur les JavaBeans. Je n'ai absuloment rien compris, car ce qui se passe par la fenetre etait bien plus interessant !!!\nQuelqu'un peut-il m'expliquer rapidement? vite car j'ai piscine dans 15 minute.\n\n>Merci, et bisous", date: new Date())
+		questionQ4.author = userQ4
 		questionQ4.save()
-		// - tag
+		// Tag Q4T1
 		Tag tagQ4T1 = new Tag(name: "JAVA")
 		questionQ4.addToTags(tagQ4T1)
 		tagQ4T1.save()
 		
+			
 		println "BDD initiate :"
 		println "- " + User.all.size() + " users"
 		println "- " + Question.all.size() + " questions"
 		println "- " + Response.all.size() + " reponses"
 		println "- " + Commentaire.all.size() + " comments"
+		println "- " + Vote.all.size() + " votes"
 	}
 	
 	

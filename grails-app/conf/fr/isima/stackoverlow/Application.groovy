@@ -14,7 +14,7 @@ class Application {
 	 * @exception IllegalArgumentException Nombre total de pages incorrect
 	 * @exception IllegalArgumentException Page courrante incorrecte
 	 */
-	static def getListPages(int currentPage, int totalPages) {
+	def getListPages(int currentPage, int totalPages) {
 		if (totalPages <= 0)
 			throw new IllegalArgumentException("Nombre total de pages incorrect")
 		if (currentPage <= 0  ||  totalPages < currentPage)
