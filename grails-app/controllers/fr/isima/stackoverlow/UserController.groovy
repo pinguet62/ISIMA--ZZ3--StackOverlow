@@ -101,7 +101,7 @@ class UserController {
 				break;
 			
 			case "admin":
-				lst = User.findByAdmin(true);
+				lst = User.findAllByAdmin(true);
 				break;		
 			default: 
 				lst = User.list();

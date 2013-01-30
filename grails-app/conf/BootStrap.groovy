@@ -19,7 +19,7 @@ class BootStrap {
 		admin2.save()
 		
 		// Question Q1
-		User userQ1 = new User(name: "userQ1Name",admin: true, mail: "userQ1Adresse@mail.com", password: "userQ1Password")
+		User userQ1 = new User(name: "userQ1Name", mail: "userQ1Adresse@mail.com", password: "userQ1Password")
 		userQ1.save()
 		Question questionQ1 = new Question(title: "titleQ1", content: "contentQ1", date: new Date())
 		questionQ1.author = userQ1
