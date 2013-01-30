@@ -72,6 +72,16 @@ class BootStrap {
 				commentaireQ1R1C2.messageVotable = responseQ1R1
 				responseQ1R1.addToCommentaires(commentaireQ1R1C2)
 				commentaireQ1R1C2.save()
+				// Vote Q1R1V1
+				Vote voteQ1R1V1 = new Vote(mark: +1)
+				voteQ1R1V1.user = userQ1R1C1
+				voteQ1R1V1.messageVotable = responseQ1R1
+				voteQ1R1V1.save()
+				// Vote Q1R1V2
+				Vote voteQ1R1V2 = new Vote(mark: +1)
+				voteQ1R1V2.user = userQ1R1C2
+				voteQ1R1V2.messageVotable = responseQ1R1
+				voteQ1R1V2.save()
 			// Reponse Q1R2
 			User userQ1R2 = new User(name: "userQ1R2Name",avatarUrl: "/avatar/08.jpg", mail: "userQ1R2Adresse@mail.com", password: "userQ1R2Password")
 			userQ1R2.save()
@@ -96,6 +106,26 @@ class BootStrap {
 				commentaireQ1R2C2.messageVotable = responseQ1R2
 				responseQ1R2.addToCommentaires(commentaireQ1R2C2)
 				commentaireQ1R2C2.save()
+				// Vote Q1R2V1
+				Vote voteQ1R2V1 = new Vote(mark: +1)
+				voteQ1R2V1.user = userQ1R2C1
+				voteQ1R2V1.messageVotable = responseQ1R2
+				voteQ1R2V1.save()
+				// Vote Q1R2V2
+				Vote voteQ1R2V2 = new Vote(mark: -1)
+				voteQ1R2V2.user = userQ1R2C2
+				voteQ1R2V2.messageVotable = responseQ1R2
+				voteQ1R2V2.save()
+		// Vote Q1V1
+		Vote voteQ1V1 = new Vote(mark: -1)
+		voteQ1V1.user = userQ1R1
+		voteQ1V1.messageVotable = questionQ1
+		voteQ1V1.save()
+		// Vote Q1V2
+		Vote voteQ1V2 = new Vote(mark: -1)
+		voteQ1V2.user = userQ1R2
+		voteQ1V2.messageVotable = questionQ1
+		voteQ1V2.save()
 		
 		// Question Q2
 		User userQ2 = new User(name: "userQ2Name", avatarUrl: "", mail: "userQ2Adresse@mail.com", password: "userQ2Password")
@@ -175,7 +205,7 @@ class BootStrap {
 				commentaireQ2R2C2.messageVotable = responseQ2R2
 				responseQ2R2.addToCommentaires(commentaireQ2R2C2)
 				commentaireQ2R2C2.save()
-				
+	
 				
 		User PM = new User(name: "Paul Machon",admin: false, avatarUrl: "",mail: "paulMach@outlook.com", password: "azerty")
 		PM.save()
@@ -215,6 +245,7 @@ class BootStrap {
 			v3.mark= +1;
 			v3.save()
 			
+
 			
 		println "BDD initiate :"
 		println "- " + User.all.size() + " users"
