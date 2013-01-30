@@ -86,4 +86,22 @@ class UserService {
 	
 	
 	
+	def getUserWithMark()
+	{
+		def votes= Vote.list()
+		
+		List<User> lst = new ArrayList<User>()
+		
+		
+		for (Vote v : votes) {
+			if(!lst.contains(v.user))
+			{
+				lst.add(v.user)
+			}	
+		}
+		
+		return lst
+	
+	}
+	
 }
