@@ -45,20 +45,8 @@
 			</g:else>
 			</div>
 		</div>
+		
 			
-		<div class="page-description" style="padding-bottom: 10px;">
-	    <table style="width: 100%;">
-	        <tbody>
-	        	<tr>
-	            	<td>
-	                	Type to find users:<input id="userfilter" name="userfilter" class="userfilter" value="" style="margin-left: 10px;" type="text">
-	            	</td>
-	            	
-	        	</tr>
-	    	</tbody>
-    	</table>
-</div>
-
 <div id="user-browser">
     <table>
         <tbody>
@@ -148,5 +136,5 @@ _gaq.push(['_trackPageview']);
     <script type="text/javascript">
         _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
     </script>    
-    
+    <g:render template="/footer"/>
 </body>
