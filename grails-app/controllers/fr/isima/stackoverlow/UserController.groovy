@@ -123,12 +123,12 @@ class UserController {
 	 * create an user
 	 * @return render Index
 	 */
-	def createUser()
+	def create()
 	{
 		//retour du formulaire
-		def name = ""
-		def password = ""
-		def mail =""
+		def name = params.username;
+		def password =  params.password1;
+		def mail = params.mail;
 		def admin = false
 		
 		User u = new User()
@@ -137,9 +137,11 @@ class UserController {
 		u.password = password
 		u.admin = admin
 		
+		System.out.println(name + " " +password + " " + mail );
+		
 		UserService serv = new UserService()
-		serv.create(u)
-		this.login()
+		//serv.create(u)
+		//this.login()
 		return render(view: "/index")
 	}
 	

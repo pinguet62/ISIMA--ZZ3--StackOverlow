@@ -9,7 +9,82 @@
     <meta http-equiv="X-XRDS-Location" content="http://stackoverflow.com/yadis">
     <script src="http://cdn.sstatic.net/Js/third-party/openid-jquery.js?v=c24b24e13307" type="text/javascript"></script>
 
-    <style type="text/css">.login-page .script-only { display: block; }</style>
+    <SCRIPT language="Javascript">
+    $(document).ready(function() {
+        // lorsque je soumets le formulaire
+        $('#monForm').on('submit', function() {
+
+            var ret=true;
+            // je récupère les valeurs
+            var pseudo = $('#username').val();
+            var mail = $('#mail').val();
+            
+
+			if(pseudo.length < 5 || pseudo=='Enter a username')
+			{
+				document.getElementById('labUser').style.color='red';
+				document.getElementById('username').style.color='red';
+				document.getElementById('labUser').innerHTML ='utilisateur invalide - taille minimal: 5 caractères';
+				ret= false;
+			}
+            
+			if(checkEmail(mail) == false)
+			{
+				document.getElementById('labMail').style.color='red';
+				document.getElementById('labMail').innerHTML ='mail invalide';
+				ret= false;
+			}
+
+			if(checkPassword()==false)
+			{
+				document.getElementById('labPassword').style.color='red';
+				document.getElementById('labPassword').innerHTML ='Les mots de passe doivent être identique';
+				ret= false;	
+			}
+
+			return ret; // j'empêche le navigateur de soumettre lui-même le formulaire
+        });
+    });
+
+    var reg = new RegExp('^[a-z0-9]+([_|\.|-]{1}[a-z0-9]+)*@[a-z0-9]+([_|\.|-]{1}[a-z0-9]+)*[\.]{1}[a-z]{2,6}$', 'i');
+    function checkEmail(email)
+    {
+    	
+        if(email.length > 0)
+	    {
+	   		if(reg.test(email))
+			{
+	   			document.getElementById('mail').style.color='black';
+	   			return true;
+			}
+			else
+			{
+				document.getElementById('mail').style.color='red';
+				return false;
+			}
+		}
+    }
+
+
+    function checkPassword()
+    {
+		var p1 = document.getElementById('password1').value;
+		var p2 = document.getElementById('password2').value;
+		
+		if(p1 != p2)
+		{
+			document.getElementById('password2').style.color='red';
+			return false;
+		}
+		else
+		{
+			document.getElementById('password2').style.color='black';
+			return true;
+		}
+        
+    }
+        
+	</SCRIPT> 
 </head>
 
 <body style="cursor: default;" class="login-page">
@@ -21,11 +96,13 @@
 			</div>
 			<div style="width: 625px;" id="mainbar">
 				<div class="page-description">
-        			<div style="display: none;" class="form-error"></div>           
-                <div id="affiliate-signup" class="script-only">
-                	<iframe id="affiliate-iframe" style="width: 100%; height: 480px; display: inline;" src="https://openid.stackexchange.com/affiliate/form?affId=4&amp;background=transparent&amp;callback=http%3a%2f%2fstackoverflow.com%2fusers%2fauthenticate&amp;color=black&amp;nonce=6F4JUQAAAAAxAQDbMhcavQ%3d%3d&amp;openid.sreg.requested=email&amp;signupByDefault=true&amp;onLoad=loaded&amp;authCode=F4V%2bnkoDZ%2b0Iw%2fFDcFdp3n%2f6QvINawxoq0CuxQPYcS%2fay510fNtMK6nzKPvOeeDcoUNw%2bJSYUgfwkF6CgF1M3s6XtQRPFv2I3Oi0yeFvd0tyCmJLsqjZ5c2hJLCunGhfXTA3LtIATPoytrQ%2bU1BiioB1nrmYV3mbbJ7kIgvArjU%3d">
-                	</iframe>
-                </div>
+        		<g:form id="monForm" method = "post" url="[controller: 'user', action: 'create']">
+        		<g:textField id="username" name="username" value="Enter a username" onKeyDown="document.getElementById('username').style.color='black';document.getElementById('labUser').innerHTML ='';" onclick="if(document.getElementById('username').value =='Enter a username' )JavaScript:document.getElementById('username').value = '';"/>&nbsp;<label for="username" id="labUser"></label><br>
+        		<g:textField id="mail" name="mail" value="Enter your email" onKeyDown="document.getElementById('mail').style.color='black';document.getElementById('labMail').innerHTML ='';" onChange="checkEmail(this.value)" onclick="if(document.getElementById('mail').value =='Enter your email' )JavaScript:document.getElementById('mail').value = '';"/>&nbsp;<label for="mail" id="labMail"></label><br>
+        		<g:textField id="password1" name="password1" value="type a password" onKeyDown = "document.getElementById('labPassword').innerHTML ='';" onChange="checkPassword()" onclick="JavaScript:if(document.getElementById('password1').value =='type a password' )document.getElementById('password1').value = '';" /><br>
+        		<g:textField id="password2" name="password2" value="retype your password" onKeyDown = "document.getElementById('password2').style.color='black';document.getElementById('labPassword').innerHTML ='';" onChange="checkPassword()" onclick="JavaScript:if(document.getElementById('password2').value =='retype your password' )document.getElementById('password2').value = '';" />&nbsp;<label for="password2" id="labPassword"></label><br>
+        		<g:actionSubmit value="Creer compte" action="submit" />
+				</g:form>
     		</div>        
 		</div>
 	</div> 
