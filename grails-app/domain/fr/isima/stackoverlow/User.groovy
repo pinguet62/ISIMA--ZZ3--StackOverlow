@@ -30,4 +30,5 @@ class User {
 	String toString() {
 		return String.format("Name: %s, Mail: %s, Password: %s, Admin: %s", name, mail, password, admin.toString())
 	}
+	
 }

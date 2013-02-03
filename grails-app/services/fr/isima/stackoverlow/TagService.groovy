@@ -23,4 +23,26 @@ class TagService {
 		return listTags
     }
 	
+	
+	/**
+	 * Obtenir le tag s'il existe ou le créer
+	 * @param name Nom
+	 * @return Tag
+	 * @exception ServiceException Echec de la création
+	 */
+	def getOrCreate(String name) {
+		Tag tag = null
+		// Existant
+		tag = Tag.findByName(name)
+		if (tag != null)
+			return tag
+		// Créer
+		tag = new Tag(name: name)
+		def obj = tag.save()
+		if (obj != null)
+			return tag
+		// Problème
+		throw new ServiceException("Echec de la création")
+	}
+	
 }

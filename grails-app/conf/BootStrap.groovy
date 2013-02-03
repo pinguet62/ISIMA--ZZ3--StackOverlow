@@ -116,16 +116,16 @@ class BootStrap {
 				voteQ1R2V2.user = userQ1R2C2
 				voteQ1R2V2.messageVotable = responseQ1R2
 				voteQ1R2V2.save()
-		// Vote Q1V1
-		Vote voteQ1V1 = new Vote(mark: -1)
-		voteQ1V1.user = userQ1R1
-		voteQ1V1.messageVotable = questionQ1
-		voteQ1V1.save()
-		// Vote Q1V2
-		Vote voteQ1V2 = new Vote(mark: -1)
-		voteQ1V2.user = userQ1R2
-		voteQ1V2.messageVotable = questionQ1
-		voteQ1V2.save()
+			// Vote Q1V1
+			Vote voteQ1V1 = new Vote(mark: -1)
+			voteQ1V1.user = userQ1R1
+			voteQ1V1.messageVotable = questionQ1
+			voteQ1V1.save()
+			// Vote Q1V2
+			Vote voteQ1V2 = new Vote(mark: -1)
+			voteQ1V2.user = userQ1R2
+			voteQ1V2.messageVotable = questionQ1
+			voteQ1V2.save()
 		
 		// Question Q2
 		User userQ2 = new User(name: "userQ2Name", mail: "userQ2Adresse@mail.com", password: "userQ2Password")
@@ -205,7 +205,11 @@ class BootStrap {
 				commentaireQ2R2C2.messageVotable = responseQ2R2
 				responseQ2R2.addToCommentaires(commentaireQ2R2C2)
 				commentaireQ2R2C2.save()
-		
+			// Vote Q2V1
+			Vote voteQ2V1 = new Vote(mark: -1)
+			voteQ2V1.user = userQ2R1
+			voteQ2V1.messageVotable = questionQ2
+			voteQ2V1.save()
 		// Question Q3
 		User userQ3 = new User(name: "Paul Machon", mail: "paulMach@outlook.com", password: "azerty")
 		userQ3.save()

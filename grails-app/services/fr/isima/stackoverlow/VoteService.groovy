@@ -20,6 +20,21 @@ class VoteService {
 		else
 			return res[0]
 	}
+	def getReputation(User user) {
+		int rep = 0
+		Vote.all.each { vote->
+			if (vote.messageVotable.author.id == user.id)
+				rep += vote.mark
+		}
+		return rep
+		
+		/*def res = Vote.executeQuery("SELECT sum(v.mark) FROM Vote AS v AND Question AS q WHERE v.messageVotable = q AND q.author = :u", [u: user])
+		if (res[0] == null)
+			return 0
+		else
+			return res[0]*/
+	}
+	
 	
 	
 	/**

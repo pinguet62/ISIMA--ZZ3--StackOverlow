@@ -13,15 +13,16 @@
 		<div id="hlinks">
 			<span id="hlinks-user">
 				<g:if test="${fr.isima.stackoverlow.UserController.isConnected()}">
+					<g:set var="user" value="${fr.isima.stackoverlow.UserController.getUser()}"/>
 					<span class="profile-triangle">▾</span>
-					<a class="profile-link" href="/StackOverlow/user/${fr.isima.stackoverlow.UserController.getUser().id}">${fr.isima.stackoverlow.UserController.getUser().name}</a>
-					<a href="/StackOverlow/user/${fr.isima.stackoverlow.UserController.getUser().id}">
+					<a class="profile-link" href="/StackOverlow/user/${user.id}">${user.name}</a>
+					<a href="/StackOverlow/user/${user.id}">
 						<span class="reputation-score" dir="ltr" title="your reputation; view reputation changes">
-							1 <!-- $ {fr.isima.stackoverlow.UserController.getUser().getReputation()} -->
+							${new fr.isima.stackoverlow.VoteService().getReputation(user)}
 						</span>
 					</a>
 					<span class="lsep">|</span>
-					<a href="/StackOverlow/user/logout">log out</a> <!-- tmp -->
+					<a href="/StackOverlow/user/logout">log out</a> <!-- perso -->
 					<span class="lsep">|</span>
 				</g:if>
 			</span>
@@ -58,14 +59,14 @@
 	<div id="hmenus">
 		<div class="nav mainnavs">
 			<ul>
-				<li ${locality.equals("question") ? 'class="youarehere"' : ''}><a id="nav-questions" href="/StackOverlow/question/all">Questions</a></li>
-				<li ${locality.equals("tag") ? 'class="youarehere"' : ''}><a id="nav-tags" href="/StackOverlow/tag/all">Tags</a></li>
-				<li ${locality.equals("user") ? 'class="youarehere"' : ''}><a id="nav-users" href="/StackOverlow/user/all">Users</a></li>
+				<li ${locality.equals("question") ? 'class="youarehere"' : ''}><a id="nav-questions" href="/StackOverlow/question">Questions</a></li>
+				<li ${locality.equals("tag") ? 'class="youarehere"' : ''}><a id="nav-tags" href="/StackOverlow/tag">Tags</a></li>
+				<li ${locality.equals("user") ? 'class="youarehere"' : ''}><a id="nav-users" href="/StackOverlow/user">Users</a></li>
 			</ul>
 		</div>
 		<div class="nav askquestion">
 			<ul>
-				<li ${locality.equals("askquestion") ? 'class="youarehere"' : ''}><a id="nav-askquestion" href="/StackOverlow/question/new">Ask Question</a></li>
+				<li ${locality.equals("askquestion") ? 'class="youarehere"' : ''}><a id="nav-askquestion" href="/StackOverlow/question/ask">Ask Question</a></li>
 			</ul>
 		</div>
 	</div>
