@@ -28,6 +28,7 @@ class BootStrap {
 				Tag tagQ1T1 = new Tag(name: "tagQ1T1")
 				questionQ1.addToTags(tagQ1T1)
 				tagQ1T1.save()
+				
 				// Tag Q1T2
 				Tag tagQ1T2 = new Tag(name: "tagQ1T2")
 				questionQ1.addToTags(tagQ1T2)

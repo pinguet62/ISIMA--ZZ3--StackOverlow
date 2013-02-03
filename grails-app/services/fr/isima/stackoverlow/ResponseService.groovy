@@ -36,4 +36,21 @@ class ResponseService extends MessageVotableService {
 			throw new ServiceException("Echec de la suppression du message")
 	}
 	
+	
+	def getResponseFromUser(User user)
+	{
+		List<Response> lst = Response.list()
+		List<Response> ret = new ArrayList<Response>();
+		for (Response r : lst)
+		{
+			Message m = (Message)r
+			User auth = m.author
+			if(auth.id == user.id)
+			{
+				ret.add(r)
+			}
+		}
+		return ret
+	}
+	
 }

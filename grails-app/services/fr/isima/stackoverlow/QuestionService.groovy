@@ -27,6 +27,25 @@ class QuestionService extends MessageVotableService {
 	}
 	
 	
+	
+	
+	def getQuestionFromUser(User user)
+	{
+		List<Question> lst = Question.list()
+		List<Question> ret = new ArrayList<Question>();
+		for (Question q : lst) 
+		{
+			Message m = (Message)q
+			User auth = m.author
+			if(auth.id == user.id)
+			{
+				ret.add(q)
+			}	
+		}
+		return ret
+	}
+	
+	
 	/**
 	 * Cacher
 	 * @param question Question

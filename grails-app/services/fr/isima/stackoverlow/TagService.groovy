@@ -23,4 +23,49 @@ class TagService {
 		return listTags
     }
 	
+	
+	
+	def getTagFromUser(User u)
+	{
+		Map<Tag, Integer> mapTemp= new HashMap<Tag, Integer>()
+		Map<Integer, List<Tag>> mapRet= new HashMap<Integer, Tag>()
+		List<Tag> lst = Tag.list()
+		
+		
+		for (Tag t : lst) 
+		{
+			for (Question q : t.question) 
+			{
+				q = Question.findById(q.id)
+				User author = q.author
+				
+					if(author.id == u.id)
+					{
+						if(!mapTemp.containsKey(t))
+						{
+							mapTemp.put(t, 0)
+						}
+						int val = mapTemp.get(t)
+						++val;
+						mapTemp.put(t, val)
+					
+					}
+			}
+			
+		}
+		
+		
+		for (Tag t : mapTemp.keySet()) 
+		{
+			System.out.println("clef:"+ t.name +" valeur:"+mapTemp.get(t));
+			if(!mapRet.containsKey(mapTemp.get(t)))
+			{
+				
+				mapRet.put(mapTemp.get(t), new ArrayList<Tag>());
+			}
+			mapRet.get(mapTemp.get(t)).add(t);
+		}
+		return mapRet
+	}
+	
 }

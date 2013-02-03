@@ -81,7 +81,52 @@ class UserController {
 		if (user == null) {
 			return render(view: "/user/error")
 		}
-		return render(view: "/user/show", model: [user: user])
+		QuestionService Qserv = new QuestionService()
+		ResponseService Rserv = new ResponseService()
+		VoteService Vserv =		new VoteService();
+		TagService Tserv = 		new TagService();
+		
+		
+		def reput = Vserv.getMark(user)
+		List<Vote> lstV			= Vserv.getDetailedReput(user)
+		List<Question> lstQ		= Qserv.getQuestionFromUser(user)
+		List<Response> lstR		= Rserv.getResponseFromUser(user)
+		Map<Integer,Tag> lstT 	= Tserv.getTagFromUser(user)
+		
+		Map<Integer,Tag> lstT4 	= new HashMap<Integer,Tag>()
+		List<Vote> lstV4 		= new ArrayList<Vote>()
+		List<Response> lstR4 	= new ArrayList<Response>()
+		List<Question> lstQ4 	= new ArrayList<Question>()
+		
+		for(int i = 0; i<4; ++i)
+		{
+			if(lstR.size()>i)
+				lstR4.add(lstR.get(i));
+			if(lstQ.size()>i)
+				lstQ4.add(lstQ.get(i));
+			if(lstV.size()>i)
+				lstV4.add(lstV.get(i));
+		}
+		
+		int i=0;
+		int nbtag=0;
+		for (Integer cle : lstT.keySet()) 
+		{
+			if(i<10)
+			{
+				lstT4.put(cle, new ArrayList<Tag>())
+				for (Tag t : lstT.get(cle)) 
+				{
+					nbtag+=cle;
+					lstT4.get(cle).add(t)
+				}
+			}
+			
+			++i;
+		}
+		
+		
+		return render(view: "/user/show", model: [user: user,reput: reput,lstQ: lstQ, lstR: lstR, lstR4: lstR4, lstQ4: lstQ4,lstV4: lstV4,lstV: lstV,lstT4: lstT4,lstT: lstT, nbtag: nbtag ])
 	}
 	
 	

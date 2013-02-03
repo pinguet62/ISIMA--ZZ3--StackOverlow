@@ -18,6 +18,15 @@ class VoteService {
 		return note
 	}
 	
+	def getDetailedReput(User user)
+	{
+		List<Vote> ret = new ArrayList<Vote>()
+		for (Vote vote : Vote.list())
+			if (vote.messageVotable.author.equals(user))
+				ret.add(vote)
+		return ret
+		
+	}
 	
 	/**
 	 * Compute the mark of a message

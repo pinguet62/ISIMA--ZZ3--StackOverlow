@@ -1,16 +1,11 @@
 <head>
     <title>Users - Stack Overflow</title>
     <link rel="shortcut icon" href="http://cdn.sstatic.net/stackoverflow/img/favicon.ico">
-    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="/opensearch.xml">
-   
-	<script src="http://edge.quantserve.com/quant.js" async="" type="text/javascript"></script><script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script type="text/javascript" src="http://cdn.sstatic.net/js/stub.js?v=faf00e16e9bc"></script>
-    <link rel="stylesheet" type="text/css" href="http://cdn.sstatic.net/stackoverflow/all.css?v=6d7ec4d8bbbd">
-	<script src="http://cdn.sstatic.net/js/full-anon.js?v=b392f675b7fa" type="text/javascript" async=""></script><style type="text/css" charset="utf-8"></style>
+    <link rel="stylesheet" type="text/css" href="http://cdn.sstatic.net/stackoverflow/all.css">
 </head>
 
 <body class="users-page">
-    <noscript><div id="noscript-padding"></div></noscript>
+   
     <div id="notify-container"></div>
     <div id="overlay-header"></div>
     <div id="custom-header"></div>
@@ -111,30 +106,6 @@
 </div>
 </div>
    
-    <iframe id="global-auth-frame" style="display: none;" src="https://stackauth.com/auth/global/read?request=Osq2PB33KnIrIRmBZ9REldUbHX2JuCAwXdbuoloPeJDNQatcdUg9zg97eM7MYDmjJ%2F%2FOXoA%2FrvdJXKpyjj3AuQ%3D%3D&amp;nonce=FgYIUQAAAACjoFyl9T2nPg%3D%3D"></iframe></div>
-    
-    <noscript>
-        <div id="noscript-warning">Stack Overlow works best with JavaScript enabled<img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"></div>
-    </noscript>
-    <script type="text/javascript">var _gaq=_gaq||[];_gaq.push(['_setAccount','UA-5620270-1']);
-_gaq.push(['_trackPageview']);
-    var _qevents = _qevents || [];
-    (function(){
-        var s=document.getElementsByTagName('script')[0];
-        var ga=document.createElement('script');
-        ga.type='text/javascript';
-        ga.async=true;
-        ga.src='http://www.google-analytics.com/ga.js';
-        s.parentNode.insertBefore(ga,s);
-        var sc=document.createElement('script');
-        sc.type='text/javascript';
-        sc.async=true;
-        sc.src='http://edge.quantserve.com/quant.js'; 
-        s.parentNode.insertBefore(sc,s);
-    })();
-    </script>
-    <script type="text/javascript">
-        _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
-    </script>    
+
     <g:render template="/footer"/>
 </body>
