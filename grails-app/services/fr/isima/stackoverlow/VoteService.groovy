@@ -28,6 +28,12 @@ class VoteService {
 		
 	}
 	
+	def getVoteFromUser(User user)
+	{
+		List<Vote> ret = Vote.findAllByUser(user)
+		return ret
+	}
+	
 	/**
 	 * Compute the mark of a message
 	 * @param message the message

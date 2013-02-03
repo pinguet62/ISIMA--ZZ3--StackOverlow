@@ -57,7 +57,6 @@ class TagService {
 		
 		for (Tag t : mapTemp.keySet()) 
 		{
-			System.out.println("clef:"+ t.name +" valeur:"+mapTemp.get(t));
 			if(!mapRet.containsKey(mapTemp.get(t)))
 			{
 				

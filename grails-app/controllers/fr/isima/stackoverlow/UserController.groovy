@@ -75,7 +75,8 @@ class UserController {
 	 * @return display the profile <br/>
 	 *         error page if not exist
 	 */
-	def show() {
+	def show() 
+	{
 		User user = User.findById(params.id)
 		// Inexistante
 		if (user == null) {
@@ -88,13 +89,14 @@ class UserController {
 		
 		
 		def reput = Vserv.getMark(user)
-		List<Vote> lstV			= Vserv.getDetailedReput(user)
+		List<Vote> lstVR		= Vserv.getDetailedReput(user)
+		List<Vote> lstV			= Vserv.getVoteFromUser(user)
 		List<Question> lstQ		= Qserv.getQuestionFromUser(user)
 		List<Response> lstR		= Rserv.getResponseFromUser(user)
 		Map<Integer,Tag> lstT 	= Tserv.getTagFromUser(user)
 		
 		Map<Integer,Tag> lstT4 	= new HashMap<Integer,Tag>()
-		List<Vote> lstV4 		= new ArrayList<Vote>()
+		List<Vote> lstVR4 		= new ArrayList<Vote>()
 		List<Response> lstR4 	= new ArrayList<Response>()
 		List<Question> lstQ4 	= new ArrayList<Question>()
 		
@@ -104,8 +106,8 @@ class UserController {
 				lstR4.add(lstR.get(i));
 			if(lstQ.size()>i)
 				lstQ4.add(lstQ.get(i));
-			if(lstV.size()>i)
-				lstV4.add(lstV.get(i));
+			if(lstVR.size()>i)
+				lstVR4.add(lstVR.get(i));
 		}
 		
 		int i=0;
@@ -125,8 +127,48 @@ class UserController {
 			++i;
 		}
 		
+		//stat for votes
+		int voteUp = 0;
+		int voteDown = 0;
+		int questions = 0;
+		int responses = 0;
+		for (Vote vote : lstV) 
+		{
+			if(vote.mark == 1)
+			{
+				++voteUp
+			}
+			else
+			{
+				++voteDown
+			}
+			
+			if(vote.messageVotable.hasProperty("title"))
+			{
+				++questions
+			}
+			else
+			{
+				++responses
+			}
+		}
 		
-		return render(view: "/user/show", model: [user: user,reput: reput,lstQ: lstQ, lstR: lstR, lstR4: lstR4, lstQ4: lstQ4,lstV4: lstV4,lstV: lstV,lstT4: lstT4,lstT: lstT, nbtag: nbtag ])
+		
+		return render(view: "/user/show", model: [user: user,
+			reput: reput,
+			lstQ: lstQ, 
+			lstR: lstR, 
+			lstR4: lstR4, 
+			lstQ4: lstQ4,
+			lstVR4: lstVR4,
+			lstVR: lstVR,
+			lstT4: lstT4,
+			lstT: lstT, 
+			nbtag: nbtag,
+			voteDown: voteDown,
+			questions: questions,
+			responses:responses,
+			voteUp: voteUp ])
 	}
 	
 	

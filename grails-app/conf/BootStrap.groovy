@@ -243,7 +243,7 @@ class BootStrap {
 			Vote v3 = new Vote()
 			v3.messageVotable = questionQ3
 			v3.user = PM;
-			v3.mark= +1;
+			v3.mark= -1;
 			v3.save()
 			
 

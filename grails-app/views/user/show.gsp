@@ -109,10 +109,10 @@
     </div>
     <div class="user-panel-content">
        
-      <g:if test="${lstV.size() != 0}">
+      <g:if test="${lstVR.size() != 0}">
         <table class="user-rep lines">
             <tbody>
-	            <g:each var="v" in="${lstV4}" status="cpt">
+	            <g:each var="v" in="${lstVR4}" status="cpt">
 	                <tr>
 	                	<g:if test="${v.mark == +1 }">
 	                    	<td class="rep-amount count-cell"><span class="rep-up">+${v.mark }</span></td>
@@ -208,15 +208,42 @@
 </div>
 
 
-<div id="user-panel-votes" class="user-panel">
+<div id="user-panel-votes" class="user-panel user-panel-left">
     <div class="subheader">
         <h1>
-		    <span class="count">0</span> Votes Cast
+		    <span class="count">${voteUp+voteDown }</span> Votes Cast
 		</h1>
     </div>
     <div class="user-panel-content">
-       <div class="empty">This user has not cast any <a href="/faq#reputation">votes</a>
-       </div>
+       <table class="votes-cast-stats">
+        <thead>
+            <tr>
+                <th colspan="2">all time</th>
+                <th class="spacer">&nbsp;</th>
+                    <th colspan="2">by type</th> 
+                    </tr>
+        </thead>
+        <tbody><tr>
+            <td>${voteUp}</td> 
+            <td class="desc">up</td>
+            <td></td>
+                <td>${questions}</td>
+                <td class="desc">question</td>
+                <td></td>
+                            
+                <td></td>
+                            
+                <td></td>
+               </tr>
+        <tr>
+            <td>${voteDown}</td>
+            <td class="desc">down</td>
+            <td></td>
+                <td>${responses}</td>
+                <td class="desc">answer</td>
+                <td></td>
+        </tr>
+    </tbody></table>
     </div>
     <div class="user-panel-footer">
     </div>
