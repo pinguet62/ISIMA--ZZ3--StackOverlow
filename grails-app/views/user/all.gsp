@@ -1,7 +1,7 @@
 <head>
     <title>Users - Stack Overflow</title>
     <link rel="shortcut icon" href="http://cdn.sstatic.net/stackoverflow/img/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="http://cdn.sstatic.net/stackoverflow/all.css">
+    
 </head>
 
 <body class="users-page">

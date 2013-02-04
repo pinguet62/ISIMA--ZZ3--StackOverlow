@@ -88,17 +88,20 @@ class UserService {
 	
 	def getUserWithMark()
 	{
-		def votes= Vote.list()
+		def users= User.list()
 		
 		List<User> lst = new ArrayList<User>()
+		VoteService vserv = new VoteService()
 		
-		
-		for (Vote v : votes) {
-			if(!lst.contains(v.user))
+		for (User user : users) 
+		{
+			def note = vserv.getReputation(user)
+			if(note != 0)
 			{
-				lst.add(v.user)
+				lst.add(user)
 			}	
 		}
+		
 		
 		return lst
 	

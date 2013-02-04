@@ -76,7 +76,15 @@
 											<div class="user-gravatar32">
 												<a href="/user/${question.author.id}">
 													<div class="">
-														<img width="32" height="32" alt="" src="http://www.gravatar.com/avatar/59dce2f6c9ff5924be627f53ea740d7d?s=32&d=identicon&r=PG"></img> <!-- TODO -->
+																		<g:if test="${!question.author.avatarUrl}">
+											<g:img dir="images/avatar" file="default.jpg" width="32" height="32"/>
+										</g:if>
+										<g:elseif test="${question.author.avatarUrl.substring(0, 4).equals('http')}">
+											<img src="${question.author.avatarUrl}" alt="" width="32" height="32">
+										</g:elseif>
+										<g:else>
+											<g:img dir="" file="${question.author.avatarUrl}" width="32" height="32"/>
+										</g:else>
 													</div>
 												</a>
 											</div>

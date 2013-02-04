@@ -1,8 +1,7 @@
 
 <head>
     <title>Users - Stack Overflow</title>
-    <link rel="shortcut icon" href="http://cdn.sstatic.net/stackoverflow/img/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="http://cdn.sstatic.net/stackoverflow/all.css">
+   
 </head>
 
 <body class="users-page">
@@ -15,7 +14,7 @@
     <div id="content">
 		<div id="mainbar-full" class="user-show-new">
 			<div class="subheader">
-    			<h1 id="user-displayname">${user.name}</h1>
+    			<h1 id="user-displayname">${usersel.name}</h1>
     		</div>
 			<div id="user-info-container">
     			<div id="large-user-info" class="user-header" style="">
@@ -23,14 +22,14 @@
             			<div class="gravatar">
                 			
                 				<div class="">
-                					<g:if test="${!user.avatarUrl}">
+                					<g:if test="${!usersel.avatarUrl}">
 											<g:img dir="images/avatar" file="default.jpg" width="128" height="128"/>
 										</g:if>
-										<g:elseif test="${user.avatarUrl.substring(0, 4).equals('http')}">
-											<img src="${user.avatarUrl}" alt="" width="128" height="128">
+										<g:elseif test="${usersel.avatarUrl.substring(0, 4).equals('http')}">
+											<img src="${usersel.avatarUrl}" alt="" width="128" height="128">
 										</g:elseif>
 										<g:else>
-											<g:img dir="" file="${user.avatarUrl}" width="128" height="128"/>
+											<g:img dir="" file="${usersel.avatarUrl}" width="128" height="128"/>
 										</g:else>
                 				</div>
                 		
@@ -49,42 +48,42 @@
     <div class="subheader user-tabs-nav">
         <div id="tabs">
         <g:if test="${param=='sum' }">
-            <a class="youarehere" href="${user.id }?tab=sum" title="this user's overall summary">summary</a>
+            <a class="youarehere" href="${usersel.id }?tab=sum" title="this user's overall summary">summary</a>
         </g:if>
         <g:else>
-        	<a href="${user.id }?tab=sum" title="this user's overall summary">summary</a>
+        	<a href="${usersel.id }?tab=sum" title="this user's overall summary">summary</a>
         </g:else>
         
         <g:if test="${param=='answ' }">
-            <a class="youarehere" href="${user.id }?tab=answ" title="answers this user has provided">answers</a>
+            <a class="youarehere" href="${usersel.id }?tab=answ" title="answers this user has provided">answers</a>
         </g:if>
         <g:else>
-            <a href="${user.id }?tab=answ" title="answers this user has provided">answers</a>
+            <a href="${usersel.id }?tab=answ" title="answers this user has provided">answers</a>
         </g:else>
            
            <g:if test="${param=='quest' }">
-            <a class="youarehere" href="${user.id }?tab=quest" title="questions this user has asked">questions</a>
+            <a class="youarehere" href="${usersel.id }?tab=quest" title="questions this user has asked">questions</a>
              </g:if>
         <g:else>
-            <a href="${user.id }?tab=quest" title="questions this user has asked">questions</a>
+            <a href="${usersel.id }?tab=quest" title="questions this user has asked">questions</a>
             </g:else>
             <g:if test="${param=='tags' }">
-            <a class="youarehere" href="${user.id }?tab=tags" title="tags this user has posts in">tags</a>
+            <a class="youarehere" href="${usersel.id }?tab=tags" title="tags this user has posts in">tags</a>
              </g:if>
         <g:else>
-         <a href="${user.id }?tab=tags" title="tags this user has posts in">tags</a>
+         <a href="${usersel.id }?tab=tags" title="tags this user has posts in">tags</a>
         </g:else>
             <g:if test="${param=='reput' }">
-            <a class="youarehere" href="${user.id }?tab=reput" title="reputation this user has earned">reputation</a>
+            <a class="youarehere" href="${usersel.id }?tab=reput" title="reputation this user has earned">reputation</a>
              </g:if>
         <g:else>
-        <a href="${user.id }?tab=reput" title="reputation this user has earned">reputation</a>
+        <a href="${usersel.id }?tab=reput" title="reputation this user has earned">reputation</a>
         </g:else>
             <g:if test="${param=='act' }">
-            <a class="youarehere" href="${user.id }?tab=act" title="this user's recent activity">activity</a>
+            <a class="youarehere" href="${usersel.id }?tab=act" title="this user's recent activity">activity</a>
              </g:if>
         <g:else>
-        <a href="${user.id }?tab=act" title="this user's recent activity">activity</a>
+        <a href="${usersel.id }?tab=act" title="this user's recent activity">activity</a>
         </g:else>
         </div>
     </div>
@@ -166,7 +165,7 @@
 <div id="user-panel-answers" class="user-panel user-panel-left">
     <div class="subheader">
         <h1>
-        	<a href="${user.id }?tab=answ">
+        	<a href="${usersel.id }?tab=answ">
    				<span class="count">${lstR.size() }</span> Answers
 			</a>
 		</h1>
