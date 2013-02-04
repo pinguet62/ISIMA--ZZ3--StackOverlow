@@ -77,7 +77,7 @@
 									<br>
 									<span class="user-location"></span>
 									<br>
-									<span class="reputation-score" dir="ltr" title="reputation of the member">${new fr.isima.stackoverlow.VoteService().getMark(user)}</span>
+									<span class="reputation-score" dir="ltr" title="reputation of the member">${new fr.isima.stackoverlow.VoteService().getReputation(user)}</span>
 								</div>
 								<div class="user-tags">
 								</div>

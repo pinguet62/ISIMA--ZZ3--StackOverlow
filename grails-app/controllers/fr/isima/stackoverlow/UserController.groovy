@@ -96,7 +96,7 @@ class UserController {
 		TagService Tserv = 		new TagService();
 		
 		
-		def reput = Vserv.getMark(user)
+		def reput = Vserv.getReputation(user)
 		List<Vote> lstVR		= Vserv.getDetailedReput(user)
 		List<Vote> lstV			= Vserv.getVoteFromUser(user)
 		List<Question> lstQ		= Qserv.getQuestionFromUser(user)
