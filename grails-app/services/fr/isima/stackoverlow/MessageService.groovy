@@ -59,4 +59,25 @@ class MessageService {
 			throw new ServiceException("Echec de la suppression du message")
 	}
 	
+	
+	/**
+	 * Obtenir la question associée au message
+	 * @param message Message (question, réponse ou commentaire)
+	 * @return Question
+	 * @exception ServiceException Question introuvable
+	 * @author Julien
+	 */
+	def getQuestion(Message message) {
+		if (message instanceof Question)
+			return message
+		else if (message instanceof Response)
+			return message.question
+		else if (message instanceof Commentaire)
+			if (message.messageVotable instanceof Question)
+				return message.messageVotable
+			else if (message.messageVotable instanceof Response)
+				return message.messageVotable.question
+		throw new ServiceException("Question introuvable")
+	}
+	
 }

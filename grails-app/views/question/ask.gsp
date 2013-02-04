@@ -1,5 +1,5 @@
 <!-- Formulaire de création d'une question -->
-<!-- @param listErreurs Liste des erreurs -->
+<!-- @param listErreurs Liste des erreurs (optionnel) -->
 
 
 
@@ -8,7 +8,6 @@
 		<meta name="layout" content="main">
 		<title>Question</title>
 	</head>
-	
 	<body class="question-page">
 		<div id="custom-header"></div>
 		<div class="container">
@@ -57,7 +56,7 @@
 								<span style="">
 									<!-- Liste des tags -->
 								</span>
-								<input type="text" tabindex="103" style="width: 658px;" name="listTags"></input>
+								<input type="text" tabindex="103" style="width: 658px;" name="strListTags"></input>
 								<span></span>
 							</div>
 							<span class="edit-field-overlay">

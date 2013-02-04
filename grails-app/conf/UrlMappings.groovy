@@ -28,9 +28,36 @@ class UrlMappings {
 		"/question/ask"(controller: "question", action: "ask")
 		"/question/ask/submit"(controller: "question", action: "ask_submit")
 		// - éditer
-		// TODO
+		"/question/$id/edit"(controller: "question", action: "edit") {
+			constraints {
+				id matches: /[0-9]+/
+			}
+		}
+		"/question/$id/edit/submit"(controller: "question", action: "edit_submit") {
+			constraints {
+				id matches: /[0-9]+/
+			}
+		}
 		// - supprimer
 		// TODO
+		
+		
+		// Réponse
+		// - éditer
+		"/response/$id/edit"(controller: "response", action: "edit") {
+			constraints {
+				id matches: /[0-9]+/
+			}
+		}
+		"/response/$id/edit/submit"(controller: "response", action: "edit_submit") {
+			constraints {
+				id matches: /[0-9]+/
+			}
+		}
+		// - supprimer
+		// TODO
+		
+		
 		
 		// User
 		"/user"(controller: "user", action: "all")

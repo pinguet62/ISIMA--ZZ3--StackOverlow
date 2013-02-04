@@ -8,8 +8,8 @@ class QuestionController {
 	
 	/**
 	 * Afficher la liste des questions
-	 * @param page Numéro de page
-	 * @param pagesize Nombre de questions par page
+	 * @param page Numéro de page (optionnel)
+	 * @param pagesize Nombre de questions par page (optionnel)
 	 * @return Page des questions <br/>
 	 *         Page d'erreur si inexistante
 	 * @author Julien
@@ -80,7 +80,7 @@ class QuestionController {
 	
 	
 	/**
-	 * Afficher la liste des questions
+	 * Valider la création d'une réponse
 	 * @param id Identifiant de la question
 	 * @param response-content Contenu de la réponse
 	 * @return Page de la question
@@ -119,7 +119,6 @@ class QuestionController {
 	
 	/**
 	 * Créer une question
-	 * Vérifier que l'utilisateur est connecté
 	 * @return Page du formulaire <br/>
 	 *         Page de connexion si l'utilisateur n'est pas connecté
 	 * @author Julien
@@ -133,11 +132,10 @@ class QuestionController {
 	
 	
 	/**
-	 * Créer une question
-	 * Validation du formulaire
+	 * Valider la création d'une question
 	 * @param title Titre
 	 * @param post-text Contenu
-	 * @param listTags Liste des tags
+	 * @param strListTags Liste des noms des tags
 	 * @return Page de la question <br/>
 	 *         Page du formulaire si erreur
 	 * @author Julien
@@ -155,7 +153,7 @@ class QuestionController {
 		if (params["post-text"] == null  ||  params["post-text"] == "")
 			listErreurs.add("body is missing")
 		// - tags
-		if (params.listTags == null  ||  params.listTags == "")
+		if (params.strListTags == null  ||  params.strListTags == "")
 			listErreurs.add("you need at least one valid tag")
 		if (! listErreurs.isEmpty())
 			return render(view: "/question/ask", model: [listErreurs: listErreurs])
@@ -165,7 +163,7 @@ class QuestionController {
 			Question question = new Question(title: params.title, content: params["post-text"], date: new Date())
 			question.author = UserController.getUser()
 			TagService tService = new TagService()
-			for (String name : params.listTags.split(" +"))
+			for (String name : params.strListTags.split(" +"))
 				if (! name.isEmpty()) {
 					Tag tag = tService.getOrCreate(name)
 					question.addToTags(tag)
@@ -177,6 +175,91 @@ class QuestionController {
 			redirect(url: "/question/"+question.id)
 		} catch (ServiceException e) {
 			return render(view: "/question/ask", model: [listErreurs: [e.getMessage()]])
+		}
+	}
+	
+	
+	/**
+	 * Editer une question
+	 * @param id Identifiant de la question
+	 * @return Page du formulaire <br/>
+	 *         Page de connexion si l'utilisateur n'est pas connecté
+	 * @author Julien
+	 */
+	def edit() {
+		if (! UserController.isConnected())
+			redirect(url: "/user/login")
+		
+		// Question
+		Question question = Question.findById(params.id)
+		if (question == null) {
+			return render(view: "/question/nonexistent")
+		} else if (! question.display)
+			return render(view: "/question/moderationDeleted")
+		
+		// temporaire
+		String strListTags = ""
+		question.tags.each { tag ->
+			strListTags += tag.name + " "
+		}
+		
+		return render(view: "/question/edit", model: [question: question, strListTags: strListTags])
+	}
+	
+	
+	/**
+	 * Valider l'édition d'une question
+	 * @param id Identifiant de la question
+	 * @param title Titre
+	 * @param post-text Contenu
+	 * @param strListTags Liste des noms des tags
+	 * @return Page de la question <br/>
+	 *         Page du formulaire si erreur
+	 * @author Julien
+	 */
+	def edit_submit() {
+		if (! UserController.isConnected())
+			redirect(url: "/user/login")
+		
+		// Question
+		Question question = Question.findById(params.id)
+		if (question == null) {
+			return render(view: "/question/nonexistent")
+		} else if (! question.display)
+			return render(view: "/question/moderationDeleted")
+		
+		// Vérifier le formulaire
+		def listErreurs = []
+		// - title
+		if (params.title == null  ||  params.title == "")
+			listErreurs.add("title is missing")
+		// - content
+		if (params["post-text"] == null  ||  params["post-text"] == "")
+			listErreurs.add("body is missing")
+		// - tags
+		if (params.strListTags == null  ||  params.strListTags == "")
+			listErreurs.add("you need at least one valid tag")
+		if (! listErreurs.isEmpty())
+			return render(view: "/question/edit", model: [question: question, strListTags: params.strListTags, listErreurs: listErreurs])
+		
+		try {
+			// Modifier la question
+			question.title = params.title
+			question.content = params["post-text"]
+			question.tags = []
+			TagService tService = new TagService()
+			for (String name : params.strListTags.split(" +"))
+				if (! name.isEmpty()) {
+					Tag tag = tService.getOrCreate(name)
+					question.addToTags(tag)
+				}
+			// Sauvegarder
+			QuestionService qService = new QuestionService()
+			qService.update(question)
+			// Affichage
+			redirect(url: "/question/"+question.id)
+		} catch (ServiceException e) {
+			return render(view: "/question/edit", model: [question: question, strListTags: params.strListTags, listErreurs: [e.getMessage()]])
 		}
 	}
 	
