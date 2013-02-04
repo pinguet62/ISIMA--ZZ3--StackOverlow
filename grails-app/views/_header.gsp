@@ -1,5 +1,5 @@
 <!-- En-tête des pages web -->
-<!-- @param locality Section du site : 'question', 'tag', 'user', 'askquestion' -->
+<!-- @param locality Section du site : 'questions', 'tag', 'user', 'askquestion' -->
 
 
 
@@ -59,9 +59,9 @@
 	<div id="hmenus">
 		<div class="nav mainnavs">
 			<ul>
-				<li ${locality.equals("question") ? 'class="youarehere"' : ''}><a id="nav-questions" href="/StackOverlow/question">Questions</a></li>
-				<li ${locality.equals("tag") ? 'class="youarehere"' : ''}><a id="nav-tags" href="/StackOverlow/tag">Tags</a></li>
-				<li ${locality.equals("user") ? 'class="youarehere"' : ''}><a id="nav-users" href="/StackOverlow/user">Users</a></li>
+				<li ${locality.equals("questions") ? 'class="youarehere"' : ''}><a id="nav-questions" href="/StackOverlow/question">Questions</a></li>
+				<li ${locality.equals("tags") ? 'class="youarehere"' : ''}><a id="nav-tags" href="/StackOverlow/tag">Tags</a></li>
+				<li ${locality.equals("users") ? 'class="youarehere"' : ''}><a id="nav-users" href="/StackOverlow/user">Users</a></li>
 			</ul>
 		</div>
 		<div class="nav askquestion">

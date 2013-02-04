@@ -12,7 +12,7 @@
 	<body class="question-page">
 		<div id="custom-header"></div>
 		<div class="container">
-			<g:render template="/header" model="[locality: 'question']"/>
+			<g:render template="/header" model="[locality: 'questions']"/>
 			<div id="content">
 				<div id="question-header">
 					<h1>${question.title}</h1>
@@ -38,7 +38,9 @@
 											<tr>
 												<td class="vt">
 													<div class="post-menu">
-														<a class="suggest-edit-post" title="revise and improve this post" href="/StackOverlow/question/edit/${question.id}">edit</a>
+														<g:if test="${true}"> <!-- TODO -->
+															<a class="suggest-edit-post" title="revise and improve this post" href="/StackOverlow/question/${question.id}/edit">edit</a>
+														</g:if>
 													</div>
 												</td>
 												<td class="post-signature owner">
@@ -99,7 +101,7 @@
 															<tr>
 																<td class="vt">
 																	<div class="post-menu">
-																		<a class="suggest-edit-post" title="revise and improve this post" href="/StackOverlow/response/edit/${response.id}">edit</a>
+																		<a class="suggest-edit-post" title="revise and improve this post" href="/StackOverlow/response/${response.id}/edit">edit</a>
 																	</div>
 																</td>
 																<td class="post-signature owner">

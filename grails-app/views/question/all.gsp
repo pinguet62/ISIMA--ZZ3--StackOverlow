@@ -14,7 +14,7 @@
 	<body class="question-page">
 		<div id="custom-header"/>
 		<div class="container">
-			<g:render template="/header" model="[locality: 'question']"/>
+			<g:render template="/header" model="[locality: 'questions']"/>
 			<div id="content">
 				<div id="mainbar">
 					<div class="subheader">

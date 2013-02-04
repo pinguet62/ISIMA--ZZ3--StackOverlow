@@ -23,14 +23,14 @@ class BootStrap {
 		Question questionQ1 = new Question(title: "titleQ1", content: "contentQ1", date: new Date())
 		questionQ1.author = userQ1
 		questionQ1.save()
-				// Tag Q1T1
-				Tag tagQ1T1 = new Tag(name: "tagQ1T1")
-				questionQ1.addToTags(tagQ1T1)
-				tagQ1T1.save()
-				// Tag Q1T2
-				Tag tagQ1T2 = new Tag(name: "tagQ1T2")
-				questionQ1.addToTags(tagQ1T2)
-				tagQ1T2.save()
+			// Tag Q1T1
+			Tag tagQ1T1 = new Tag(name: "tagQ1T1")
+			questionQ1.addToTags(tagQ1T1)
+			tagQ1T1.save()
+			// Tag Q1T2
+			Tag tagQ1T2 = new Tag(name: "tagQ1T2")
+			questionQ1.addToTags(tagQ1T2)
+			tagQ1T2.save()
 				// Commentaire Q1C1
 				User userQ1C1 = new User(name: "userQ1C1Name", mail: "userQ1C1Adresse@mail.com", password: "userQ1C1Password", avatarUrl: "/avatar/02.png")
 				userQ1C1.save()
@@ -131,14 +131,14 @@ class BootStrap {
 		Question questionQ2 = new Question(title: "titleQ2", content: "contentQ2", date: new Date())
 		questionQ2.author = userQ2
 		questionQ2.save()
-				// Tag Q2T1
-				Tag tagQ2T1 = new Tag(name: "tagQ2T1")
-				questionQ2.addToTags(tagQ2T1)
-				tagQ2T1.save()
-				// Tag Q2T2
-				Tag tagQ2T2 = new Tag(name: "tagQ2T2")
-				questionQ2.addToTags(tagQ2T2)
-				tagQ2T2.save()
+			// Tag Q2T1
+			Tag tagQ2T1 = new Tag(name: "tagQ2T1")
+			questionQ2.addToTags(tagQ2T1)
+			tagQ2T1.save()
+			// Tag Q2T2
+			Tag tagQ2T2 = new Tag(name: "tagQ2T2")
+			questionQ2.addToTags(tagQ2T2)
+			tagQ2T2.save()
 				// Commentaire Q2C1
 				User userQ2C1 = new User(name: "userQ2C1Name", mail: "userQ2C1Adresse@mail.com", password: "userQ2C1Password", avatarUrl: "/avatar/09.jpg")
 				userQ2C1.save()
@@ -214,20 +214,33 @@ class BootStrap {
 		Question questionQ3 = new Question(title: "Probleme compilation", content: "Bonjour, grand programmeur en C, je ne parvien pas a compiler mon programme: <br> l'erreur est la suivante: missing function 'Main' in 'monAppli.c.'<br> quelqu'un peut-il m'aider?", date: new Date())
 		questionQ3.author = userQ3
 		questionQ3.save()
-		// Tag Q3T1
-		Tag tagQ3T1 = new Tag(name: "C/C++")
-		questionQ3.addToTags(tagQ3T1)
-		tagQ3T1.save()
+			// Tag Q3T1
+			Tag tagQ3T1 = new Tag(name: "C/C++")
+			questionQ3.addToTags(tagQ3T1)
+			tagQ3T1.save()
 		// Question Q4
 		User userQ4 = new User(name: "Jean63", mail: "jean-retyui@outlook.com", password: "uiopaaazaze")
 		userQ4.save()
 		Question questionQ4 = new Question(title: "Qu'est ce qu'un bean?", content: "Bonjour.\n\nJ'ai eu un cours sur les JavaBeans. Je n'ai absuloment rien compris, car ce qui se passe par la fenetre etait bien plus interessant !!!\nQuelqu'un peut-il m'expliquer rapidement? vite car j'ai piscine dans 15 minute.\n\n>Merci, et bisous", date: new Date())
 		questionQ4.author = userQ4
 		questionQ4.save()
-		// Tag Q4T1
-		Tag tagQ4T1 = new Tag(name: "JAVA")
-		questionQ4.addToTags(tagQ4T1)
-		tagQ4T1.save()
+			// Tag Q4T1
+			Tag tagQ4T1 = new Tag(name: "JAVA")
+			questionQ4.addToTags(tagQ4T1)
+			tagQ4T1.save()
+		for (int i=5 ; i<35 ; i++) {
+			// Question Qi
+			User userQi = new User(name: "userQ"+i+"Name", mail: "userQ"+i+"Adresse@mail.com", password: "userQ"+i+"Password")
+			userQi.save()
+			Question questionQi = new Question(title: "titleQ"+i, content: "contentQ"+i, date: new Date())
+			questionQi.author = userQi
+			questionQi.save()
+				// Tag QiT1
+				Tag tagQiT1 = new Tag(name: "tagQ"+i+"T1")
+				questionQi.addToTags(tagQiT1)
+				tagQiT1.save()
+		}
+		
 		
 		println "BDD initiate :"
 		println "- " + User.count + " users"
