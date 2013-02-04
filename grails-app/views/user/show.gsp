@@ -301,6 +301,25 @@
     </g:if>
     
     
+    <g:if test="${param=='quest' }">
+    questions
+    </g:if>
+    
+    <g:if test="${param=='tags' }">
+    les tags
+    </g:if>
+    
+    
+    <g:if test="${param=='reput' }">
+    evo reputation
+    </g:if>
+    
+    
+    <g:if test="${param=='act' }">
+    activité
+    </g:if>
+    
+    
     <div class="user-panel-footer">
     </div>
 </div>
