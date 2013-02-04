@@ -229,6 +229,26 @@ class BootStrap {
 		questionQ4.addToTags(tagQ4T1)
 		tagQ4T1.save()
 		
+		Vote v = new Vote()
+		v.messageVotable = questionQ4
+		v.user = userQ3
+		v.mark= +1
+		v.save()
+		
+		Vote v2 = new Vote()
+		v2.messageVotable = questionQ4
+		v2.user = userQ1
+		v2.mark= +1
+		v2.save()
+		
+		
+		Vote v3 = new Vote()
+		v3.messageVotable = questionQ3
+		v3.user = userQ1;
+		v3.mark= -1;
+		v3.save()
+
+		
 		println "BDD initiate :"
 		println "- " + User.count + " users"
 		println "- " + Question.count + " questions"
