@@ -40,7 +40,7 @@ class BootStrap {
 				questionQ1.addToCommentaires(commentaireQ1C1)
 				commentaireQ1C1.save()
 				// Commentaire Q1C2
-				User userQ1C2 = new User(name: "userQ1C2Name", mail: "userQ1C2Adresse@mail.com", password: "userQ1C2Password", avatarUrl: "/avatar/03.jpg")
+				User userQ1C2 = new User(name: "userQ1C2Name", mail: "userQ1C2Adresse@mail.com", password: "userQ1C2Password", avatarUrl: "/avatar/03.png")
 				userQ1C2.save()
 				Commentaire commentaireQ1C2 = new Commentaire(content: "contentQ1C2", date: new Date())
 				commentaireQ1C2.author = userQ1C2

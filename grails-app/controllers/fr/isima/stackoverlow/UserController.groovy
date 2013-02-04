@@ -80,6 +80,11 @@ class UserController {
 	 */
 	def show() 
 	{
+		def param=params.tab
+		if(param==null)
+		{
+			param = "sum"
+		}
 		User user = User.findById(params.id)
 		// Inexistante
 		if (user == null) {
@@ -171,7 +176,8 @@ class UserController {
 			voteDown: voteDown,
 			questions: questions,
 			responses:responses,
-			voteUp: voteUp ])
+			voteUp: voteUp,
+			param: param ])
 	}
 	
 	

@@ -33,6 +33,7 @@ class UrlMappings {
 		// TODO
 		
 		// User
+		"/user"(controller: "user", action: "all")
 		"/user/error"(view: "/user/error")
 		"/user/new"(view: "/user/newUser")
 		"/user/create"(controller: "user", action: "create")

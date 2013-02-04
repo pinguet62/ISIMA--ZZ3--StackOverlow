@@ -59,7 +59,7 @@
 								<div class="user-gravatar48">
 									<a href="/StackOverlow/user/${user.id}">
 									<div class="">
-										<g:if test="${user.avatarUrl.equals('')}">
+										<g:if test="${!user.avatarUrl}">
 											<g:img dir="images/avatar" file="default.jpg" width="48" height="48"/>
 										</g:if>
 										<g:elseif test="${user.avatarUrl.substring(0, 4).equals('http')}">

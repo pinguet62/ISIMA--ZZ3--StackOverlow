@@ -23,15 +23,15 @@
             			<div class="gravatar">
                 			
                 				<div class="">
-                					<g:if test="${user.avatarUrl.equals('')}">
-										<g:img dir="images/avatar" file="default.jpg" width="128" height="128"/>
-									</g:if>
-									<g:elseif test="${user.avatarUrl.substring(0, 4).equals('http')}">
-										<img src="${user.avatarUrl}" alt="" width="128" height="128">
-									</g:elseif>
-									<g:else>
-										<g:img dir="" file="${user.avatarUrl}" width="128" height="128"/>
-									</g:else>
+                					<g:if test="${!user.avatarUrl}">
+											<g:img dir="images/avatar" file="default.jpg" width="128" height="128"/>
+										</g:if>
+										<g:elseif test="${user.avatarUrl.substring(0, 4).equals('http')}">
+											<img src="${user.avatarUrl}" alt="" width="128" height="128">
+										</g:elseif>
+										<g:else>
+											<g:img dir="" file="${user.avatarUrl}" width="128" height="128"/>
+										</g:else>
                 				</div>
                 		
                 			<div class="reputation">
@@ -48,27 +48,49 @@
 
     <div class="subheader user-tabs-nav">
         <div id="tabs">
-            <a class="youarehere" href="/users/2017180/kendo-ja?tab=summary" title="this user's overall summary">
-                summary
-            </a>
-            <a href="/users/2017180/kendo-ja?tab=answers" title="answers this user has provided">
-                answers
-            </a>
-            <a href="/users/2017180/kendo-ja?tab=questions" title="questions this user has asked">
-     			questions
-            </a>
-            <a href="/users/2017180/kendo-ja?tab=tags" title="tags this user has posts in">
-                tags
-            </a>
-            <a href="/users/2017180/kendo-ja?tab=reputation" title="reputation this user has earned">
-                reputation
-            </a>
-            <a href="/users/2017180/kendo-ja?tab=activity" title="this user's recent activity">
-                activity
-            </a>
+        <g:if test="${param=='sum' }">
+            <a class="youarehere" href="${user.id }?tab=sum" title="this user's overall summary">summary</a>
+        </g:if>
+        <g:else>
+        	<a href="${user.id }?tab=sum" title="this user's overall summary">summary</a>
+        </g:else>
+        
+        <g:if test="${param=='answ' }">
+            <a class="youarehere" href="${user.id }?tab=answ" title="answers this user has provided">answers</a>
+        </g:if>
+        <g:else>
+            <a href="${user.id }?tab=answ" title="answers this user has provided">answers</a>
+        </g:else>
+           
+           <g:if test="${param=='quest' }">
+            <a class="youarehere" href="${user.id }?tab=quest" title="questions this user has asked">questions</a>
+             </g:if>
+        <g:else>
+            <a href="${user.id }?tab=quest" title="questions this user has asked">questions</a>
+            </g:else>
+            <g:if test="${param=='tags' }">
+            <a class="youarehere" href="${user.id }?tab=tags" title="tags this user has posts in">tags</a>
+             </g:if>
+        <g:else>
+         <a href="${user.id }?tab=tags" title="tags this user has posts in">tags</a>
+        </g:else>
+            <g:if test="${param=='reput' }">
+            <a class="youarehere" href="${user.id }?tab=reput" title="reputation this user has earned">reputation</a>
+             </g:if>
+        <g:else>
+        <a href="${user.id }?tab=reput" title="reputation this user has earned">reputation</a>
+        </g:else>
+            <g:if test="${param=='act' }">
+            <a class="youarehere" href="${user.id }?tab=act" title="this user's recent activity">activity</a>
+             </g:if>
+        <g:else>
+        <a href="${user.id }?tab=act" title="this user's recent activity">activity</a>
+        </g:else>
         </div>
     </div>
 <div>
+
+ <g:if test="${param=='sum' }">
 <div id="user-panel-questions" class="user-panel user-panel-left">
     <div class="subheader">
         <h1>
@@ -144,7 +166,7 @@
 <div id="user-panel-answers" class="user-panel user-panel-left">
     <div class="subheader">
         <h1>
-        	<a href="/users/2017180/kendo-ja?tab=answers">
+        	<a href="${user.id }?tab=answ">
    				<span class="count">${lstR.size() }</span> Answers
 			</a>
 		</h1>
@@ -156,6 +178,7 @@
            		<g:if test="${lstR.size() != 0}">
 	            <g:each var="r" in="${lstR4}" status="cpt">
 	                <tr>
+	                	<td class="count-cell"><div class="mini-counts answered-accepted">${new fr.isima.stackoverlow.VoteService().getNbVoteStatic(r) }</div></td>
 	                    <td title="${r.question.title }" class="answer-hyperlink"><a class="answer-hyperlink " href="/question/${r.question.id }">${r.question.title }</a></td>
 	                </tr>
 	                </g:each>
@@ -199,7 +222,6 @@
                 </tr>               
             </tbody>
         </table>
-
     </div>
 
     <div class="user-panel-footer">
@@ -245,9 +267,152 @@
         </tr>
     </tbody></table>
     </div>
+    </div>
+    </g:if>
+    
+    
+    <g:if test="${param=='answ' }">
+    <div class="user-tab" id="user-tab-answers">
+    	<div class="subheader user-full-tab-header">
+        	<h1>
+    			<span class="count">${lstR.size() }</span> Answers
+			</h1>    
+    	</div>
+		<div class="user-tab-content">
+        	<div class="user-answers">
+				<g:each var="rep" in="${lstR}" status="cpt">
+					<div class="answer-summary">
+						<div title="total number of votes for this answer, which was accepted as the correct answer by the question owner" class="answer-votes answered-accepted            large" onclick="window.location.href='/questions/11185321/when-should-null-values-of-boolean-be-used/11185400#11185400'">
+	        				${new fr.isima.stackoverlow.VoteService().getNbVoteStatic(rep) }
+	    				</div>
+						<div class="answer-link">
+							<a class="answer-hyperlink " href="/question/${rep.question.id}">
+								${rep.question.title }
+							</a>
+						</div>
+					</div>
+				</g:each>
+        	</div>
+    	</div>
+
+	</div>
+    </g:if>
+    
+    
+    <g:if test="${param=='quest' }">
+	    <div class="user-tab" id="user-tab-questions">
+	    	<div class="subheader user-full-tab-header">
+	        	<h1>
+	    			<span class="count">${lstQ.size()}</span> Questions
+	    		</h1>    
+	    </div>
+	
+	    <div class="user-tab-content">        
+	        <div class="user-questions">
+				
+				<g:each var="quest" in="${lstQ}" status="cpt">
+					<div id="question-summary-${quest.id }" class="question-summary narrow">
+			    	<div class="question-counts cp">
+			        <div class="votes">
+			            <div class="mini-counts">11</div>
+			            <div>votes</div>
+			        </div>
+			        <div title="one of the answers was accepted as the correct answer" class="status answered-accepted">
+			            <div class="mini-counts">3</div>
+			            <div>answers</div>
+			        </div>
+			        <div class="views">
+			            <div class="mini-counts">503</div>
+			            <div>views</div>
+			        </div>
+			    </div>
+			    <div class="summary">
+			        <h3>
+			        	<a title="" class="question-hyperlink" href="/question/show/${quest.id }">
+			        		${quest.title }
+			        	</a>
+			        </h3>
+			        <div class="tags t-java t-multithreading t-immutability">
+			            <a rel="tag" title="show questions tagged 'java'" class="post-tag" href="/questions/tagged/java">
+			            	java
+			            </a> 
+			            <a rel="tag" title="show questions tagged 'multithreading'" class="post-tag" href="/questions/tagged/multithreading">
+			            	multithreading
+			            </a> 
+			            <a rel="tag" title="show questions tagged 'immutability'" class="post-tag" href="/questions/tagged/immutability">
+			            	immutability
+			            </a> 
+			        </div>
+			        <div class="started">
+			            <a class="started-link" href="/questions/7886577/safe-publication-and-the-advantage-of-being-immutable-vs-effectively-immutable/?lastactivity">
+			            	<span class="relativetime" title="2011-11-07 20:28:03Z">
+			            		nov 7 '11 at 20:28
+			            	</span>
+			            </a>
+			            <a href="/users/789593/n-n">
+			            	N.N.
+			            </a> 
+			            <span dir="ltr" title="reputation score" class="reputation-score">
+			            	2,674
+			            </span>
+			        </div>
+			    </div>
+			    </div>
+		    </g:each>
+		    
+		</div>
+		</div>
+		</div>
+		
+    </g:if>
+    
+    <g:if test="${param=='tags' }">
+    	<div class="user-tab" id="user-tab-tags">
+    		<div class="subheader user-full-tab-header">
+        		<h1>
+    				<span class="count">
+    					${nbtag}
+    				</span> Tags
+				</h1>    
+        		<div class="subtabs user-tab-sorts">
+        	</div>
+    	</div>
+
+    	<div class="user-tab-content">
+	        <table class="user-tags">
+            	<tbody>
+                	<tr>                
+	                    <g:each var="cle" in="${lstT.keySet()}" status="cptcle">
+		                    <g:each var="val" in="${lstT.get(cle)}" status="cpt">
+			                    <g:if test="${cpt%4 == 0}">
+										</tr><tr>
+								</g:if>
+			                    <td>
+			                    	<div class="answer-votes" title="" onclick="window.location.href='/tag/${val.id}'">${cle }</div>
+			                    	<a href="/tag/${val.id}" class="post-tag" title="">${val.name }</a>
+			                    </td>                                                                                              
+		                    </g:each>
+	                    </g:each>                                                                                              
+	                </tr>               
+            	</tbody>
+        	</table>
+    	</div>
+		</div>
+    </g:if>
+    
+    
+    <g:if test="${param=='reput' }">
+    evo reputation
+    </g:if>
+    
+    
+    <g:if test="${param=='act' }">
+    activité
+    </g:if>
+    
+    
     <div class="user-panel-footer">
     </div>
-</div>
 </div>
 </div>
 </div>
