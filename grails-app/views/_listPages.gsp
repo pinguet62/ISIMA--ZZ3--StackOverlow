@@ -1,0 +1,33 @@
+<!-- Afficher la liste des pages disponibles -->
+<!-- @param currentPage Numéro de page courrante -->
+<!-- @param listPages Liste des numéros de page -->
+<!-- @param baseURL URL de page des liens -->
+<!-- @TODO @param baseURL URL de base -->
+
+
+
+<div class="pager fl">
+	<g:if test="${currentPage != 1}">
+		<a rel="prev" title="go to page ${currentPage-1}" href="${baseURL}?page=${currentPage-1}">
+			<span class="page-numbers prev">prev </span>
+		</a>
+	</g:if>
+	<g:each var="page" in="${listPages}">
+		<g:if test="${page != 1  &&  ! listPages.contain(page-1)}">
+			<span class="page-numbers dots">...</span>
+		</g:if>
+		<g:if test="${page == currentPage}">
+			<span class="page-numbers current">${page}</span>
+		</g:if>
+		<g:else>
+			<a title="go to page ${page}" href="${baseURL}?page=${page}">
+				<span class="page-numbers">${page}</span>
+			</a>
+		</g:else>
+	</g:each>
+	<g:if test="${currentPage != listPages.last()}">
+		<a rel="next" title="go to page ${currentPage+1}" href="${baseURL}?page=${currentPage+1}">
+			<span class="page-numbers next"> next</span>
+		</a>
+	</g:if>
+</div>

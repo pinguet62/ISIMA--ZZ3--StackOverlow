@@ -1,9 +1,16 @@
+<!-- Afficher la liste des question -->
+<!-- @param listQuestions Liste de questions -->
+<!-- @param currentPage Numéro de page courrante -->
+<!-- @param listPages Liste des numéros de page -->
+<!-- @TODO Gérer le nombre de questions par page -->
+
+
+
 <html>
 	<head>
 		<meta name="layout" content="main">
 		<title>Question</title>
 	</head>
-	
 	<body class="question-page">
 		<div id="custom-header"/>
 		<div class="container">
@@ -13,7 +20,7 @@
 					<div class="subheader">
 						<h1 id="h-all-questions">All Questions</h1>
 						<div id="tabs">
-							<!-- Tris -->
+							<a class="youarehere" title="the most recently asked questions" href="/question?sort=newest">newest</a>
 						</div>
 					</div>
 					<div id="questions">
@@ -30,7 +37,7 @@
 												<div class="viewcount">votes</div>
 											</div>
 										</div>
-										<g:if test="${question.responses == null}">
+										<g:if test="${question.responses.size() == 0}">
 											<div class="status unanswered">
 												<strong>0</strong>
 												answers
@@ -58,43 +65,43 @@
 											<g:tagIcone tag="${tag}"/>
 										</g:each>
 									</div>
-									<!-- Utilisateur -->
+									<div class="started fr">
+										<div class="user-info">
+											<div class="user-action-time">
+												asked
+												<span class="relativetime" title="2013-02-01 10:48:05Z">
+													${question.date}
+												</span>
+											</div>
+											<div class="user-gravatar32">
+												<a href="/user/${question.author.id}">
+													<div class="">
+														<img width="32" height="32" alt="" src="http://www.gravatar.com/avatar/59dce2f6c9ff5924be627f53ea740d7d?s=32&d=identicon&r=PG"></img> <!-- TODO -->
+													</div>
+												</a>
+											</div>
+											<div class="user-details">
+												<a href="/user/${question.author.id}">${question.author.name}</a>
+												<br/>
+												<span class="reputation-score" dir="ltr" title="reputation score">
+													${new fr.isima.stackoverlow.VoteService().getReputation(question.author)}
+												</span>
+												<!-- badges -->
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</g:each>
 					</div>
 					<br class="cbt"></br>
 					<div class="page-sizer fr">
-						<a class="page-numbers current" title="show 15 items per page" href="/questions?pagesize=15&sort=newest">15</a>
-						<a class="page-numbers " title="show 30 items per page" href="/questions?pagesize=30&sort=newest">30</a>
-						<a class="page-numbers " title="show 50 items per page" href="/questions?pagesize=50&sort=newest">50</a>
+						<a class="page-numbers current" title="show 15 items per page" href="/StackOverlow/question?pagesize=15">15</a>
+						<a class="page-numbers " title="show 30 items per page" href="/StackOverlow/question?pagesize=30">30</a>
+						<a class="page-numbers " title="show 50 items per page" href="/StackOverlow/question?pagesize=50">50</a>
 						<span class="page-numbers desc">per page</span>
 					</div>
-					<div class="pager fl"> <!-- TODO: bug probable -->
-						<g:if test="${currentPage != 1}">
-							<a rel="prev" title="go to page ${currentPage-1}" href="/StackOverlow/question/all/${currentPage-1}">
-								<span class="page-numbers prev">prev </span>
-							</a>
-						</g:if>
-						<g:each var="page" in="${listPages}">
-							<g:if test="${page != 1  &&  ! listPages.contain(page-1)}">
-								<span class="page-numbers dots">...</span>
-							</g:if>
-							<g:if test="${page == courrentPage}">
-								<span class="page-numbers current">${page}</span>
-							</g:if>
-							<g:else>
-								<a title="go to page ${page}" href="/StackOverlow/question/all/${page}">
-									<span class="page-numbers">${page}</span>
-								</a>
-							</g:else>
-						</g:each>
-						<g:if test="${currentPage != listPages.last()}">
-							<a rel="next" title="go to page ${currentPage+1}" href="/StackOverlow/question/all/${currentPage+1}">
-								<span class="page-numbers next"> next</span>
-							</a>
-						</g:if>
-					</div>
+					<g:render template="/listPages" model="[currentPage: currentPage, listPages: listPages, baseURL: '/StackOverlow/question']"/>
 				</div>
 				<div class="sidebar">
 					<div id="questions-count" class="module">

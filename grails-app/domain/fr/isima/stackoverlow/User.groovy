@@ -9,9 +9,9 @@ class User {
 	// Attributs
 	String name
 	String mail
-	String avatarUrl;
 	String password
 	Boolean admin = false
+	String avatarUrl
 	
 	// Liens avec la BDD
 	static hasMany = [votes: Vote, messages: Message]
@@ -21,6 +21,7 @@ class User {
 		name(unique: true, minSize: 5)
 		mail(unique: true, email: true)
 		password(minSize: 5)
+		avatarUrl(nullable: true)
     }
 	
 	
@@ -31,4 +32,5 @@ class User {
 	String toString() {
 		return String.format("Name: %s, Mail: %s, Password: %s, Admin: %s", name, mail, password, admin.toString())
 	}
+	
 }

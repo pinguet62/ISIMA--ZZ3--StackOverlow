@@ -6,7 +6,7 @@ import com.sun.xml.internal.bind.v2.TODO;
 
 /**
  * Controller of User's pages
- * @author Julien
+ * @author Pierre
  */
 class UserController {
 	
@@ -65,6 +65,9 @@ class UserController {
 	 *         null if he is not connected
 	 */
 	static def getUser() {
+		// DEBUG
+		return User.get(1)
+		
 		return new UserController().session.user
 	}
 	

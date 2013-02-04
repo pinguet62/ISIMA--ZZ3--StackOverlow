@@ -11,19 +11,26 @@ class UrlMappings {
 		
 		
 		// Question
-		"/question/error"(view: "/question/error")
-		"/question/new"(view: "/question/new")
-		"/question/create/$id"(controller: "question", action: "create")
-		"/question/delete/$id"(controller: "question", action: "delete")
-		"/question/$id"(controller: "question", action: "show")
-		"/question/all/"(controller: "question", action: "all") // page 1
-		"/question/all/$page"(controller: "question", action: "all")
-		
-		
-		// Response
-		"/response/create/$id"(controller: "response", action: "create")
-		"/response/delete/$id"(controller: "response", action: "delete")
-		
+		// - afficher
+		"/question?"(controller: "question", action: "all")
+		"/question/$id"(controller: "question", action: "show") {
+			constraints {
+				id matches: /[0-9]+/
+			}
+		}
+		// - répondre
+		"/question/$id/answer"(controller: "question", action: "answer_submit") {
+			constraints {
+				id matches: /[0-9]*/
+			}
+		}
+		// - créer
+		"/question/ask"(controller: "question", action: "ask")
+		"/question/ask/submit"(controller: "question", action: "ask_submit")
+		// - éditer
+		// TODO
+		// - supprimer
+		// TODO
 		
 		// User
 		"/user/error"(view: "/user/error")
