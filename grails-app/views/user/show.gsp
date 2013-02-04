@@ -48,27 +48,49 @@
 
     <div class="subheader user-tabs-nav">
         <div id="tabs">
-            <a class="youarehere" href="/users/2017180/kendo-ja?tab=summary" title="this user's overall summary">
-                summary
-            </a>
-            <a href="/users/2017180/kendo-ja?tab=answers" title="answers this user has provided">
-                answers
-            </a>
-            <a href="/users/2017180/kendo-ja?tab=questions" title="questions this user has asked">
-     			questions
-            </a>
-            <a href="/users/2017180/kendo-ja?tab=tags" title="tags this user has posts in">
-                tags
-            </a>
-            <a href="/users/2017180/kendo-ja?tab=reputation" title="reputation this user has earned">
-                reputation
-            </a>
-            <a href="/users/2017180/kendo-ja?tab=activity" title="this user's recent activity">
-                activity
-            </a>
+        <g:if test="${param=='sum' }">
+            <a class="youarehere" href="${user.id }?tab=sum" title="this user's overall summary">summary</a>
+        </g:if>
+        <g:else>
+        	<a href="${user.id }?tab=sum" title="this user's overall summary">summary</a>
+        </g:else>
+        
+        <g:if test="${param=='answ' }">
+            <a class="youarehere" href="${user.id }?tab=answ" title="answers this user has provided">answers</a>
+        </g:if>
+        <g:else>
+            <a href="${user.id }?tab=answ" title="answers this user has provided">answers</a>
+        </g:else>
+           
+           <g:if test="${param=='quest' }">
+            <a class="youarehere" href="${user.id }?tab=quest" title="questions this user has asked">questions</a>
+             </g:if>
+        <g:else>
+            <a href="${user.id }?tab=quest" title="questions this user has asked">questions</a>
+            </g:else>
+            <g:if test="${param=='tags' }">
+            <a class="youarehere" href="${user.id }?tab=tags" title="tags this user has posts in">tags</a>
+             </g:if>
+        <g:else>
+         <a href="${user.id }?tab=tags" title="tags this user has posts in">tags</a>
+        </g:else>
+            <g:if test="${param=='reput' }">
+            <a class="youarehere" href="${user.id }?tab=reput" title="reputation this user has earned">reputation</a>
+             </g:if>
+        <g:else>
+        <a href="${user.id }?tab=reput" title="reputation this user has earned">reputation</a>
+        </g:else>
+            <g:if test="${param=='act' }">
+            <a class="youarehere" href="${user.id }?tab=act" title="this user's recent activity">activity</a>
+             </g:if>
+        <g:else>
+        <a href="${user.id }?tab=act" title="this user's recent activity">activity</a>
+        </g:else>
         </div>
     </div>
 <div>
+
+ <g:if test="${param=='sum' }">
 <div id="user-panel-questions" class="user-panel user-panel-left">
     <div class="subheader">
         <h1>
@@ -144,7 +166,7 @@
 <div id="user-panel-answers" class="user-panel user-panel-left">
     <div class="subheader">
         <h1>
-        	<a href="/users/2017180/kendo-ja?tab=answers">
+        	<a href="${user.id }?tab=answ">
    				<span class="count">${lstR.size() }</span> Answers
 			</a>
 		</h1>
@@ -245,9 +267,42 @@
         </tr>
     </tbody></table>
     </div>
+    </div>
+    </g:if>
+    
+    
+    <g:if test="${param=='answ' }">
+    <div class="user-tab" id="user-tab-answers">
+    	<div class="subheader user-full-tab-header">
+        	<h1>
+    			<span class="count">${lstR.size() }</span> Answers
+			</h1>    
+    	</div>
+		<div class="user-tab-content">
+        	<div class="user-answers">
+				
+				<g:each var="rep" in="${lstR}" status="cpt">
+					<div class="answer-summary">
+						<div title="total number of votes for this answer, which was accepted as the correct answer by the question owner" class="answer-votes answered-accepted            large" onclick="window.location.href='/questions/11185321/when-should-null-values-of-boolean-be-used/11185400#11185400'">
+	        				${new fr.isima.stackoverlow.VoteService().getNbVoteStatic(rep) }
+	    				</div>
+						<div class="answer-link">
+							<a class="answer-hyperlink " href="/question/${rep.question.id}">
+								${rep.question.title }
+							</a>
+						</div>
+					</div>
+				</g:each>
+					
+        	</div>
+    	</div>
+
+	</div>
+    </g:if>
+    
+    
     <div class="user-panel-footer">
     </div>
-</div>
 </div>
 </div>
 </div>

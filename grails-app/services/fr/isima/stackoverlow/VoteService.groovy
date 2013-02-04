@@ -58,6 +58,12 @@ class VoteService {
 	}
 	
 	
+	static def getNbVoteStatic(MessageVotable message)
+	{
+		List<Vote> tmp = Vote.findAllByMessageVotable(message) 
+		return tmp.size()//.size();
+	}
+	
 	/**
 	 * Vote up
 	 * @param message the message
