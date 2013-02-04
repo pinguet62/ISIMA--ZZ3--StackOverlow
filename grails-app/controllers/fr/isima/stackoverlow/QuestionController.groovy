@@ -74,16 +74,16 @@ class QuestionController {
 	
 	
 	/**
-	 * Créer une réponse
-	 * @param TODO
-	 * @return Page de la question
+	 * Afficher la liste des questions
+	 * @param page Numéro de page
+	 * @return Liste
 	 */
 	def answer_submit() {
 		
-		
 		// Passage obligatoire par le formulaire
 		if (params["post-text"] == null)
-			return render(view: "/question/ask")
+			return render(view: "/question/ask", model: [listErreurs: ["body is missing"]])
+		
 		
 	}
 	

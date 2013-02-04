@@ -10,18 +10,39 @@ class QuestionService extends MessageVotableService {
 	
 	/**
 	 * Obtenir la liste des questions, triée par ordre décroissant
-	 * @param offset Id de la première question
-	 * @param max Nombre de questions
+	 * @param premier Id de la première question
+	 * @param dernier Id de la dernière question
 	 * @return Liste de questions
 	 * @exception IllegalArgumentException Indices incorrects
 	 * @TODO
 	 */
-	def getDesc(int offset, int max) {
+	def getDesc(int premier, int dernier) {
 		// Tests
-		if (offset < 0 || max <= 0)
+		if (premier < 0 || dernier < premier)
 			throw new IllegalArgumentException("Indices incorrects")
 		
-		return Question.findAll([offset: offset, max: max, order: "desc"])
+		int nb = dernier - premier + 1
+		List<Question> listTags = Question.findAll([offset: premier, max: nb, order: "desc"])
+		return listTags
+	}
+	
+	
+	
+	
+	def getQuestionFromUser(User user)
+	{
+		List<Question> lst = Question.list()
+		List<Question> ret = new ArrayList<Question>();
+		for (Question q : lst) 
+		{
+			Message m = (Message)q
+			User auth = m.author
+			if(auth.id == user.id)
+			{
+				ret.add(q)
+			}	
+		}
+		return ret
 	}
 	
 	

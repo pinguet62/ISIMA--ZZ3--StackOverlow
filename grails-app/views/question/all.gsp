@@ -12,7 +12,7 @@
 		<title>Question</title>
 	</head>
 	<body class="question-page">
-		<div id="custom-header"></div>
+		<div id="custom-header"/>
 		<div class="container">
 			<g:render template="/header" model="[locality: 'question']"/>
 			<div id="content">
@@ -96,9 +96,9 @@
 					</div>
 					<br class="cbt"></br>
 					<div class="page-sizer fr">
-						<a class="page-numbers current" title="show 15 items per page" href="/StackOverlow/question/all?page=${currentPage}&pagesize=15">15</a>
-						<a class="page-numbers " title="show 30 items per page" href="/StackOverlow/question/all?page=${currentPage}&pagesize=30">30</a>
-						<a class="page-numbers " title="show 50 items per page" href="/StackOverlow/question/all?page=${currentPage}&pagesize=50">50</a>
+						<a class="page-numbers current" title="show 15 items per page" href="/StackOverlow/question?pagesize=15">15</a>
+						<a class="page-numbers " title="show 30 items per page" href="/StackOverlow/question?pagesize=30">30</a>
+						<a class="page-numbers " title="show 50 items per page" href="/StackOverlow/question?pagesize=50">50</a>
 						<span class="page-numbers desc">per page</span>
 					</div>
 					<g:render template="/listPages" model="[currentPage: currentPage, listPages: listPages, baseURL: '/StackOverlow/question']"/>

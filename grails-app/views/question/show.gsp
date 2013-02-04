@@ -22,7 +22,7 @@
 						<table>
 							<tr>
 								<td class="votecell">
-									<g:render template="/question/voteCell" model="[message: question]"/>
+									<g:render template="/question/voteCell" model="[message: message]"/>
 								</td>
 								<td class="postcell">
 									<div class="post-text">
@@ -88,7 +88,7 @@
 										<tbody>
 											<tr>
 												<td class="votecell">
-													<g:render template="/question/voteCell" model="[message: response]"/>
+													<g:render template="/question/voteCell" model="[message: message]"/>
 												</td>
 												<td class="answercell">
 													<div class="post-text">

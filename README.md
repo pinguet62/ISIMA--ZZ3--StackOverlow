@@ -121,3 +121,12 @@ Fichier .gitgnore :
 <g:javascript src="jquery-layout.js"/>
 <g:javascript src="jquery-ui.js"/>
 
+
+
+<g:if test="${user.avatarUrl==null}">
+											<g:img dir="images" file="avatar.jpg" width="48" height="48"/>
+										</g:if>
+										<g:else>
+											<!--<g:img dir="" file="${user.avatarUrl}" width="48" height="48"/>-->
+										</g:else>
+										

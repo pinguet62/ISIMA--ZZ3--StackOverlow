@@ -34,14 +34,14 @@ class UrlMappings {
 		
 		// User
 		"/user/error"(view: "/user/error")
-		"/user/new"(view: "/user/new")
+		"/user/new"(view: "/user/newUser")
 		"/user/create"(controller: "user", action: "create")
 		"/user/delete"(controller: "user", action: "delete")
 		"/user/login"(controller: "user", action: "login")
 		"/user/logout"(controller: "user", action: "logout")
 		"/user/$id"(controller: "user", action: "show")
 		"/user/all"(controller: "user", action: "all") // page 1
-		"/user/all/$page"(controller: "user", action: "all")
+		//"/user/all/$page"(controller: "user", action: "all")
 		
 		
 		// Tag
@@ -54,7 +54,7 @@ class UrlMappings {
 		"/users/logout"(controller: "user", action: "logout")
 		
 		
-		"/"(view: "/index")
+		"/"(controller: "question", action: "all")
 		"500"(view: "/error")
 	}
 }
