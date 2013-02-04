@@ -2,36 +2,11 @@ package fr.isima.stackoverlow
 
 import fr.isima.stackoverlow.ServiceException
 
-// TODO
+/**
+ * Gestion des votes
+ * @author Julien
+ */
 class VoteService {
-	
-	/**
-	 * Compute the mark of a user
-	 * @param user the user
-	 * @return mark
-	 */
-	def getMark(User user) {
-		int note = 0
-		for (Vote vote : Vote.list())
-			if (vote.messageVotable.author.equals(user))
-				note += vote.mark
-		return note
-	}
-	def getReputation(User user) {
-		int rep = 0
-		Vote.all.each { vote->
-			if (vote.messageVotable.author.id == user.id)
-				rep += vote.mark
-		}
-		return rep
-		
-		/*def res = Vote.executeQuery("SELECT sum(v.mark) FROM Vote AS v AND Question AS q WHERE v.messageVotable = q AND q.author = :u", [u: user])
-		if (res[0] == null)
-			return 0
-		else
-			return res[0]*/
-	}
-	
 	
 	def getDetailedReput(User user)
 	{
@@ -49,25 +24,41 @@ class VoteService {
 		return ret
 	}
 	
+	
 	/**
-	 * Compute the mark of a message
-	 * @param message the message
-	 * @return the mark
+	 * Obtenir la réputation d'un utilisateur
+	 * @param user Utilisateur
+	 * @return Réputation
+	 * @TODO Optimiser avec du SQL
+	 * @author Julien
 	 */
-	def getMark(MessageVotable message) {
-		return VoteService.getMarkStatic(message)
+	def getReputation(User user) {
+		int rep = 0
+		Vote.all.each { vote->
+			if (vote.messageVotable.author.id == user.id)
+				rep += vote.mark
+		}
+		return rep
+		
+		/*def res = Vote.executeQuery("SELECT sum(v.mark) FROM Vote AS v AND Question AS q WHERE v.messageVotable = q AND q.author = :u", [u: user])
+		if (res[0] == null)
+			return 0
+		else
+			return res[0]*/
 	}
 	
 	
 	/**
-	 * Compute the mark of a message but static
+	 * Compute the mark of a message
 	 * @param message the message
 	 * @return the mark
+	 * @author Julien
 	 */
-	static def getMarkStatic(MessageVotable message) {
+	def getMark(MessageVotable message) {
 		int note = 0
-		Vote.findByMessageVotable(message).each {
-			note += it.mark
+		Vote.all.each { vote->
+			if (vote.messageVotable.id == message.id)
+				note += vote.mark
 		}
 		return note
 	}
@@ -78,6 +69,7 @@ class VoteService {
 	 * @param message the message
 	 * @param user the user
 	 * @exception ServiceException if the vote fail
+	 * @author Julien
 	 */
 	def voteUp(MessageVotable message, User user) {
 		Vote vote = Vote.findByUserAndMessageVotable(user, message)
@@ -109,7 +101,6 @@ class VoteService {
 				if (Vote.findById(vote.id) != null)
 					throw new ServiceException("Echec du vote")
 		}
-		
 	}
 	
 	
@@ -118,6 +109,7 @@ class VoteService {
 	 * @param message the message to vote
 	 * @param user the vote
 	 * @exception ServiceException fail of the vote
+	 * @author Julien
 	 */
 	def voteDown(MessageVotable message, User user) {
 		Vote vote = Vote.findByUserAndMessageVotable(user, message)

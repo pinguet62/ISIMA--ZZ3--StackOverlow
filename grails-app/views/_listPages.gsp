@@ -2,7 +2,6 @@
 <!-- @param currentPage Numéro de page courrante -->
 <!-- @param listPages Liste des numéros de page -->
 <!-- @param baseURL URL de page des liens -->
-<!-- @TODO @param baseURL URL de base -->
 
 
 
@@ -13,7 +12,7 @@
 		</a>
 	</g:if>
 	<g:each var="page" in="${listPages}">
-		<g:if test="${page != 1  &&  ! listPages.contain(page-1)}">
+		<g:if test="${page != 1  &&  ! listPages.contains(page-1)}">
 			<span class="page-numbers dots">...</span>
 		</g:if>
 		<g:if test="${page == currentPage}">

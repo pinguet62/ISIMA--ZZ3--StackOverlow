@@ -12,6 +12,7 @@ class TagService {
 	 * @param dernier Classement du dernier tag
 	 * @return Liste de tags
 	 * @exception IllegalArgumentException Arguments incorrects
+	 * @author Julien
 	 */
     def getAsc(int premier, int dernier) {
 		// Tests
@@ -29,6 +30,7 @@ class TagService {
 	 * @param name Nom
 	 * @return Tag
 	 * @exception ServiceException Echec de la création
+	 * @author Julien
 	 */
 	def getOrCreate(String name) {
 		Tag tag = null
@@ -38,11 +40,12 @@ class TagService {
 			return tag
 		// Créer
 		tag = new Tag(name: name)
+		// Echec
 		def obj = tag.save()
-		if (obj != null)
-			return tag
-		// Problème
-		throw new ServiceException("Echec de la création")
+		if (obj == null)
+			throw new ServiceException("Echec de la création")
+		// Ok
+		return tag
 	}
 	
 	

@@ -17,7 +17,6 @@ class BootStrap {
 		admin1.save()
 		User admin2 = new User(name: "adminustrator2Name", mail: "adminustrator2Adresse@mail.com", password: "adminustrator2Password", avatarUrl: "/avatar/01.png", admin: true)
 		admin2.save()
-		
 		// Question Q1
 		User userQ1 = new User(name: "userQ1Name", mail: "userQ1Adresse@mail.com", password: "userQ1Password", avatarUrl: "/avatar/01.png")
 		userQ1.save()
@@ -212,20 +211,16 @@ class BootStrap {
 		// Question Q3
 		User userQ3 = new User(name: "Paul Machon", mail: "paulMach@outlook.com", password: "azertyuiop")
 		userQ3.save()
-		println "ok1"
 		Question questionQ3 = new Question(title: "Probleme compilation", content: "Bonjour, grand programmeur en C, je ne parvien pas a compiler mon programme: <br> l'erreur est la suivante: missing function 'Main' in 'monAppli.c.'<br> quelqu'un peut-il m'aider?", date: new Date())
 		questionQ3.author = userQ3
 		questionQ3.save()
-		println "ok2"
 		// Tag Q3T1
 		Tag tagQ3T1 = new Tag(name: "C/C++")
 		questionQ3.addToTags(tagQ3T1)
 		tagQ3T1.save()
-		println "ok3"
 		// Question Q4
 		User userQ4 = new User(name: "Jean63", mail: "jean-retyui@outlook.com", password: "uiopaaazaze")
 		userQ4.save()
-		println "ok4"
 		Question questionQ4 = new Question(title: "Qu'est ce qu'un bean?", content: "Bonjour.\n\nJ'ai eu un cours sur les JavaBeans. Je n'ai absuloment rien compris, car ce qui se passe par la fenetre etait bien plus interessant !!!\nQuelqu'un peut-il m'expliquer rapidement? vite car j'ai piscine dans 15 minute.\n\n>Merci, et bisous", date: new Date())
 		questionQ4.author = userQ4
 		questionQ4.save()
@@ -233,7 +228,6 @@ class BootStrap {
 		Tag tagQ4T1 = new Tag(name: "JAVA")
 		questionQ4.addToTags(tagQ4T1)
 		tagQ4T1.save()
-		
 		
 		println "BDD initiate :"
 		println "- " + User.count + " users"

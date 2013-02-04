@@ -2,7 +2,7 @@
 <!-- @param listQuestions Liste de questions -->
 <!-- @param currentPage Numéro de page courrante -->
 <!-- @param listPages Liste des numéros de page -->
-<!-- @TODO Gérer le nombre de questions par page -->
+<!-- @param pagesize Nombre de questions par page -->
 
 
 
@@ -96,9 +96,9 @@
 					</div>
 					<br class="cbt"></br>
 					<div class="page-sizer fr">
-						<a class="page-numbers current" title="show 15 items per page" href="/StackOverlow/question?pagesize=15">15</a>
-						<a class="page-numbers " title="show 30 items per page" href="/StackOverlow/question?pagesize=30">30</a>
-						<a class="page-numbers " title="show 50 items per page" href="/StackOverlow/question?pagesize=50">50</a>
+						<a class="page-numbers ${pagesize==15 ? 'current' : ''}" title="show 15 items per page" href="/StackOverlow/question?pagesize=15">15</a>
+						<a class="page-numbers ${pagesize==30 ? 'current' : ''}" title="show 30 items per page" href="/StackOverlow/question?pagesize=30">30</a>
+						<a class="page-numbers ${pagesize==50 ? 'current' : ''}" title="show 50 items per page" href="/StackOverlow/question?pagesize=50">50</a>
 						<span class="page-numbers desc">per page</span>
 					</div>
 					<g:render template="/listPages" model="[currentPage: currentPage, listPages: listPages, baseURL: '/StackOverlow/question']"/>

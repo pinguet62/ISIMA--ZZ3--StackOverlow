@@ -19,9 +19,9 @@ class UrlMappings {
 			}
 		}
 		// - répondre
-		"/question/$id/answer"(controller: "question", action: "answer_submit") {
+		"/question/$id/answer/submit"(controller: "question", action: "answer_submit") {
 			constraints {
-				id matches: /[0-9]*/
+				id matches: /[0-9]+/
 			}
 		}
 		// - créer

@@ -1,3 +1,7 @@
+<!-- Message indiquant que la question a été supprimée par un modérateur -->
+
+
+
 <html>
 	<head>
 		<meta name="layout" content="main">

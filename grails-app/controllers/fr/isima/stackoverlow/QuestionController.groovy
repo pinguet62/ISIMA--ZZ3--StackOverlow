@@ -12,8 +12,14 @@ class QuestionController {
 	 * @param pagesize Nombre de questions par page
 	 * @return Page des questions <br/>
 	 *         Page d'erreur si inexistante
+	 * @author Julien
 	 */
 	def all() {
+		// DEBUG
+		User user = new User(name: "userDebugName", mail: "userDebugAdresse@mail.com", password: "userDebugPassword")
+		user.save()
+		session.user = user
+		
 		// Paramètres
 		// - numéro de page
 		int page = 1
@@ -45,7 +51,7 @@ class QuestionController {
 		int totalPages = Math.ceil(Question.count / pagesize)
 		def listPages = new Application().getListPages(page, totalPages)
 		
-		return render(view: "/question/all", model: [listQuestions: listQuestions, currentPage: page, listPages: listPages])
+		return render(view: "/question/all", model: [listQuestions: listQuestions, currentPage: page, listPages: listPages, pagesize: pagesize])
 	}
 	
 	
@@ -54,16 +60,16 @@ class QuestionController {
 	 * @param id Identifiant de la question
 	 * @return Page de la question <br/>
 	 *         Page d'erreur si inexistante
+	 * @author Julien
 	 */
     def show() {
-		Question question = Question.findById(params.id)
-		
 		// DEBUG
 		User user = new User(name: "userDebugName", mail: "userDebugAdresse@mail.com", password: "userDebugPassword")
 		user.save()
 		session.user = user
 		
-		// Inexistante
+		// Question
+		Question question = Question.findById(params.id)
 		if (question == null) {
 			return render(view: "/question/nonexistent")
 		} else if (! question.display)
@@ -75,27 +81,52 @@ class QuestionController {
 	
 	/**
 	 * Afficher la liste des questions
-	 * @param page Numéro de page
-	 * @return Liste
+	 * @param id Identifiant de la question
+	 * @param response-content Contenu de la réponse
+	 * @return Page de la question
+	 * @author Julien
 	 */
 	def answer_submit() {
+		if (! UserController.isConnected())
+			redirect(url: "/user/login")
 		
-		// Passage obligatoire par le formulaire
-		if (params["post-text"] == null)
-			return render(view: "/question/ask", model: [listErreurs: ["body is missing"]])
+		// Question
+		Question question = Question.findById(params.id)
+		if (question == null) {
+			return render(view: "/question/nonexistent")
+		} else if (! question.display)
+			return render(view: "/question/moderationDeleted")
 		
+		// Vérifier le formulaire
+		if (params["response-content"] == null  ||  params["response-content"] == "")
+			return render(view: "/question/show", model: [question: question, listErreurs: ["body is missing"]])
 		
+		try {
+			// Créer la réponse
+			Response response = new Response(content: params["response-content"], date: new Date())
+			response.author = UserController.getUser()
+			response.question = question
+			// Sauvegarder
+			ResponseService rService = new ResponseService()
+			rService.create(response)
+			// Affichage
+			redirect(url: "/question/"+question.id)
+		} catch (ServiceException e) {
+			return render(view: "/question/show", model: [question: question, listErreurs: [e.getMessage()]])
+		}
 	}
 	
 	
 	/**
 	 * Créer une question
 	 * Vérifier que l'utilisateur est connecté
-	 * @return Page du formulaire
+	 * @return Page du formulaire <br/>
+	 *         Page de connexion si l'utilisateur n'est pas connecté
+	 * @author Julien
 	 */
 	def ask() {
 		if (! UserController.isConnected())
-			return render(view: "/user/login")
+			redirect(url: "/user/login")
 		
 		return render(view: "/question/ask")
 	}
@@ -107,10 +138,15 @@ class QuestionController {
 	 * @param title Titre
 	 * @param post-text Contenu
 	 * @param listTags Liste des tags
-	 * @return Page de la question
+	 * @return Page de la question <br/>
+	 *         Page du formulaire si erreur
+	 * @author Julien
 	 */
 	def ask_submit() {
-		// Tests
+		if (! UserController.isConnected())
+			redirect(url: "/user/login")
+		
+		// Vérifier le formulaire
 		def listErreurs = []
 		// - title
 		if (params.title == null  ||  params.title == "")
@@ -129,15 +165,16 @@ class QuestionController {
 			Question question = new Question(title: params.title, content: params["post-text"], date: new Date())
 			question.author = UserController.getUser()
 			TagService tService = new TagService()
-			for (String name : params.listTags.split(" +")) {
-				Tag tag = tService.getOrCreate(name)
-				question.addToTags(tag)
-			}
+			for (String name : params.listTags.split(" +"))
+				if (! name.isEmpty()) {
+					Tag tag = tService.getOrCreate(name)
+					question.addToTags(tag)
+				}
 			// Sauvegarder
 			QuestionService qService = new QuestionService()
 			qService.create(question)
 			// Affichage
-			return render(view: "/question/"+question.id)
+			redirect(url: "/question/"+question.id)
 		} catch (ServiceException e) {
 			return render(view: "/question/ask", model: [listErreurs: [e.getMessage()]])
 		}

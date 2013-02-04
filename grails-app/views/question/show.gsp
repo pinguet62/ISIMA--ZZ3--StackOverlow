@@ -1,6 +1,6 @@
 <!-- Afficher une question -->
 <!-- @param question Question -->
-<!-- @param listErreurs Liste des erreurs -->
+<!-- @param listErreurs Liste des erreurs (optionnel) -->
 
 
 
@@ -10,7 +10,7 @@
 		<title>Question</title>
 	</head>
 	<body class="question-page">
-		<div id="custom-header"/>
+		<div id="custom-header"></div>
 		<div class="container">
 			<g:render template="/header" model="[locality: 'question']"/>
 			<div id="content">
@@ -22,7 +22,7 @@
 						<table>
 							<tr>
 								<td class="votecell">
-									<g:render template="/question/voteCell" model="[message: message]"/>
+									<g:render template="/question/voteCell" model="[message: question]"/>
 								</td>
 								<td class="postcell">
 									<div class="post-text">
@@ -88,7 +88,7 @@
 										<tbody>
 											<tr>
 												<td class="votecell">
-													<g:render template="/question/voteCell" model="[message: message]"/>
+													<g:render template="/question/voteCell" model="[message: response]"/>
 												</td>
 												<td class="answercell">
 													<div class="post-text">
@@ -149,7 +149,7 @@
 							</g:if>
 						</g:each>
 						<a name="new-answer"></a>
-						<form id="post-form" action="/response/create/${question.id}" method="post" class="post-form">
+						<form id="post-form" action="/StackOverlow/question/${question.id}/answer/submit" method="post" class="post-form">
 							<h2 class="space">Your Answer</h2>
 							<div class="post-editor">
 								<div class="wmd-container">
@@ -181,7 +181,7 @@
 								<g:tagIcone tag="${tag}"/>
 							</g:each>
 							or
-							<a href="/StackOverlow/questions/ask">ask your own question</a>
+							<a href="/StackOverlow/question/ask">ask your own question</a>
 							.
 						</h2>
 					</div>

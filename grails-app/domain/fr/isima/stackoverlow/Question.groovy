@@ -10,11 +10,12 @@ class Question extends MessageVotable {
 	String title
 	
 	// Liens avec la BDD
-	static hasMany = [responses: Response, tags: Tag]
+	static hasMany = [tags: Tag, responses: Response]
 	
 	
     static constraints = {
 		title(unique: true, minSize: 1)
+		// tags(unique: true)
     }
 	
 	

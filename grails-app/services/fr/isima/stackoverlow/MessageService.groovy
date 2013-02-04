@@ -14,7 +14,7 @@ class MessageService {
 	 * @exception ServiceException Echec de la création du message
 	 */
 	def create(Message message) {
-		def obj = message.save()
+		def obj = message.save(flush: true)
 		
 		// Echec
 		if (obj == null)

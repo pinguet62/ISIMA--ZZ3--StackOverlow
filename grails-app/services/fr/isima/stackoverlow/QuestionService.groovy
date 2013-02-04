@@ -8,13 +8,29 @@ import fr.isima.stackoverlow.ServiceException
  */
 class QuestionService extends MessageVotableService {
 	
+	def create(Question question) {
+		// Champs nulls
+		if (question.responses == null)
+			question.responses = []
+		if (question.tags == null  ||  question.tags == [])
+			throw new ServiceException("Tags obligatoires")
+		
+		def obj = question.save()
+		
+		// Echec
+		if (obj == null)
+			throw new ServiceException("Echec de la création de la question")
+	}
+	
+	
 	/**
 	 * Obtenir la liste des questions, triée par ordre décroissant
 	 * @param premier Id de la première question
 	 * @param dernier Id de la dernière question
 	 * @return Liste de questions
 	 * @exception IllegalArgumentException Indices incorrects
-	 * @TODO
+	 * @TODO tri
+	 * @author Julien
 	 */
 	def getDesc(int premier, int dernier) {
 		// Tests
@@ -25,8 +41,6 @@ class QuestionService extends MessageVotableService {
 		List<Question> listTags = Question.findAll([offset: premier, max: nb, order: "desc"])
 		return listTags
 	}
-	
-	
 	
 	
 	def getQuestionFromUser(User user)
@@ -49,6 +63,7 @@ class QuestionService extends MessageVotableService {
 	/**
 	 * Cacher
 	 * @param question Question
+	 * @author Julien
 	 */
 	def disable(Question question) {
 		// Cascade
@@ -65,6 +80,7 @@ class QuestionService extends MessageVotableService {
 	 * Supprimer
 	 * @param question Question
 	 * @exception ServiceException Echec de la suppression du message
+	 * @author Julien
 	 */
 	def delete(Question question) {
 		// Cascade
