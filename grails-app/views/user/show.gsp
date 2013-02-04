@@ -402,7 +402,58 @@
     
     
     <g:if test="${param=='reput' }">
-    evo reputation
+	   <div class="user-tab" id="user-tab-reputation">
+	    	<div class="subheader user-full-tab-header">
+		        <h1>
+		    		<span class="count">${lstVR.size()}</span> Reputation
+				</h1>
+			</div>
+
+	    	<div class="user-tab-content">
+				<div class="user-rep-full">
+	    			<div id="stats">
+	        			<div class="ajax-paging-container" id="rep-page-container">
+	            			<table class="rep-table">
+	                			<tbody>
+	                   
+	                    			<tr class="loaded-body">
+	                        			<td style="height: 0px; padding: 0px;" class="body-container body-loaded" colspan="2">
+	                        				<div style="display: block;">
+												<div class="rep-breakdown">
+												
+													<table class="tbl-reputation">
+			    										<tbody>
+			    											<g:each var="v" in="${lstVR}" status="cpt">
+												                <tr>
+												                	<g:if test="${v.mark == +1 }">
+												                    	<td class="rep-amount count-cell"><span class="rep-up">+${v.mark }</span></td>
+												                    </g:if>
+												                    <g:else>
+												                    	<td class="rep-amount count-cell"><span class="rep-down ">${v.mark }</span></td>
+												                    </g:else>
+												                    <td>
+												                    	<g:if test="${v.messageVotable.hasProperty("title") }">
+												                    		<a class="answer-hyperlink " href="/question/${v.messageVotable.id }">${v.messageVotable.title }</a>
+												                    	</g:if>
+												                    	<g:else>
+												                    		<a class="answer-hyperlink " href="/question/${v.messageVotable.question.id }">${v.messageVotable.question.title }</a>
+												                    	</g:else>
+												                    </td>
+												                </tr>
+												           </g:each>
+			    										</tbody>
+			            							</table>
+		           
+		        								</div>
+	    									</div>
+	    									<!-- 
+	    									</td>  volontairement masquer 
+	    									</tr>
+	    									</table>
+	    									 -->
+										</div>
+									</div>
+								</div>
     </g:if>
     
     
