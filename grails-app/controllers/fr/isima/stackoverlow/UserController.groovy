@@ -162,7 +162,7 @@ class UserController {
 		}
 		
 		
-		return render(view: "/user/show", model: [user: user,
+		return render(view: "/user/show", model: [usersel: user,
 			reput: reput,
 			lstQ: lstQ, 
 			lstR: lstR, 

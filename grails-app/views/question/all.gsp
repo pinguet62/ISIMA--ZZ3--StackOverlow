@@ -74,7 +74,7 @@
 											<div class="user-gravatar32">
 												<a href="/user/${question.author.id}">
 													<div class="">
-														<g:img dir="images/avatar" file="default.jpg" width="32" height="32"/>
+														<g:avatar user="${question.author}"/>
 													</div>
 												</a>
 											</div>

@@ -52,7 +52,7 @@
 														<div class="user-gravatar32">
 															<a href="/StackOverlow/user/${question.author}">
 																<div class="">
-																	<g:img dir="images/avatar" file="default.jpg" width="32" height="32"/>
+																	<g:avatar user="${question.author}"/>
 																</div>
 															</a>
 														</div>
@@ -117,7 +117,7 @@
 																		<div class="user-gravatar32">
 																			<a href="/StackOverlow/user/${response.author}">
 																				<div class="">
-																					<g:img dir="images/avatar" file="default.jpg" width="32" height="32"/>
+																					<g:avatar user="${response.author}"/>
 																				</div>
 																			</a>
 																		</div>

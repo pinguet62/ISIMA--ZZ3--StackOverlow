@@ -1,7 +1,7 @@
 <!-- En-tête des pages web -->
 <!-- @param locality Section du site : 'questions', 'tag', 'user', 'askquestion' -->
 
-
+<link rel="stylesheet" type="text/css" href="${resource(dir:'css', file:'style.css')}">
 
 <div id="header">
 	<div id="portalLink">
