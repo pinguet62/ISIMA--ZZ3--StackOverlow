@@ -445,34 +445,80 @@
     
     <g:if test="${param=='act' }">
     	
-    	<g:each var="cle" in="${lstA.keySet()}" status="cptcle">
-		    ${cle }
-		    <br>
-		    <g:each var="val" in="${lstA.get(cle)}" status="cpt">
-    			<g:if test="${val.hasProperty("title")}">
-    				Post a new question: ${val.title}
-    			</g:if>
-    			
-    			<g:if test="${val.hasProperty("question")}">
-    				Post a response in question: ${val.question.title}
-    			</g:if>
-    			
-    			<g:if test="${val.hasProperty("messageVotable")}">
-	    			<g:if test="${val.messageVotable.hasProperty("title")}">
-	    				comment the question: ${val.messageVotable.title}
-	    			</g:if>
-	    			
-	    			<g:if test="${val.messageVotable.hasProperty("question")}">
-	    				comment a response in question: ${val.messageVotable.question.title}
-	    			</g:if>
-	    		</g:if>
-    			
-    			
-    			<br>
-			</g:each>
-			<br>
-		</g:each>
     	
+    	
+    	
+    	<div class="user-tab" id="user-tab-reputation">
+	    	<div class="subheader user-full-tab-header">
+		        <h1>
+		    		<span class="count">${lstA.keySet().size()}</span> Day(s) of activity
+				</h1>
+			</div>
+
+	    	<div class="user-tab-content">
+				<div class="user-rep-full">
+	    			<div id="stats">
+	        			<div class="ajax-paging-container" id="rep-page-container">
+	            			<table class="rep-table">
+	                			<tbody>
+	                   
+	                    			<tr class="loaded-body">
+	                        			<td style="height: 0px; padding: 0px;" class="body-container body-loaded" colspan="2">
+	                        				<div style="display: block;">
+												<div class="rep-breakdown">
+												
+													<table class="tbl-reputation">
+			    										<tbody>
+			    											<g:each var="cle" in="${lstA.keySet()}" status="cptcle">
+			    											<g:each var="val" in="${lstA.get(cle)}" status="cpt">
+			    											
+												                <tr>
+												                    <td class="rep-time" title="${cle }">${cle }</td>
+												                    
+																	
+																	
+																	
+																	<g:if test="${val.hasProperty("title")}">
+													    				<td class="rep-desc">Post a new question: ${val.title}</td>
+													    			</g:if>
+													    			
+													    			<g:if test="${val.hasProperty("question")}">
+													    				<td class="rep-desc">Post a response in question: ${val.question.title}</td>
+													    			</g:if>
+													    			
+													    			<g:if test="${val.hasProperty("messageVotable")}">
+														    			<g:if test="${val.messageVotable.hasProperty("title")}">
+														    				<td class="rep-desc">comment the question: ${val.messageVotable.title}</td>
+														    			</g:if>
+														    			
+														    			<g:if test="${val.messageVotable.hasProperty("question")}">
+														    				<td class="rep-desc">comment a response in question: ${val.messageVotable.question.title}</td>
+														    			</g:if>
+														    		</g:if>
+																	
+																	
+																	
+																	
+												                    
+												                    
+												                </tr>
+												        	<br>
+															</g:each>
+		
+														</g:each>
+			    										</tbody>
+			            							</table>
+		           
+		        								</div>
+	    									</div>
+	    									<!-- </td>  volontairement masquer 	</tr></table> -->
+										</div>
+									</div>
+								</div>
+    	
+    	
+  
+
     	
     </g:if>
     
