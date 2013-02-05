@@ -45,15 +45,23 @@
 			if(checkUrlProfile()==false)
 			{
 				document.getElementById('labProfile').style.color='red';
+				document.getElementById('profile').style.color='red';
 				document.getElementById('labProfile').innerHTML ='URL invalide';
 				ret= false;	
 			}
 
+
+			if(ret)
+			{
+				document.forms['monForm'].submit();
+			}
+			
 			return ret; // j'empêche le navigateur de soumettre lui-même le formulaire
         });
     });
 
     var reg = new RegExp('^[a-z0-9]+([_|\.|-]{1}[a-z0-9]+)*@[a-z0-9]+([_|\.|-]{1}[a-z0-9]+)*[\.]{1}[a-z]{2,6}$', 'i');
+    var regUrl = new RegExp('.*', 'i');
     function checkEmail(email)
     {
     	
@@ -74,7 +82,7 @@
 
 	function checkUrlProfile(url)
 	{
-		if(url.length>0)
+		if(regUrl.test(url))
 			return true;
 		else
 			return false;

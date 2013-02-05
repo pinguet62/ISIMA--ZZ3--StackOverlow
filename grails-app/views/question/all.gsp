@@ -79,7 +79,7 @@
 												</a>
 											</div>
 											<div class="user-details">
-												<a href="/user/${question.author.id}">${question.author.name}</a>
+												<a href="/StackOverlow/user/${question.author.id}">${question.author.name}</a>
 												<br/>
 												<span class="reputation-score" dir="ltr" title="reputation score">
 													${new fr.isima.stackoverlow.VoteService().getReputation(question.author)}

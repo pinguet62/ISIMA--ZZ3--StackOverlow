@@ -93,7 +93,7 @@
 <div id="user-panel-questions" class="user-panel user-panel-left">
     <div class="subheader">
         <h1>
-        	<a href="/users/2017180/kendo-ja?tab=questions">
+        	<a href="/user/${usersel.id }?tab=questions">
     			<span class="count">${lstQ.size() }</span> Questions
 			</a>
 		</h1>
@@ -106,7 +106,7 @@
 	            <g:each var="q" in="${lstQ4}" status="cpt">
 	                <tr>
 	                    
-	                    <td class="question-hyperlink" title="${q.title }"><a href="/question/${q.id }" class="question-hyperlink">${q.title }</a></td>
+	                    <td class="question-hyperlink" title="${q.title }"><a href="/StackOverlow/question/${q.id }" class="question-hyperlink">${q.title }</a></td>
 	                </tr>
 	                </g:each>
 	           
@@ -123,7 +123,7 @@
 <div id="user-panel-reputation" class="user-panel">
     <div class="subheader">
         <h1>
-        	<a href="/users/2017180/kendo-ja?tab=reputation">
+        	<a href="/user/${usersel.id }">
     			<span class="count">${reput}</span> Reputation
 			</a>
 		</h1>
@@ -143,10 +143,10 @@
 	                    </g:else>
 	                    <td>
 	                    	<g:if test="${v.messageVotable.hasProperty("title") }">
-	                    		<a class="answer-hyperlink " href="/question/${v.messageVotable.id }">${v.messageVotable.title }</a>
+	                    		<a class="answer-hyperlink " href="/StackOverlow/question/${v.messageVotable.id }">${v.messageVotable.title }</a>
 	                    	</g:if>
 	                    	<g:else>
-	                    		<a class="answer-hyperlink " href="/question/${v.messageVotable.question.id }">${v.messageVotable.question.title }</a>
+	                    		<a class="answer-hyperlink " href="/StackOverlow/question/${v.messageVotable.question.id }">${v.messageVotable.question.title }</a>
 	                    	</g:else>
 	                    </td>
 	                </tr>
@@ -178,7 +178,7 @@
 	            <g:each var="r" in="${lstR4}" status="cpt">
 	                <tr>
 	                	<td class="count-cell"><div class="mini-counts answered-accepted">${new fr.isima.stackoverlow.VoteService().getNbVoteStatic(r) }</div></td>
-	                    <td title="${r.question.title }" class="answer-hyperlink"><a class="answer-hyperlink " href="/question/${r.question.id }">${r.question.title }</a></td>
+	                    <td title="${r.question.title }" class="answer-hyperlink"><a class="answer-hyperlink " href="/StackOverlow/question/${r.question.id }">${r.question.title }</a></td>
 	                </tr>
 	                </g:each>
 	            </g:if>
@@ -196,7 +196,7 @@
 <div id="user-panel-tags" class="user-panel">
     <div class="subheader">
         <h1>
-        	<a href="/users/2017180/kendo-ja?tab=tags">
+        	<a href="/user/${usersel.id }?tab=tags">
     			<span class="count">${nbtag }</span> Tags
 			</a>
 		</h1>
@@ -212,8 +212,8 @@
 									</tr><tr>
 							</g:if>
 		                    <td>
-		                    	<div class="answer-votes" title="" onclick="window.location.href='/tag/${val.id}'">${cle }</div>
-		                    	<a href="/tag/${val.id}" class="post-tag" title="">${val.name }</a>
+		                    	<div class="answer-votes" title="" onclick="window.location.href='/StackOverlow/tag/${val.id}'">${cle }</div>
+		                    	<a href="/StackOverlow/tag/${val.id}" class="post-tag" title="">${val.name }</a>
 		                    </td>                                                                                              
 	                    </g:each>
                     </g:each>
@@ -281,11 +281,11 @@
         	<div class="user-answers">
 				<g:each var="rep" in="${lstR}" status="cpt">
 					<div class="answer-summary">
-						<div title="total number of votes for this answer, which was accepted as the correct answer by the question owner" class="answer-votes answered-accepted            large" onclick="window.location.href='/questions/11185321/when-should-null-values-of-boolean-be-used/11185400#11185400'">
+						<div title="total number of votes for this answer, which was accepted as the correct answer by the question owner" class="answer-votes answered-accepted            large" onclick="window.location.href='/StackOverlow/question/???'">
 	        				${new fr.isima.stackoverlow.VoteService().getNbVoteStatic(rep) }
 	    				</div>
 						<div class="answer-link">
-							<a class="answer-hyperlink " href="/question/${rep.question.id}">
+							<a class="answer-hyperlink " href="/StackOverlow/question/${rep.question.id}">
 								${rep.question.title }
 							</a>
 						</div>
@@ -326,20 +326,20 @@
 			    </div>
 			    <div class="summary">
 			        <h3>
-			        	<a title="" class="question-hyperlink" href="/question/show/${quest.id }">
+			        	<a title="" class="question-hyperlink" href="/StackOverlow/question/show/${quest.id }">
 			        		${quest.title }
 			        	</a>
 			        </h3>
 			        
 			        <g:each var="tag" in="${quest.tags}" status="cptTag">
 				        <div class="tags t-java t-multithreading t-immutability">
-				            <a rel="tag" title="show questions tagged '${tag.name }'" class="post-tag" href="/question/tagged/${tag.name }">
+				            <a rel="tag" title="show questions tagged '${tag.name }'" class="post-tag" href="/StackOverlow/question/tagged/${tag.name }">
 				            	${tag.name}
 				            </a> 
 				        </div>
 			        </g:each>
 			        <div class="started">
-			            <a class="started-link" href="/question/${quest.id }">
+			            <a class="started-link" href="/StackOverlow/question/${quest.id }">
 			            	<span class="relativetime" title="${quest.date.getDateString()+ " " +quest.date.getTimeString() }">
 			            		${quest.date.getDateString()+ " " +quest.date.getTimeString() } 
 			            	</span>
@@ -378,8 +378,8 @@
 										</tr><tr>
 								</g:if>
 			                    <td>
-			                    	<div class="answer-votes" title="" onclick="window.location.href='/tag/${val.id}'">${cle }</div>
-			                    	<a href="/tag/${val.id}" class="post-tag" title="">${val.name }</a>
+			                    	<div class="answer-votes" title="" onclick="window.location.href='/StackOverlow/tag/${val.id}'">${cle }</div>
+			                    	<a href="/StackOverlow/tag/${val.id}" class="post-tag" title="">${val.name }</a>
 			                    </td>                                                                                              
 		                    </g:each>
 	                    </g:each>                                                                                              
@@ -423,10 +423,10 @@
 												                    </g:else>
 												                    <td>
 												                    	<g:if test="${v.messageVotable.hasProperty("title") }">
-												                    		<a class="answer-hyperlink " href="/question/${v.messageVotable.id }">${v.messageVotable.title }</a>
+												                    		<a class="answer-hyperlink " href="/StackOverlow/question/${v.messageVotable.id }">${v.messageVotable.title }</a>
 												                    	</g:if>
 												                    	<g:else>
-												                    		<a class="answer-hyperlink " href="/question/${v.messageVotable.question.id }">${v.messageVotable.question.title }</a>
+												                    		<a class="answer-hyperlink " href="/StackOverlow/question/${v.messageVotable.question.id }">${v.messageVotable.question.title }</a>
 												                    	</g:else>
 												                    </td>
 												                </tr>
@@ -479,20 +479,24 @@
 																	
 																	
 																	<g:if test="${val.hasProperty("title")}">
-													    				<td class="rep-desc">Post a new question: ${val.title}</td>
+													    				<td class="rep-desc">Post a question</td>
+													    				<td class="rep-link"><a class="answer-hyperlink " href="/StackOverlow/question/${val.id}">${val.title}</a></td>
 													    			</g:if>
 													    			
 													    			<g:if test="${val.hasProperty("question")}">
-													    				<td class="rep-desc">Post a response in question: ${val.question.title}</td>
+													    				<td class="rep-desc">Post a response</td>
+													    				<td class="rep-link"><a class="answer-hyperlink " href="/StackOverlow/question/${val.question.id}">${val.question.title}</a></td>
 													    			</g:if>
 													    			
 													    			<g:if test="${val.hasProperty("messageVotable")}">
 														    			<g:if test="${val.messageVotable.hasProperty("title")}">
-														    				<td class="rep-desc">comment the question: ${val.messageVotable.title}</td>
+														    				<td class="rep-desc">comment a question</td>
+														    				<td class="rep-link"><a class="answer-hyperlink " href="/StackOverlow/question/${val.messageVotable.id}">${val.messageVotable.title}</a></td>
 														    			</g:if>
 														    			
 														    			<g:if test="${val.messageVotable.hasProperty("question")}">
-														    				<td class="rep-desc">comment a response in question: ${val.messageVotable.question.title}</td>
+														    				<td class="rep-desc">comment a response</td>
+														    				<td class="rep-link"><a class="answer-hyperlink " href="/StackOverlow/question/${val.messageVotable.question.id}">${val.messageVotable.question.title}</a></td>
 														    			</g:if>
 														    		</g:if>
 																	
