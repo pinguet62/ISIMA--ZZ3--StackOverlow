@@ -69,22 +69,12 @@
 										<div class="user-info">
 											<div class="user-action-time">
 												asked
-												<span class="relativetime" title="2013-02-01 10:48:05Z">
-													${question.date}
-												</span>
+												<g:dateFormatee date="${question.date}"/>
 											</div>
 											<div class="user-gravatar32">
 												<a href="/user/${question.author.id}">
 													<div class="">
-																		<g:if test="${!question.author.avatarUrl}">
-											<g:img dir="images/avatar" file="default.jpg" width="32" height="32"/>
-										</g:if>
-										<g:elseif test="${question.author.avatarUrl.substring(0, 4).equals('http')}">
-											<img src="${question.author.avatarUrl}" alt="" width="32" height="32">
-										</g:elseif>
-										<g:else>
-											<g:img dir="" file="${question.author.avatarUrl}" width="32" height="32"/>
-										</g:else>
+														<g:avatar user="${question.author}"/>
 													</div>
 												</a>
 											</div>

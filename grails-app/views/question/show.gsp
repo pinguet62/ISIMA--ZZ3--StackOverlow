@@ -38,21 +38,21 @@
 											<tr>
 												<td class="vt">
 													<div class="post-menu">
-														<g:if test="${true}"> <!-- TODO -->
-															<a class="suggest-edit-post" title="revise and improve this post" href="/StackOverlow/question/${question.id}/edit">edit</a>
-														</g:if>
+														<a class="suggest-edit-post" title="revise and improve this post" href="/StackOverlow/question/${question.id}/edit">edit</a>
+														<span class="lsep"> | </span>
+														<a class="suggest-edit-post" title="remove this post" href="/StackOverlow/question/${question.id}/delete">delete</a>
 													</div>
 												</td>
 												<td class="post-signature owner">
 													<div class="user-info user-hover">
 														<div class="user-action-time">
 															asked
-															<span class="relativetime" title="2010-01-19 20:40:56Z">${question.date}</span>
+															<g:dateFormatee date="${question.date}"/>
 														</div>
 														<div class="user-gravatar32">
 															<a href="/StackOverlow/user/${question.author}">
 																<div class="">
-																	<img width="32" height="32" alt="" src="http://www.gravatar.com/avatar/b02cab91fb3c5604163c116c494de2a5?s=32&d=identicon&r=PG"></img>
+																	<g:avatar user="${question.author}"/>
 																</div>
 															</a>
 														</div>
@@ -80,7 +80,9 @@
 										${question.responses.size()} Answers
 									</g:if>
 								</h2>
-								<!-- Tri -->
+								<div id="tabs">
+									<a class="youarehere" title="Answers in the order they were provided" href="/StackOverlow/question/2096891?answertab=oldest">oldest</a>
+								</div>
 							</div>
 						</div>
 						<g:each var="response" in="${question.responses}">
@@ -102,18 +104,20 @@
 																<td class="vt">
 																	<div class="post-menu">
 																		<a class="suggest-edit-post" title="revise and improve this post" href="/StackOverlow/response/${response.id}/edit">edit</a>
+																		<span class="lsep"> | </span>
+																		<a class="suggest-edit-post" title="remove this post" href="/StackOverlow/response/${response.id}/delete">delete</a>
 																	</div>
 																</td>
 																<td class="post-signature owner">
 																	<div class="user-info user-hover">
 																		<div class="user-action-time">
 																			answered
-																			<span class="relativetime" title="2010-01-19 20:40:56Z">${response.date}</span>
+																			<g:dateFormatee date="${response.date}"/>
 																		</div>
 																		<div class="user-gravatar32">
 																			<a href="/StackOverlow/user/${response.author}">
 																				<div class="">
-																					<img width="32" height="32" alt="" src="http://www.gravatar.com/avatar/b02cab91fb3c5604163c116c494de2a5?s=32&d=identicon&r=PG"></img>
+																					<g:avatar user="${response.author}"/>
 																				</div>
 																			</a>
 																		</div>

@@ -71,4 +71,36 @@ class ResponseController {
 		}
 	}
 	
+	
+	/**
+	 * Supprimer une réponse
+	 * @param id Identifiant de la réponse
+	 * @return Page de la question <br/>
+	 *         Page de connexion si l'utilisateur n'est pas connecté
+	 * @author Julien
+	 */
+	def delete() {
+		// Utilisateur
+		// - connecté
+		if (! UserController.isConnected())
+			redirect(url: "/user/login")
+		
+		// Réponse
+		Response response = Response.findById(params.id)
+		if (response == null)
+			return render(view: "/question/nonexistent")
+		// Question
+		MessageService mService = new MessageService()
+		Question question = mService.getQuestion(response)
+		
+		try {
+			// Supprimer
+			ResponseService rService = new ResponseService()
+			rService.delete(response)
+		} catch (ServiceException e) {
+		}
+		
+		redirect(url: "/question/"+question.id)
+	}
+	
 }

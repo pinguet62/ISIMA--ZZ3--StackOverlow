@@ -23,11 +23,8 @@ class QuestionController {
 		// Paramètres
 		// - numéro de page
 		int page = 1
-		if (params.page != null) {
+		if (params.page != null)
 			page = params.page.toInteger()
-			session.question_page = page
-		} else if (session.question_page != null)
-			page = session.question_page
 		// - nombre de questions par page
 		int pagesize = 15
 		if (params.pagesize != null) {
@@ -41,9 +38,9 @@ class QuestionController {
 		// TODO
 		
 		// Liste des questions
-		int premier = pagesize*(page-1)
-		int quantite = pagesize
-		def listQuestions = new QuestionService().getDesc(premier, quantite)
+		int offset = pagesize*(page-1)
+		int max = pagesize
+		def listQuestions = new QuestionService().getDesc(offset, max)
 		if (listQuestions.isEmpty())
 			return render(view: "/question/nonexistent")
 		
@@ -63,17 +60,10 @@ class QuestionController {
 	 * @author Julien
 	 */
     def show() {
-		// DEBUG
-		User user = new User(name: "userDebugName", mail: "userDebugAdresse@mail.com", password: "userDebugPassword")
-		user.save()
-		session.user = user
-		
 		// Question
 		Question question = Question.findById(params.id)
-		if (question == null) {
+		if (question == null)
 			return render(view: "/question/nonexistent")
-		} else if (! question.display)
-			return render(view: "/question/moderationDeleted")
 		else
 			return render(view: "/question/show", model: [question: question])
 	}
@@ -137,7 +127,8 @@ class QuestionController {
 	 * @param post-text Contenu
 	 * @param strListTags Liste des noms des tags
 	 * @return Page de la question <br/>
-	 *         Page du formulaire si erreur
+	 *         Page du formulaire si erreur <br/>
+	 *         Page de connexion si l'utilisateur n'est pas connecté
 	 * @author Julien
 	 */
 	def ask_submit() {
@@ -187,15 +178,15 @@ class QuestionController {
 	 * @author Julien
 	 */
 	def edit() {
+		// Utilisateur
+		// - connecté
 		if (! UserController.isConnected())
 			redirect(url: "/user/login")
 		
 		// Question
 		Question question = Question.findById(params.id)
-		if (question == null) {
+		if (question == null)
 			return render(view: "/question/nonexistent")
-		} else if (! question.display)
-			return render(view: "/question/moderationDeleted")
 		
 		// temporaire
 		String strListTags = ""
@@ -223,10 +214,8 @@ class QuestionController {
 		
 		// Question
 		Question question = Question.findById(params.id)
-		if (question == null) {
+		if (question == null)
 			return render(view: "/question/nonexistent")
-		} else if (! question.display)
-			return render(view: "/question/moderationDeleted")
 		
 		// Vérifier le formulaire
 		def listErreurs = []
@@ -261,6 +250,36 @@ class QuestionController {
 		} catch (ServiceException e) {
 			return render(view: "/question/edit", model: [question: question, strListTags: params.strListTags, listErreurs: [e.getMessage()]])
 		}
+	}
+	
+	
+	/**
+	 * Supprimer une question
+	 * @param id Identifiant de la question
+	 * @return Page des questions <br/>
+	 *         Page de la question si erreur <br/>
+	 *         Page de connexion si l'utilisateur n'est pas connecté
+	 * @author Julien
+	 */
+	def delete() {
+		// Utilisateur
+		// - connecté
+		if (! UserController.isConnected())
+			redirect(url: "/user/login")
+		
+		// Question
+		Question question = Question.findById(params.id)
+		if (question == null)
+			return render(view: "/question/nonexistent")
+		
+		try {
+			// Supprimer
+			QuestionService qService = new QuestionService()
+			qService.delete(question)
+		} catch (ServiceException e) {
+		}
+		
+		redirect(url: "/question")
 	}
 	
 }
