@@ -39,8 +39,11 @@ class UrlMappings {
 			}
 		}
 		// - supprimer
-		// TODO
-		
+		"/question/$id/delete"(controller: "question", action: "delete") {
+			constraints {
+				id matches: /[0-9]+/
+			}
+		}
 		
 		// Réponse
 		// - éditer
@@ -54,8 +57,6 @@ class UrlMappings {
 				id matches: /[0-9]+/
 			}
 		}
-		// - supprimer
-		// TODO
 		
 		
 		

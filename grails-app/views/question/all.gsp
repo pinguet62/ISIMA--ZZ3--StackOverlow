@@ -69,14 +69,12 @@
 										<div class="user-info">
 											<div class="user-action-time">
 												asked
-												<span class="relativetime" title="2013-02-01 10:48:05Z">
-													${question.date}
-												</span>
+												<g:dateFormatee date="${question.date}"/>
 											</div>
 											<div class="user-gravatar32">
 												<a href="/user/${question.author.id}">
 													<div class="">
-														<img width="32" height="32" alt="" src="http://www.gravatar.com/avatar/59dce2f6c9ff5924be627f53ea740d7d?s=32&d=identicon&r=PG"></img> <!-- TODO -->
+														<g:img dir="images/avatar" file="default.jpg" width="32" height="32"/>
 													</div>
 												</a>
 											</div>

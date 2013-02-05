@@ -9,18 +9,6 @@ import fr.isima.stackoverlow.ServiceException
 class ResponseService extends MessageVotableService {
 	
 	/**
-	 * Cacher
-	 * @param reponse Réponse
-	 */
-	def disable(Response reponse) {
-		// Cascade
-		for (Commentaire commentaire in reponse.commentaires)
-			commentaire.disable()
-		reponse.disable()
-	}
-	
-	
-	/**
 	 * Supprimer
 	 * @param reponse Réponse
 	 * @exception ServiceException Echec de la suppression du message

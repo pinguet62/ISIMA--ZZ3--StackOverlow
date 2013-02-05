@@ -80,4 +80,15 @@ class MessageService {
 		throw new ServiceException("Question introuvable")
 	}
 	
+	
+	def isQuestion(Message message) {
+		return message instanceof Question
+	}
+	def isResponse(Message message) {
+		return message instanceof Response
+	}
+	def isCommentaire(Message message) {
+		return message instanceof Commentaire
+	}
+	
 }
