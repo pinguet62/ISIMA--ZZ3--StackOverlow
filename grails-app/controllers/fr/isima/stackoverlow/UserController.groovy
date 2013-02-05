@@ -90,11 +90,11 @@ class UserController {
 		if (user == null) {
 			return render(view: "/user/error")
 		}
-		QuestionService Qserv = new QuestionService()
-		ResponseService Rserv = new ResponseService()
-		VoteService Vserv =		new VoteService();
-		TagService Tserv = 		new TagService();
-		
+		QuestionService Qserv 	= new QuestionService()
+		ResponseService Rserv 	= new ResponseService()
+		VoteService Vserv 		= new VoteService()
+		TagService Tserv 		= new TagService()
+		UserService Userv		= new UserService()
 		
 		def reput = Vserv.getReputation(user)
 		List<Vote> lstVR		= Vserv.getDetailedReput(user)
@@ -102,6 +102,7 @@ class UserController {
 		List<Question> lstQ		= Qserv.getQuestionFromUser(user)
 		List<Response> lstR		= Rserv.getResponseFromUser(user)
 		Map<Integer,Tag> lstT 	= Tserv.getTagFromUser(user)
+		Map<Date,List<Message>> lstA 	= Userv.getUserActivity(user)
 		
 		Map<Integer,Tag> lstT4 	= new HashMap<Integer,Tag>()
 		List<Vote> lstVR4 		= new ArrayList<Vote>()
@@ -171,7 +172,8 @@ class UserController {
 			lstVR4: lstVR4,
 			lstVR: lstVR,
 			lstT4: lstT4,
-			lstT: lstT, 
+			lstT: lstT,
+			lstA: lstA, 
 			nbtag: nbtag,
 			voteDown: voteDown,
 			questions: questions,

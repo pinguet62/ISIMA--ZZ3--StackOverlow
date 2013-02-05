@@ -18,6 +18,7 @@
             // je récupère les valeurs
             var pseudo = $('#username').val();
             var mail = $('#mail').val();
+            var urlProfile = $('#profile').val();
             
 
 			if(pseudo.length < 5 || pseudo=='Enter a username')
@@ -39,6 +40,12 @@
 			{
 				document.getElementById('labPassword').style.color='red';
 				document.getElementById('labPassword').innerHTML ='Les mots de passe doivent être identique';
+				ret= false;	
+			}
+			if(checkUrlProfile()==false)
+			{
+				document.getElementById('labProfile').style.color='red';
+				document.getElementById('labProfile').innerHTML ='URL invalide';
 				ret= false;	
 			}
 
@@ -65,7 +72,14 @@
 		}
     }
 
-
+	function checkUrlProfile(url)
+	{
+		if(url.length>0)
+			return true;
+		else
+			return false;
+	}
+	
     function checkPassword()
     {
 		var p1 = document.getElementById('password1').value;
@@ -96,12 +110,13 @@
 			</div>
 			<div style="width: 625px;" id="mainbar">
 				<div class="page-description">
-        		<g:form id="monForm" method = "post" url="[controller: 'user', action: 'create']">
-        		<g:textField id="username" name="username" value="Enter a username" onKeyDown="document.getElementById('username').style.color='black';document.getElementById('labUser').innerHTML ='';" onclick="if(document.getElementById('username').value =='Enter a username' )JavaScript:document.getElementById('username').value = '';"/>&nbsp;<label for="username" id="labUser"></label><br>
-        		<g:textField id="mail" name="mail" value="Enter your email" onKeyDown="document.getElementById('mail').style.color='black';document.getElementById('labMail').innerHTML ='';" onChange="checkEmail(this.value)" onclick="if(document.getElementById('mail').value =='Enter your email' )JavaScript:document.getElementById('mail').value = '';"/>&nbsp;<label for="mail" id="labMail"></label><br>
-        		<g:textField id="password1" name="password1" value="type a password" onKeyDown = "document.getElementById('labPassword').innerHTML ='';" onChange="checkPassword()" onclick="JavaScript:if(document.getElementById('password1').value =='type a password' )document.getElementById('password1').value = '';" /><br>
-        		<g:textField id="password2" name="password2" value="retype your password" onKeyDown = "document.getElementById('password2').style.color='black';document.getElementById('labPassword').innerHTML ='';" onChange="checkPassword()" onclick="JavaScript:if(document.getElementById('password2').value =='retype your password' )document.getElementById('password2').value = '';" />&nbsp;<label for="password2" id="labPassword"></label><br>
-        		<g:actionSubmit value="Creer compte" action="submit" />
+        		<g:form id="monForm" url="[controller: 'user', action: 'create']">
+	        		<g:textField id="username" name="username" value="Enter a username" onKeyDown="document.getElementById('username').style.color='black';document.getElementById('labUser').innerHTML ='';" onclick="if(document.getElementById('username').value =='Enter a username' )JavaScript:document.getElementById('username').value = '';"/>&nbsp;<label for="username" id="labUser"></label><br>
+	        		<g:textField id="profile" name="profile" onChange="checkUrlProfile(this.value)" value="profile picture html link" onKeyDown="document.getElementById('profile').style.color='black';document.getElementById('LabProfile').innerHTML ='';" onclick="if(document.getElementById('profile').value =='profile picture html link' )JavaScript:document.getElementById('profile').value = '';"/>&nbsp;<label for="profile" id="labProfile"></label><br>
+	        		<g:textField id="mail" name="mail" value="Enter your email" onKeyDown="document.getElementById('mail').style.color='black';document.getElementById('labMail').innerHTML ='';" onChange="checkEmail(this.value)" onclick="if(document.getElementById('mail').value =='Enter your email' )JavaScript:document.getElementById('mail').value = '';"/>&nbsp;<label for="mail" id="labMail"></label><br>
+	        		<g:textField id="password1" name="password1" value="type a password" onKeyDown = "document.getElementById('labPassword').innerHTML ='';" onChange="checkPassword()" onclick="JavaScript:if(document.getElementById('password1').value =='type a password' )document.getElementById('password1').value = '';" /><br>
+	        		<g:textField id="password2" name="password2" value="retype your password" onKeyDown = "document.getElementById('password2').style.color='black';document.getElementById('labPassword').innerHTML ='';" onChange="checkPassword()" onclick="JavaScript:if(document.getElementById('password2').value =='retype your password' )document.getElementById('password2').value = '';" />&nbsp;<label for="password2" id="labPassword"></label><br>
+	        		<g:actionSubmit value="Creer compte" action="submit" />
 				</g:form>
     		</div>        
 		</div>

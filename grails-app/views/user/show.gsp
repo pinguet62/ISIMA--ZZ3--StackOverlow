@@ -313,17 +313,16 @@
 					<div id="question-summary-${quest.id }" class="question-summary narrow">
 			    	<div class="question-counts cp">
 			        <div class="votes">
-			            <div class="mini-counts">11</div>
+			            <div class="mini-counts">${new fr.isima.stackoverlow.VoteService().getMark(quest) }</div>
 			            <div>votes</div>
 			        </div>
+			        
 			        <div title="one of the answers was accepted as the correct answer" class="status answered-accepted">
-			            <div class="mini-counts">3</div>
+			            <div class="mini-counts">${new fr.isima.stackoverlow.ResponseService().getNbReponse(quest)}</div>
 			            <div>answers</div>
 			        </div>
-			        <div class="views">
-			            <div class="mini-counts">503</div>
-			            <div>views</div>
-			        </div>
+			        
+			      
 			    </div>
 			    <div class="summary">
 			        <h3>
@@ -331,29 +330,21 @@
 			        		${quest.title }
 			        	</a>
 			        </h3>
-			        <div class="tags t-java t-multithreading t-immutability">
-			            <a rel="tag" title="show questions tagged 'java'" class="post-tag" href="/questions/tagged/java">
-			            	java
-			            </a> 
-			            <a rel="tag" title="show questions tagged 'multithreading'" class="post-tag" href="/questions/tagged/multithreading">
-			            	multithreading
-			            </a> 
-			            <a rel="tag" title="show questions tagged 'immutability'" class="post-tag" href="/questions/tagged/immutability">
-			            	immutability
-			            </a> 
-			        </div>
+			        
+			        <g:each var="tag" in="${quest.tags}" status="cptTag">
+				        <div class="tags t-java t-multithreading t-immutability">
+				            <a rel="tag" title="show questions tagged '${tag.name }'" class="post-tag" href="/question/tagged/${tag.name }">
+				            	${tag.name}
+				            </a> 
+				        </div>
+			        </g:each>
 			        <div class="started">
-			            <a class="started-link" href="/questions/7886577/safe-publication-and-the-advantage-of-being-immutable-vs-effectively-immutable/?lastactivity">
-			            	<span class="relativetime" title="2011-11-07 20:28:03Z">
-			            		nov 7 '11 at 20:28
+			            <a class="started-link" href="/question/${quest.id }">
+			            	<span class="relativetime" title="${quest.date.getDateString()+ " " +quest.date.getTimeString() }">
+			            		${quest.date.getDateString()+ " " +quest.date.getTimeString() } 
 			            	</span>
 			            </a>
-			            <a href="/users/789593/n-n">
-			            	N.N.
-			            </a> 
-			            <span dir="ltr" title="reputation score" class="reputation-score">
-			            	2,674
-			            </span>
+			           
 			        </div>
 			    </div>
 			    </div>
@@ -445,11 +436,7 @@
 		           
 		        								</div>
 	    									</div>
-	    									<!-- 
-	    									</td>  volontairement masquer 
-	    									</tr>
-	    									</table>
-	    									 -->
+	    									<!-- </td>  volontairement masquer 	</tr></table> -->
 										</div>
 									</div>
 								</div>
@@ -457,7 +444,36 @@
     
     
     <g:if test="${param=='act' }">
-    activité
+    	
+    	<g:each var="cle" in="${lstA.keySet()}" status="cptcle">
+		    ${cle }
+		    <br>
+		    <g:each var="val" in="${lstA.get(cle)}" status="cpt">
+    			<g:if test="${val.hasProperty("title")}">
+    				Post a new question: ${val.title}
+    			</g:if>
+    			
+    			<g:if test="${val.hasProperty("question")}">
+    				Post a response in question: ${val.question.title}
+    			</g:if>
+    			
+    			<g:if test="${val.hasProperty("messageVotable")}">
+	    			<g:if test="${val.messageVotable.hasProperty("title")}">
+	    				comment the question: ${val.messageVotable.title}
+	    			</g:if>
+	    			
+	    			<g:if test="${val.messageVotable.hasProperty("question")}">
+	    				comment a response in question: ${val.messageVotable.question.title}
+	    			</g:if>
+	    		</g:if>
+    			
+    			
+    			<br>
+			</g:each>
+			<br>
+		</g:each>
+    	
+    	
     </g:if>
     
     

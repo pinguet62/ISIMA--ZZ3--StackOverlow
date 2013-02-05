@@ -20,6 +20,14 @@ class ResponseService extends MessageVotableService {
 	}
 	
 	
+	
+	
+	def getNbReponse(Question quest)
+	{
+		return Response.findAllByQuestion(quest).size();
+		
+	}
+	
 	/**
 	 * Supprimer
 	 * @param reponse Réponse

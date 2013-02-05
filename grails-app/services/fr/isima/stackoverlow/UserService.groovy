@@ -107,4 +107,22 @@ class UserService {
 	
 	}
 	
+	
+	def getUserActivity(User u)
+	{
+		Map<Date,List<Message>> mapRet = new HashMap<Date,List<Message>>()
+		
+		MessageService Serv = new MessageService()
+		
+		Message.findAllByAuthor(u).each 
+		{
+			if(!mapRet.containsKey(it.date))
+			{
+				mapRet.put(it.date, new ArrayList<Message>())
+			}
+			mapRet.get(it.date).add(it)
+		}
+		return mapRet
+	}
+	
 }
