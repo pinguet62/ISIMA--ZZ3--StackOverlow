@@ -17,8 +17,10 @@ class UserController {
 		def serv = new UserService();
 		
 		// Retour du formulaire
-		def name = ""
-		def password = ""
+		def name = params.username
+		def password = params.password
+		
+		System.out.println(name + " " + password)
 		
 		def u = User.findByName(name)
 		
@@ -46,7 +48,7 @@ class UserController {
 		println "Logout"
 		
 		session.user = null
-		return render(view: "/index")
+		return render(view: "/question")
 	}
 	
 	

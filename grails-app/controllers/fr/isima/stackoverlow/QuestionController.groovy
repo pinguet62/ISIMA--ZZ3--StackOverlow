@@ -16,9 +16,7 @@ class QuestionController {
 	 */
 	def all() {
 		// DEBUG
-		User user = new User(name: "userDebugName", mail: "userDebugAdresse@mail.com", password: "userDebugPassword")
-		user.save()
-		session.user = user
+
 		
 		// Paramètres
 		// - numéro de page

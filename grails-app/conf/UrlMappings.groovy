@@ -64,9 +64,9 @@ class UrlMappings {
 		"/user"(controller: "user", action: "all")
 		"/user/error"(view: "/user/error")
 		"/user/new"(view: "/user/newUser")
-		"/user/create"(controller: "user", action: "create")
+		//"/user/create"(controller: "user", action: "create")
 		"/user/delete"(controller: "user", action: "delete")
-		"/user/login"(controller: "user", action: "login")
+		"/user/login"(controller: "user", action: "loginForm")
 		"/user/logout"(controller: "user", action: "logout")
 		"/user/$id"(controller: "user", action: "show")
 		"/user/all"(controller: "user", action: "all") // page 1
@@ -83,6 +83,9 @@ class UrlMappings {
 		"/users/logout"(controller: "user", action: "logout")
 		
 		
+		"/index"(view: "/")
+		
+		"/logUser"(view: "/user/loginForm")
 		"/"(controller: "question", action: "all")
 		"500"(view: "/error")
 	}

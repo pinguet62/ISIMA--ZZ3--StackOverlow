@@ -28,7 +28,7 @@
 			</span>
 			<span id="hlinks-nav">
 				<g:if test="${! fr.isima.stackoverlow.UserController.isConnected()}">
-					<a href="/StackOverlow/user/login">log in</a>
+					<a href="/StackOverlow/logUser">log in</a>
 					<span class="lsep">|</span>
 					careers 2.0
 					<span class="lsep">|</span>
