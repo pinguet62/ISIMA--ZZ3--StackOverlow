@@ -14,7 +14,7 @@ class UserService {
 	 * @return Vrai ou Faux
 	 */
 	def exists(User user) {
-		return User.find(user) != null
+		return User.findById(user.id) != null
 	}
 	
 	

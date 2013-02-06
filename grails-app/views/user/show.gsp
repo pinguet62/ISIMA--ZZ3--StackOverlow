@@ -40,7 +40,37 @@
                     		reputation
                 		</div>
             		</div>
-			</div>
+            		<div class="data">
+			            <table>
+			                <tbody>
+			                    <tr>
+			                        <th></th>
+			                        <td>is administrator</td>
+			                        <td>${usersel.admin }</td>
+			                    </tr>
+			                    <tr>
+			                        <th></th>
+			                        <td>E-mail</td>
+			                        <td >${usersel.mail }</td>
+			                    </tr>
+			                </tbody>
+			                <tbody>
+			                    <tr>
+			                        <th></th>
+			                        <g:set var="userConnect" value="${fr.isima.stackoverlow.UserController.getUser()}"/>
+			                        	<g:if test="${userConnect != null }">
+			                       			 <g:if test="${usersel.id == userConnect.id }">
+			                        			<td><a href="/StackOverlow/user/editUser" title="Edit the profile">Edit Profile</a></td>
+			                        		</g:if>
+			                        	</g:if>
+			                        		
+			                        <td></td>
+			                    </tr>
+			
+			               </tbody>
+			            </table>
+			            </div>
+						</div>
         	<br class="clear">
     	</div>
 	</div>

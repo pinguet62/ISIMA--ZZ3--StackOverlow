@@ -31,7 +31,8 @@
 					<a class="discard-question dno" href="#">discard</a>
 					</div>
 				</form>
-				
+				userQ1Adresse@mail.com    userQ1Password
+				adminustrator1Adresse@mail.com   adminustrator1Password
 				<a href="/StackOverlow/user/new">Create account</a> 
     		</div>        
 		</div>

@@ -278,19 +278,46 @@ class UserController {
 	def updateUser()
 	{
 		//retour de formulaire
-		def name = ""
-		def password = ""
-		def mail =""
-		def admin = false
+		def name = params.username
+		def urlProf = params.profile
+		def password =  params.password1
+		def mail = params.mail
 		
-		User u = new User()
-		UserService serv= new UserService()
-		serv.update(u)
-		return render(view: "/index")
+		
+		User u = User.findById(session.user.id)
+		session.user = null
+		
+		u.name = name
+		u.mail = mail
+		u.avatarUrl = urlProf
+		u.password = password
+		
+		
+		
+		UserService serv = new UserService()
+		try{
+			
+			u.save()
+			session.user = u
+			params.id=u.id
+			return redirect(controller: "user", action: "show")
+		}
+		catch(Exception e)
+		{
+			
+			return render(view:"/user/newUser",model: [message:e.getMessage()])
+		}
 	}
 	
 	
-	
+	def edit()
+	{
+		
+		User user = session.user
+		return render(view:"/user/editUser",model: [userEdit:user])
+		
+		
+	}
 	
 	
 	
