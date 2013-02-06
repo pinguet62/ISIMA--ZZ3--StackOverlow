@@ -17,24 +17,22 @@ class UserController {
 		def serv = new UserService();
 		
 		// Retour du formulaire
-		def name = params.username
+		def mail = params.mail
 		def password = params.password
 		
-		System.out.println(name + " " + password)
+		def u = User.findByMailAndPassword(mail,password)
 		
-		def u = User.findByName(name)
-		
-		if (serv.exists(u)) {
+		if (u!= null && serv.exists(u)) {
 			//session ouverte
 			session.user = u
-			//return u // il faut faire render() vers une page :p
-			return render(view:"/index")
+			return redirect(controller: 'question', action:'all')
 			
 		}
 		else {
+			def message = "mot de passe et / ou login invalide"
 			//refus ouverture session
-			ServiceException exp = new ServiceException("Wrong authenification")
-			return render(view:"/error",exception:exp)
+			//ServiceException exp = new ServiceException("Wrong authenification")
+			return render(view:"/user/loginForm",model: [message:message])
 		}
 	}
 	
@@ -45,10 +43,8 @@ class UserController {
 	 * @TODO Retourner vers la page précédente
 	 */
 	def logout() {
-		println "Logout"
-		
 		session.user = null
-		return render(view: "/question")
+		return redirect(controller: 'question', action:'all')
 	}
 	
 	
@@ -67,9 +63,6 @@ class UserController {
 	 *         null if he is not connected
 	 */
 	static def getUser() {
-		// DEBUG
-		return User.get(1)
-		
 		return new UserController().session.user
 	}
 	

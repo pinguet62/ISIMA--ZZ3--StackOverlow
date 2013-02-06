@@ -61,13 +61,17 @@ class UrlMappings {
 		
 		
 		// User
+		
+		//login
+		"/user/login"(controller: "user", action: "login")
+		"/user/logout"(controller: "user", action: "logout")
+		
+		
 		"/user"(controller: "user", action: "all")
 		"/user/error"(view: "/user/error")
 		"/user/new"(view: "/user/newUser")
 		//"/user/create"(controller: "user", action: "create")
 		"/user/delete"(controller: "user", action: "delete")
-		"/user/login"(controller: "user", action: "loginForm")
-		"/user/logout"(controller: "user", action: "logout")
 		"/user/$id"(controller: "user", action: "show")
 		"/user/all"(controller: "user", action: "all") // page 1
 		//"/user/all/$page"(controller: "user", action: "all")
@@ -76,12 +80,7 @@ class UrlMappings {
 		// Tag
 		"/tag/$id"(controller: "tag", action: "show")
 		"/tag/all"(controller: "tag", action: "all") // page 1
-		"/tag/all/$page"(controller: "tag", action: "all")
-		
-		
-		// StackOverflow : essayer de rediriger les liens de StackOverflow vers notre application
-		"/users/logout"(controller: "user", action: "logout")
-		
+		"/tag/all/$page"(controller: "tag", action: "all")		
 		
 		"/index"(view: "/")
 		
