@@ -31,6 +31,8 @@
 					<a class="discard-question dno" href="#">discard</a>
 					</div>
 				</form>
+				
+				<a href="/StackOverlow/user/new">Create account</a> 
     		</div>        
 		</div>
 	</div> 

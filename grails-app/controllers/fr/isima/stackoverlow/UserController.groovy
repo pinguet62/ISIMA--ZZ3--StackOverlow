@@ -23,9 +23,7 @@ class UserController {
 		def u = User.findByMailAndPassword(mail,password)
 		
 		if (u!= null && serv.exists(u)) {
-			//session ouverte
-			session.user = u
-			return redirect(controller: 'question', action:'all')
+			logUser(u)
 			
 		}
 		else {
@@ -36,6 +34,12 @@ class UserController {
 		}
 	}
 	
+	
+	def logUser(User user) 
+	{
+		session.user = user
+		return redirect(controller: 'question', action:'all')
+	}
 	
 	/**
 	 * logout
@@ -219,23 +223,32 @@ class UserController {
 	def create()
 	{
 		//retour du formulaire
-		def name = params.username;
-		def password =  params.password1;
-		def mail = params.mail;
+		def name = params.username
+		def urlProf = params.profile
+		def password =  params.password1
+		def mail = params.mail
 		def admin = false
 		
 		User u = new User()
 		u.name = name
 		u.mail = mail
+		u.avatarUrl = urlProf
 		u.password = password
 		u.admin = admin
 		
-		System.out.println(name + " " +password + " " + mail );
+		//System.out.println(name + " " +password + " " + mail );
 		
 		UserService serv = new UserService()
-		//serv.create(u)
-		//this.login()
-		return render(view: "/index")
+		
+		try{
+			User ret = serv.create(u)
+			logUser(u)
+		}
+		catch(Exception e)
+		{
+			
+			return render(view:"/user/newUser",model: [message:e.getMessage()])
+		}
 	}
 	
 	/**
