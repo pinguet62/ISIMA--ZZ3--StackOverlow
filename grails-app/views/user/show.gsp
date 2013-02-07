@@ -60,7 +60,9 @@
 			                        <g:set var="userConnect" value="${fr.isima.stackoverlow.UserController.getUser()}"/>
 			                        	<g:if test="${userConnect != null }">
 			                       			 <g:if test="${usersel.id == userConnect.id || userConnect.admin==true}">
-			                        			<td><a href="/StackOverlow/user/editUser?id=${usersel.id }" title="Edit the profile">Edit Profile</a></td>
+			                        			<td><a href="/StackOverlow/user/editUser?id=${usersel.id }" title="Edit the profile">
+			                        			<g:img dir="" file="edit.png" width="30" height="30"/>
+			                        			</a></td>
 			                        		</g:if>
 			                        	</g:if>
 			                        		
@@ -74,7 +76,9 @@
 			                        <g:set var="userConnect" value="${fr.isima.stackoverlow.UserController.getUser()}"/>
 			                        	<g:if test="${userConnect != null }">
 			                       			  <g:if test="${usersel.id == userConnect.id || userConnect.admin==true}">
-			                        			<td><a href="/StackOverlow/user/deleteUser?id=${usersel.id }" title="Delete the profile">Delete profile</a></td>
+			                        			<td><a href="/StackOverlow/user/deleteUser?id=${usersel.id }" title="Delete the profile">
+			                        			<g:img dir="" file="delete.jpg" width="30" height="30"/>
+			                        			</a></td>
 			                        		</g:if>
 			                        	</g:if>
 			                        		
