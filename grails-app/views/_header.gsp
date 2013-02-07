@@ -29,17 +29,17 @@
 				<g:if test="${! fr.isima.stackoverlow.UserController.isConnected()}">
 					<a href="/StackOverlow/logUser"><g:message code="menu.login" /></a>
 					<span class="lsep">|</span>
-					careers 2.0
+		
 					<span class="lsep">|</span>
 				</g:if>
 			</span>
-			<span id="hlinks-custom">chat</span>
+			<span id="hlinks-custom"></span>
 			<span class="lsep">|</span>
-			meta
+				<a href="/StackOverlow/?lang=en"><g:img dir="" file="en.jpg" width="20" height="15"/></a>
 			<span class="lsep">|</span>
-			about
+		
 			<span class="lsep">|</span>
-			faq
+			<a href="/StackOverlow/?lang=fr"><g:img dir="" file="fr.jpg" width="20" height="15"/></a>
 		</div>
 		<div id="hsearch">
 			<form id="search" autocomplete="off" method="get" action="/search">
