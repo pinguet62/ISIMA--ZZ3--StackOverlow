@@ -117,6 +117,7 @@
 				<div class="page-description">
         		Edit the field you want to change
         		<form id="monForm" class="post-form" method="post" action="/StackOverlow/user/edit">
+	        		<input id="iduser" name="iduser" type="hidden" value="${userEdit.id }" />
 	        		<g:textField id="username" name="username" value="${userEdit.name }" onKeyDown="document.getElementById('username').style.color='black';document.getElementById('labUser').innerHTML ='';" onclick="if(document.getElementById('username').value =='Enter a username' )JavaScript:document.getElementById('username').value = '';"/>&nbsp;<label for="username" id="labUser"></label><br>
 	        		<g:textField id="profile" name="profile" size="50" onChange="checkUrlProfile(this.value)" value="${userEdit.avatarUrl }" onKeyDown="document.getElementById('profile').style.color='black';document.getElementById('LabProfile').innerHTML ='';" onclick="if(document.getElementById('profile').value =='profile picture html link' )JavaScript:document.getElementById('profile').value = '';"/>&nbsp;<label for="profile" id="labProfile"></label><br>
 	        		<g:textField id="mail" name="mail" size="30" value="${userEdit.mail }" onKeyDown="document.getElementById('mail').style.color='black';document.getElementById('labMail').innerHTML ='';" onChange="checkEmail(this.value)" onclick="if(document.getElementById('mail').value =='Enter your email' )JavaScript:document.getElementById('mail').value = '';"/>&nbsp;<label for="mail" id="labMail"></label><br>

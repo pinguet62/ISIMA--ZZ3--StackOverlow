@@ -73,15 +73,50 @@ class UserService {
 	 * @exception ServiceException Echec de la suppression
 	 */
 	def delete(User user) {
-		// Test
-		if (! exists(user))
-			throw new IllegalArgumentException("Utilisateur inexistant")
 		
+		//delete comment
+		for (Commentaire com : Commentaire.list())
+		{
+			if(com.messageVotable.author.id == user.id)
+			{
+				com.delete();
+			}
+				
+		}
+		
+		//delete enswers
+		for (Response response : Response.list()) 
+		{
+
+			if(response.question.author.id == user.id)
+			{
+				//coment of answer
+				for (Commentaire com : Commentaire.list())
+				{
+					if(com.messageVotable.id == response.id )
+					{
+						com.delete()
+					}
+				}
+				response.delete();
+			}
+				
+		}
+		//destruction of user question.
+		List<Message> messages = Message.findAllByAuthor(user);
+		for (Message m : messages) {
+			for (Vote v : Vote.findAllByMessageVotable(m)) 
+			{
+				v.delete()	
+			}
+			
+			m.delete()
+		}
+		
+		//delete user
 		user.delete()
 		
-		// Echec
-		if (exists(user))
-			throw new ServiceException("Echec de la suppression")
+	
 	}
 	
 	

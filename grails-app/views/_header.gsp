@@ -14,8 +14,7 @@
 			<span id="hlinks-user">
 				<g:if test="${fr.isima.stackoverlow.UserController.isConnected()}">
 					<g:set var="user" value="${fr.isima.stackoverlow.UserController.getUser()}"/>
-					<span class="profile-triangle">▾</span>
-					<a class="profile-link" href="/StackOverlow/user/${user.id}">${user.name}</a>
+					<a class="profile" href="/StackOverlow/user/${user.id}">${user.name}</a>
 					<a href="/StackOverlow/user/${user.id}">
 						<span class="reputation-score" dir="ltr" title="your reputation; view reputation changes">
 							${new fr.isima.stackoverlow.VoteService().getReputation(user)}

@@ -77,6 +77,8 @@ class UrlMappings {
 		"/user/editUser"(controller: "user", action: "edit")
 		"/user/edit"(controller: "user", action: "updateUser")
 		
+		//delete user
+		"/user/deleteUser"(controller: "user", action: "delete")
 		
 		"/user"(controller: "user", action: "all")
 		"/user/error"(view: "/user/error")

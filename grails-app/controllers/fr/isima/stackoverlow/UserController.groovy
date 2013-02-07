@@ -258,18 +258,22 @@ class UserController {
 	 * delete an user
 	 * @return render Index
 	 */
-	def deleteUser()
+	def delete()
 	{
-		//retou de formulaire
-		def name = ""
-		def password = ""
-		def mail =""
-		def admin = false
+		//retour de formulaire
+		def iduser=params.id
 		
-		User u = new User()
-		UserService serv= new UserService()
-		serv.delete(u)
-		return render(view: "/index")
+		def userDel = User.findById(iduser)
+		
+		
+		//délog de l'user
+		if(session.user.id == userDel.id){
+			session.user=null
+		}
+		UserService userv = new UserService()
+		userv.delete(userDel)
+		
+		return redirect(url: "/user")
 	}
 	
 	
@@ -286,8 +290,9 @@ class UserController {
 		def password =  params.password1
 		def mail = params.mail
 		def relog=false;
+		def iduser = params.iduser
 		
-		User u = User.findById(session.user.id)
+		User u = User.findById(iduser)
 		if(u.id == session.user.id)
 		{
 			session.user = null
@@ -323,11 +328,9 @@ class UserController {
 	
 	def edit()
 	{
-		
-		User user = session.user
+		def id=params.id
+		User user = User.findById(id)
 		return render(view:"/user/editUser",model: [userEdit:user])
-		
-		
 	}
 	
 	
