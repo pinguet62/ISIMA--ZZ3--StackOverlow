@@ -84,7 +84,10 @@ class UserController {
 		{
 			param = "sum"
 		}
-		User user = User.findById(params.id)
+		
+		def userid=params.id;
+
+		User user = User.findById(userid)
 		// Inexistante
 		if (user == null) {
 			return render(view: "/user/error")
@@ -282,10 +285,14 @@ class UserController {
 		def urlProf = params.profile
 		def password =  params.password1
 		def mail = params.mail
-		
+		def relog=false;
 		
 		User u = User.findById(session.user.id)
-		session.user = null
+		if(u.id == session.user.id)
+		{
+			session.user = null
+			relog=true;
+		}
 		
 		u.name = name
 		u.mail = mail
@@ -298,9 +305,13 @@ class UserController {
 		try{
 			
 			u.save()
-			session.user = u
-			params.id=u.id
-			return redirect(controller: "user", action: "show")
+			if(relog)
+			{
+				session.user = u
+			}
+			
+			//params.id=u.id
+			return redirect(url: "/user/"+u.id)
 		}
 		catch(Exception e)
 		{
