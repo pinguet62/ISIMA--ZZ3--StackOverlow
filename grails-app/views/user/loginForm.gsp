@@ -1,5 +1,5 @@
 <head>
-    <title>Log In - Stack Overflow</title>
+    <title><g:message code="user.login.login" /> - Stack Overflow</title>
     <link rel="shortcut icon" href="http://cdn.sstatic.net/stackoverflow/img/favicon.ico">
     <link rel="apple-touch-icon" href="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png">
     <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="/opensearch.xml">
@@ -16,24 +16,26 @@
         <g:render template="/header" model="[locality: 'user']"/>
         <div id="content">
         	<div class="subheader">
-        	    <h1>Login</h1>
+        	    <h1><g:message code="user.login.login" /></h1>
 			</div>
 			<div style="width: 625px;" id="mainbar">
 				<div class="page-description">
 				<form id="monForm" class="post-form" method="post" action="/StackOverlow/user/login">
 					
-	        		<input  type="text" id="mail" onclick="if(document.getElementById('mail').value =='Enter your email' )JavaScript:document.getElementById('mail').value = '';" name="mail" value="Enter your email"/>&nbsp;<label id="labMessage" for="mail">E-mail</label> <br>
-	        		<input  type="password" id="password"  onclick="if(document.getElementById('password').value =='Enter your password' )JavaScript:document.getElementById('password').value = '';" name="password" value="Enter your password" />&nbsp;<label id="labMessage" for="password">Password</label> <br>
+	        		<input  type="text" id="mail" onclick="if(document.getElementById('mail').value =='Enter your email' || document.getElementById('mail').value =='Entrez votre e-mail')JavaScript:document.getElementById('mail').value = '';" name="mail" value="${g.message(code: "user.login.enteryouremail")}"/>&nbsp;<label id="labMessage" for="mail"><g:message code="user.login.email" /></label> <br>
+	        		<input  type="text" id="password"  onclick="if(document.getElementById('password').value =='Enter your password' || document.getElementById('password').value =='Entrez votre mot de passe' )JavaScript:document.getElementById('password').value = ''; javascript:this.type='password';" name="password" value="${g.message(code: "user.login.enteryourpassword")}" />&nbsp;<label id="labMessage" for="password"><g:message code="user.login.password" /></label> <br>
 	        		
 	        		<div class="form-submit cbt">
 	        		<label id="labMessage" for="submit-button" style="color:red">${message }</label><br>
-									<input id="submit-button" type="submit" tabindex="120" value="Login"></input>
+									<input id="submit-button" type="submit" tabindex="120" value="${g.message(code: "user.login.login")}"></input>
 					<a class="discard-question dno" href="#">discard</a>
 					</div>
 				</form>
-				userQ1Adresse@mail.com    userQ1Password
+				<a href="/StackOverlow/user/new"><g:message code="user.login.createaccount" /></a> 
+				<br><br>
+				userQ1Adresse@mail.com    userQ1Password <br>
 				adminustrator1Adresse@mail.com   adminustrator1Password
-				<a href="/StackOverlow/user/new">Create account</a> 
+				
     		</div>        
 		</div>
 	</div> 

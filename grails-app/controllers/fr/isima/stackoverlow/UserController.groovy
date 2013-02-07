@@ -27,7 +27,7 @@ class UserController {
 			
 		}
 		else {
-			def message = "mot de passe et / ou login invalide"
+			def message = message(code: "user.login.wronglogin");
 			//refus ouverture session
 			//ServiceException exp = new ServiceException("Wrong authenification")
 			return render(view:"/user/loginForm",model: [message:message])
@@ -238,9 +238,7 @@ class UserController {
 		u.avatarUrl = urlProf
 		u.password = password
 		u.admin = admin
-		
-		//System.out.println(name + " " +password + " " + mail );
-		
+
 		UserService serv = new UserService()
 		
 		try{
@@ -249,8 +247,16 @@ class UserController {
 		}
 		catch(Exception e)
 		{
-			
-			return render(view:"/user/newUser",model: [message:e.getMessage()])
+			def erreur=""
+			if(e.getClass() == IllegalArgumentException.class )
+			{
+				erreur=message(code: "user.create.userexist")
+			}
+			else
+			{
+				erreur=message(code: "user.create.creationfailed")
+			}
+			return render(view:"/user/newUser",model: [message:erreur])
 		}
 	}
 	

@@ -1,5 +1,5 @@
 <head>
-    <title>Users - Stack Overflow</title>
+    <title><g:message code="user.all.title" /> - Stack Overflow</title>
     <link rel="shortcut icon" href="http://cdn.sstatic.net/stackoverflow/img/favicon.ico">
     
 </head>
@@ -18,25 +18,25 @@
  <div id="content">
     <div id="mainbar-full">
     	<div class="subheader">
-        	<h1 id="h-users">Users</h1>
+        	<h1 id="h-users"><g:message code="user.all.title" /></h1>
         	<div id="tabs">
         	<g:if test="${view == 'nofilter'}">
-        		<a class="youarehere" href="/StackOverlow/user/all" title="Display all users">All</a>
+        		<a class="youarehere" href="/StackOverlow/user/all" title="Display all users"><g:message code="user.all.all" /></a>
         	</g:if>
         	<g:else>
-        		<a href="/StackOverlow/user/all" title="Display all users">All</a>
+        		<a href="/StackOverlow/user/all" title="Display all users"><g:message code="user.all.all" /></a>
         	</g:else>
             <g:if test="${view == 'admin'}">
-				<a class="youarehere" href="/StackOverlow/user/all?sort=admin" title="Display Administrator">Admin</a>
+				<a class="youarehere" href="/StackOverlow/user/all?sort=admin" title="Display Administrator"><g:message code="user.all.admin" /></a>
 			</g:if>
         	<g:else>
-				<a href="/StackOverlow/user/all?sort=admin" title="Display Administrator">Admin</a>
+				<a href="/StackOverlow/user/all?sort=admin" title="Display Administrator"><g:message code="user.all.admin" /></a>
 			</g:else>
 			<g:if test="${view == 'mark'}">
-				<a class="youarehere" href="/StackOverlow/user/all?sort=mark" title="Display User marked">Mark</a>
+				<a class="youarehere" href="/StackOverlow/user/all?sort=mark" title="Display User marked"><g:message code="user.all.mark" /></a>
 			</g:if>
         	<g:else>
-				<a href="/StackOverlow/user/all?sort=mark" title="Display User marked">Mark</a>
+				<a href="/StackOverlow/user/all?sort=mark" title="Display User marked"><g:message code="user.all.mark" /></a>
 			</g:else>
 			</div>
 		</div>

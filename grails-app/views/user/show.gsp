@@ -1,6 +1,6 @@
 
 <head>
-    <title>Users - Stack Overflow</title>
+    <title><g:message code="user.all.title" /> - Stack Overflow</title>
    
 </head>
 
@@ -37,7 +37,7 @@
                     		<span>
                             	${reput}
                     		</span>
-                    		reputation
+                    		<g:message code="user.show.reputation" />
                 		</div>
             		</div>
             		<div class="data">
@@ -45,12 +45,12 @@
 			                <tbody>
 			                    <tr>
 			                        <th></th>
-			                        <td>is administrator</td>
+			                        <td><g:message code="user.show.isAdmin" /></td>
 			                        <td>${usersel.admin }</td>
 			                    </tr>
 			                    <tr>
 			                        <th></th>
-			                        <td>E-mail</td>
+			                        <td><g:message code="user.show.email" /></td>
 			                        <td >${usersel.mail }</td>
 			                    </tr>
 			                </tbody>
@@ -60,7 +60,7 @@
 			                        <g:set var="userConnect" value="${fr.isima.stackoverlow.UserController.getUser()}"/>
 			                        	<g:if test="${userConnect != null }">
 			                       			 <g:if test="${usersel.id == userConnect.id || userConnect.admin==true}">
-			                        			<td><a href="/StackOverlow/user/editUser?id=${usersel.id }" title="Edit the profile">
+			                        			<td><a href="/StackOverlow/user/editUser?id=${usersel.id }" title="${g.message(code: "user.show.edit")}">
 			                        			<g:img dir="" file="edit.png" width="30" height="30"/>
 			                        			</a></td>
 			                        		</g:if>
@@ -76,7 +76,7 @@
 			                        <g:set var="userConnect" value="${fr.isima.stackoverlow.UserController.getUser()}"/>
 			                        	<g:if test="${userConnect != null }">
 			                       			  <g:if test="${usersel.id == userConnect.id || userConnect.admin==true}">
-			                        			<td><a href="/StackOverlow/user/deleteUser?id=${usersel.id }" title="Delete the profile">
+			                        			<td><a onclick="return(confirm('${g.message(code: "user.delete.confirm")}'));" href="/StackOverlow/user/deleteUser?id=${usersel.id }" title="${g.message(code: "user.show.delete")}">
 			                        			<g:img dir="" file="delete.jpg" width="30" height="30"/>
 			                        			</a></td>
 			                        		</g:if>
@@ -96,42 +96,42 @@
     <div class="subheader user-tabs-nav">
         <div id="tabs">
         <g:if test="${param=='sum' }">
-            <a class="youarehere" href="${usersel.id }?tab=sum" title="this user's overall summary">summary</a>
+            <a class="youarehere" href="${usersel.id }?tab=sum" title="this user's overall summary"><g:message code="user.show.summary" /></a>
         </g:if>
         <g:else>
-        	<a href="${usersel.id }?tab=sum" title="this user's overall summary">summary</a>
+        	<a href="${usersel.id }?tab=sum" title="this user's overall summary"><g:message code="user.show.summary" /></a>
         </g:else>
         
         <g:if test="${param=='answ' }">
-            <a class="youarehere" href="${usersel.id }?tab=answ" title="answers this user has provided">answers</a>
+            <a class="youarehere" href="${usersel.id }?tab=answ" title="answers this user has provided"><g:message code="user.show.answers" /></a>
         </g:if>
         <g:else>
-            <a href="${usersel.id }?tab=answ" title="answers this user has provided">answers</a>
+            <a href="${usersel.id }?tab=answ" title="answers this user has provided"><g:message code="user.show.answers" /></a>
         </g:else>
            
            <g:if test="${param=='quest' }">
-            <a class="youarehere" href="${usersel.id }?tab=quest" title="questions this user has asked">questions</a>
+            <a class="youarehere" href="${usersel.id }?tab=quest" title="questions this user has asked"><g:message code="user.show.questions" /></a>
              </g:if>
         <g:else>
-            <a href="${usersel.id }?tab=quest" title="questions this user has asked">questions</a>
+            <a href="${usersel.id }?tab=quest" title="questions this user has asked"><g:message code="user.show.questions" /></a>
             </g:else>
             <g:if test="${param=='tags' }">
-            <a class="youarehere" href="${usersel.id }?tab=tags" title="tags this user has posts in">tags</a>
+            <a class="youarehere" href="${usersel.id }?tab=tags" title="tags this user has posts in"><g:message code="user.show.tags" /></a>
              </g:if>
         <g:else>
-         <a href="${usersel.id }?tab=tags" title="tags this user has posts in">tags</a>
+         <a href="${usersel.id }?tab=tags" title="tags this user has posts in"><g:message code="user.show.tags" /></a>
         </g:else>
             <g:if test="${param=='reput' }">
-            <a class="youarehere" href="${usersel.id }?tab=reput" title="reputation this user has earned">reputation</a>
+            <a class="youarehere" href="${usersel.id }?tab=reput" title="reputation this user has earned"><g:message code="user.show.reputation" /></a>
              </g:if>
         <g:else>
-        <a href="${usersel.id }?tab=reput" title="reputation this user has earned">reputation</a>
+        <a href="${usersel.id }?tab=reput" title="reputation this user has earned"><g:message code="user.show.reputation" /></a>
         </g:else>
             <g:if test="${param=='act' }">
-            <a class="youarehere" href="${usersel.id }?tab=act" title="this user's recent activity">activity</a>
+            <a class="youarehere" href="${usersel.id }?tab=act" title="this user's recent activity"><g:message code="user.show.activity" /></a>
              </g:if>
         <g:else>
-        <a href="${usersel.id }?tab=act" title="this user's recent activity">activity</a>
+        <a href="${usersel.id }?tab=act" title="this user's recent activity"><g:message code="user.show.activity" /></a>
         </g:else>
         </div>
     </div>
@@ -142,7 +142,7 @@
     <div class="subheader">
         <h1>
         	<a href="/user/${usersel.id }?tab=questions">
-    			<span class="count">${lstQ.size() }</span> Questions
+    			<span class="count">${lstQ.size() }</span> <g:message code="user.show.questions" />
 			</a>
 		</h1>
     </div>
@@ -162,7 +162,7 @@
         </table>
         </g:if>
 	    <g:else>
-	      	<div class="empty">This user has not post any questions</div>
+	      	<div class="empty"><g:message code="user.show.noquestion" /> </div>
 		</g:else>
     </div>
     <div class="user-panel-footer">
@@ -172,7 +172,7 @@
     <div class="subheader">
         <h1>
         	<a href="/user/${usersel.id }">
-    			<span class="count">${reput}</span> Reputation
+    			<span class="count">${reput}</span> <g:message code="user.show.reputation" />
 			</a>
 		</h1>
     </div>
@@ -203,7 +203,7 @@
         </table>
         </g:if>
 	    <g:else>
-	      	<div class="empty">This user has no reputation evolution</div>
+	      	<div class="empty"><g:message code="user.show.noreputation" /></div>
 		</g:else>
 
     </div>
@@ -214,7 +214,7 @@
     <div class="subheader">
         <h1>
         	<a href="${usersel.id }?tab=answ">
-   				<span class="count">${lstR.size() }</span> Answers
+   				<span class="count">${lstR.size() }</span> <g:message code="user.show.answers" />
 			</a>
 		</h1>
     </div>
@@ -231,7 +231,7 @@
 	                </g:each>
 	            </g:if>
 	            <g:else>
-	            	<div class="empty">This user has not answered any questions</div>
+	            	<div class="empty"><g:message code="user.show.noanswer" /></div>
 	            </g:else>
             </tbody>
         </table>
@@ -245,7 +245,7 @@
     <div class="subheader">
         <h1>
         	<a href="/user/${usersel.id }?tab=tags">
-    			<span class="count">${nbtag }</span> Tags
+    			<span class="count">${nbtag }</span> <g:message code="user.show.tags" />
 			</a>
 		</h1>
     </div>
@@ -280,24 +280,24 @@
 <div id="user-panel-votes" class="user-panel user-panel-left">
     <div class="subheader">
         <h1>
-		    <span class="count">${voteUp+voteDown }</span> Votes Cast
+		    <span class="count">${voteUp+voteDown }</span> <g:message code="user.show.votecast" />
 		</h1>
     </div>
     <div class="user-panel-content">
        <table class="votes-cast-stats">
         <thead>
             <tr>
-                <th colspan="2">all time</th>
+                <th colspan="2"><g:message code="user.show.alltime" /></th>
                 <th class="spacer">&nbsp;</th>
-                    <th colspan="2">by type</th> 
+                    <th colspan="2"><g:message code="user.show.bytype" /></th> 
                     </tr>
         </thead>
         <tbody><tr>
             <td>${voteUp}</td> 
-            <td class="desc">up</td>
+            <td class="desc"><g:message code="user.show.up" /></td>
             <td></td>
                 <td>${questions}</td>
-                <td class="desc">question</td>
+                <td class="desc"><g:message code="user.show.question" /></td>
                 <td></td>
                             
                 <td></td>
@@ -306,10 +306,10 @@
                </tr>
         <tr>
             <td>${voteDown}</td>
-            <td class="desc">down</td>
+            <td class="desc"><g:message code="user.show.down" /></td>
             <td></td>
                 <td>${responses}</td>
-                <td class="desc">answer</td>
+                <td class="desc"><g:message code="user.show.answer" /></td>
                 <td></td>
         </tr>
     </tbody></table>
@@ -322,11 +322,14 @@
     <div class="user-tab" id="user-tab-answers">
     	<div class="subheader user-full-tab-header">
         	<h1>
-    			<span class="count">${lstR.size() }</span> Answers
+    			<span class="count">${lstR.size() }</span> <g:message code="user.show.answers" />
 			</h1>    
     	</div>
 		<div class="user-tab-content">
         	<div class="user-answers">
+        	 <g:if test="${lstR.size() == 0}">
+        	 	<div class="empty"><g:message code="user.show.noanswer" /></div>
+        	 </g:if>
 				<g:each var="rep" in="${lstR}" status="cpt">
 					<div class="answer-summary">
 						<div title="total number of votes for this answer, which was accepted as the correct answer by the question owner" class="answer-votes answered-accepted            large" onclick="window.location.href='/StackOverlow/question/???'">
@@ -350,24 +353,26 @@
 	    <div class="user-tab" id="user-tab-questions">
 	    	<div class="subheader user-full-tab-header">
 	        	<h1>
-	    			<span class="count">${lstQ.size()}</span> Questions
+	    			<span class="count">${lstQ.size()}</span> <g:message code="user.show.questions" />
 	    		</h1>    
 	    </div>
 	
 	    <div class="user-tab-content">        
 	        <div class="user-questions">
-				
+			 <g:if test="${lstQ.size() == 0}">
+        	 	<div class="empty"><g:message code="user.show.noquestion" /></div>
+        	 </g:if>
 				<g:each var="quest" in="${lstQ}" status="cpt">
 					<div id="question-summary-${quest.id }" class="question-summary narrow">
 			    	<div class="question-counts cp">
 			        <div class="votes">
 			            <div class="mini-counts">${new fr.isima.stackoverlow.VoteService().getMark(quest) }</div>
-			            <div>votes</div>
+			            <div><g:message code="user.show.votes" /></div>
 			        </div>
 			        
 			        <div title="one of the answers was accepted as the correct answer" class="status answered-accepted">
 			            <div class="mini-counts">${new fr.isima.stackoverlow.ResponseService().getNbReponse(quest)}</div>
-			            <div>answers</div>
+			            <div><g:message code="user.show.answers" /></div>
 			        </div>
 			        
 			      
@@ -419,7 +424,10 @@
     	<div class="user-tab-content">
 	        <table class="user-tags">
             	<tbody>
-                	<tr>                
+                	<tr>    
+                	    <g:if test="${lstT.keySet().size() == 0}">
+        	 				<div class="empty"><g:message code="user.show.notag" /></div>
+        				 </g:if>            
 	                    <g:each var="cle" in="${lstT.keySet()}" status="cptcle">
 		                    <g:each var="val" in="${lstT.get(cle)}" status="cpt">
 			                    <g:if test="${cpt%4 == 0}">
@@ -443,17 +451,21 @@
 	   <div class="user-tab" id="user-tab-reputation">
 	    	<div class="subheader user-full-tab-header">
 		        <h1>
-		    		<span class="count">${lstVR.size()}</span> Reputation
+		    		<span class="count">${lstVR.size()}</span> <g:message code="user.show.reputation" />
 				</h1>
 			</div>
-
+				<g:if test="${lstVR.size() == 0}">
+        	 				<div class="empty"><g:message code="user.show.noreputation" /></div>
+        				 </g:if>   
 	    	<div class="user-tab-content">
 				<div class="user-rep-full">
 	    			<div id="stats">
 	        			<div class="ajax-paging-container" id="rep-page-container">
+	        			
+        				 
 	            			<table class="rep-table">
 	                			<tbody>
-	                   
+	                   			
 	                    			<tr class="loaded-body">
 	                        			<td style="height: 0px; padding: 0px;" class="body-container body-loaded" colspan="2">
 	                        				<div style="display: block;">
@@ -461,6 +473,7 @@
 												
 													<table class="tbl-reputation">
 			    										<tbody>
+			    										
 			    											<g:each var="v" in="${lstVR}" status="cpt">
 												                <tr>
 												                	<g:if test="${v.mark == +1 }">
@@ -499,7 +512,7 @@
     	<div class="user-tab" id="user-tab-reputation">
 	    	<div class="subheader user-full-tab-header">
 		        <h1>
-		    		<span class="count">${lstA.keySet().size()}</span> Day(s) of activity
+		    		<span class="count">${lstA.keySet().size()}</span>  <g:message code="user.show.dayofactivity" />
 				</h1>
 			</div>
 
@@ -517,6 +530,9 @@
 												
 													<table class="tbl-reputation">
 			    										<tbody>
+			    										<g:if test="${lstA.keySet().size() == 0}">
+        	 												<div class="empty"><g:message code="user.show.noactivity" /></div>
+        				 								</g:if>   
 			    											<g:each var="cle" in="${lstA.keySet()}" status="cptcle">
 			    											<g:each var="val" in="${lstA.get(cle)}" status="cpt">
 			    											
@@ -527,23 +543,23 @@
 																	
 																	
 																	<g:if test="${val.hasProperty("title")}">
-													    				<td class="rep-desc">Post a question</td>
+													    				<td class="rep-desc"><g:message code="user.show.postaquestion" /></td>
 													    				<td class="rep-link"><a class="answer-hyperlink " href="/StackOverlow/question/${val.id}">${val.title}</a></td>
 													    			</g:if>
 													    			
 													    			<g:if test="${val.hasProperty("question")}">
-													    				<td class="rep-desc">Post a response</td>
+													    				<td class="rep-desc"><g:message code="user.show.postananswer" /></td>
 													    				<td class="rep-link"><a class="answer-hyperlink " href="/StackOverlow/question/${val.question.id}">${val.question.title}</a></td>
 													    			</g:if>
 													    			
 													    			<g:if test="${val.hasProperty("messageVotable")}">
 														    			<g:if test="${val.messageVotable.hasProperty("title")}">
-														    				<td class="rep-desc">comment a question</td>
+														    				<td class="rep-desc"><g:message code="user.show.commentaquestion" /></td>
 														    				<td class="rep-link"><a class="answer-hyperlink " href="/StackOverlow/question/${val.messageVotable.id}">${val.messageVotable.title}</a></td>
 														    			</g:if>
 														    			
 														    			<g:if test="${val.messageVotable.hasProperty("question")}">
-														    				<td class="rep-desc">comment a response</td>
+														    				<td class="rep-desc"><g:message code="user.show.commentananswer" /></td>
 														    				<td class="rep-link"><a class="answer-hyperlink " href="/StackOverlow/question/${val.messageVotable.question.id}">${val.messageVotable.question.title}</a></td>
 														    			</g:if>
 														    		</g:if>

@@ -1,5 +1,5 @@
 <head>
-    <title>Log In - Stack Overflow</title>
+    <title><g:message code="user.login.createaccount" /> - Stack Overflow</title>
     <link rel="shortcut icon" href="http://cdn.sstatic.net/stackoverflow/img/favicon.ico">
     <link rel="apple-touch-icon" href="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png">
     <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="/opensearch.xml">
@@ -24,33 +24,30 @@
             
 			if(pseudo.length < 5 || pseudo=='Enter a username')
 			{
-				document.getElementById('labUser').style.color='red';
+				
 				document.getElementById('username').style.color='red';
-				document.getElementById('labUser').innerHTML ='utilisateur invalide - taille minimal: 5 caractères';
+				document.getElementById('labUser').style.display = 'block';
 				ret= false;
 			}
             
 
 			if(checkEmail(mail) == false)
 			{
-				document.getElementById('labMail').style.color='red';
-				document.getElementById('labMail').innerHTML ='mail invalide';
+				document.getElementById('labMail').style.display = 'block';
 				ret= false;
 			}
 
 			
 			if(checkPassword()==false)
 			{
-				document.getElementById('labPassword').style.color='red';
-				document.getElementById('labPassword').innerHTML ='Les mots de passe doivent être identique et de taille superieur à 5';
+				document.getElementById('labPassword').style.display = 'block';
 				ret= false;	
 			}
 
 			
 			if(checkUrlProfile(urlProfile)==false)
 			{
-				document.getElementById('labProfile').style.color ='red';
-				document.getElementById('labProfile').innerHTML ='URL invalide';
+				document.getElementById('labProfile').style.display = 'block';
 				ret= false;	
 			}
 
@@ -90,12 +87,10 @@
 
 		if(p1 != p2 )
 		{
-			document.getElementById('password2').style.color='red';
 			return false;
 		}
 		else if(p1.length <5)
 		{
-			document.getElementById('password2').style.color='red';
 			return false;
 		}
 		else
@@ -105,7 +100,24 @@
 		}
         
     }
-        
+
+
+    onload = function() {
+    	document.getElementById('labUser').style.color='red';
+    	document.getElementById('labUser').style.display = 'none';
+
+    	document.getElementById('labProfile').style.color ='red';
+		document.getElementById('labProfile').style.display = 'none';
+
+		document.getElementById('labMail').style.color='red';
+		document.getElementById('labMail').style.display = 'none';
+
+
+		document.getElementById('labPassword').style.color='red';
+		document.getElementById('labPassword').style.display = 'none';
+    	
+    }
+    
 	</SCRIPT> 
 </head>
 
@@ -114,21 +126,21 @@
         <g:render template="/header" model="[locality: 'user']"/>
         <div id="content">
         	<div class="subheader">
-        	    <h1>Create Account</h1>
+        	    <h1><g:message code="user.login.createaccount" /></h1>
 			</div>
 			<div style="width: 625px;" id="mainbar">
 				<div class="page-description">
         		
         		<form id="monForm" class="post-form" method="post" action="/StackOverlow/user/create">
-	        		<g:textField id="username" name="username" value="Enter a username" onKeyDown="document.getElementById('username').style.color='black';document.getElementById('labUser').innerHTML ='';" onclick="if(document.getElementById('username').value =='Enter a username' )JavaScript:document.getElementById('username').value = '';"/>&nbsp;<label for="username" id="labUser"></label><br>
-	        		<g:textField id="profile" name="profile" size="50" onChange="checkUrlProfile(this.value)" value="profile picture html link" onKeyDown="document.getElementById('profile').style.color='black';document.getElementById('LabProfile').innerHTML ='';" onclick="if(document.getElementById('profile').value =='profile picture html link' )JavaScript:document.getElementById('profile').value = '';"/>&nbsp;<label for="profile" id="labProfile"></label><br>
-	        		<g:textField id="mail" name="mail" size="30" value="Enter your email" onKeyDown="document.getElementById('mail').style.color='black';document.getElementById('labMail').innerHTML ='';" onChange="checkEmail(this.value)" onclick="if(document.getElementById('mail').value =='Enter your email' )JavaScript:document.getElementById('mail').value = '';"/>&nbsp;<label for="mail" id="labMail"></label><br>
-	        		<g:textField id="password1" name="password1" type="password" value="type a password" onKeyDown = "document.getElementById('labPassword').innerHTML ='';" onChange="checkPassword()" onclick="JavaScript:if(document.getElementById('password1').value =='type a password' ){document.getElementById('password1').value = '';javascript:this.type='password';}" /><br>
-	        		<g:textField id="password2" name="password2" type="password" value="retype your password" onKeyDown = "document.getElementById('password2').style.color='black';document.getElementById('labPassword').innerHTML ='';" onChange="checkPassword()" onclick="JavaScript:if(document.getElementById('password2').value =='retype your password' ){document.getElementById('password2').value = '';javascript:this.type='password';}" />&nbsp;<label for="password2" id="labPassword"></label><br>
+	        		<g:textField id="username" name="username" value="${g.message(code: "user.create.enterusername")}" onKeyDown="document.getElementById('username').style.color='black';document.getElementById('labUser').style.display = 'none'" onclick="if(document.getElementById('username').value =='Enter a username' || document.getElementById('username').value =='Entrez un nom' )JavaScript:document.getElementById('username').value = '';"/>&nbsp;<label for="username" id="labUser">${g.message(code: "user.create.wrongusername")}</label><br>
+	        		<g:textField id="profile" name="profile" size="50" onChange="checkUrlProfile(this.value)" value="${g.message(code: "user.create.enterprofilepicture")}" onKeyDown = "document.getElementById('labProfile').style.display = 'none';" onclick="if(document.getElementById('profile').value =='Profile picture html link' || document.getElementById('profile').value =='Lien html vers une image' )JavaScript:document.getElementById('profile').value = '';"/>&nbsp;<label for="profile" id="labProfile">${g.message(code: "user.create.wrongurlprofile")}</label><br>
+	        		<g:textField id="mail" name="mail" size="30" value="${g.message(code: "user.create.enteremail")}" onKeyDown="document.getElementById('mail').style.color='black';document.getElementById('labMail').style.display = 'none';" onChange="checkEmail(this.value)" onclick="if(document.getElementById('mail').value =='Enter your e-mail' || document.getElementById('mail').value =='Entrez votre e-mail' )JavaScript:document.getElementById('mail').value = '';"/>&nbsp;<label for="mail" id="labMail">${g.message(code: "user.create.wrongemail")}</label><br>
+	        		<g:textField id="password1" name="password1" type="password" value="${g.message(code: "user.create.enterpassword1")}" onKeyDown = "document.getElementById('labPassword').style.display = 'none';" onChange="checkPassword()" onclick="JavaScript:if(document.getElementById('password1').value =='Type a password' || document.getElementById('password1').value =='Entrez votre mot de passe' ){document.getElementById('password1').value = '';javascript:this.type='password';}" /><br>
+	        		<g:textField id="password2" name="password2" type="password" value="${g.message(code: "user.create.enterpassword2")}" onKeyDown = "document.getElementById('password2').style.color='black';document.getElementById('labPassword').style.display = 'none';" onChange="checkPassword()" onclick="JavaScript:if(document.getElementById('password2').value =='Retype the password' || document.getElementById('password2').value =='Ré-entrez votre mot de passe' ){document.getElementById('password2').value = '';javascript:this.type='password';}" />&nbsp;<label for="password2" id="labPassword">${g.message(code: "user.create.wrongpassword")}</label><br>
 	        		
 					<div class="form-submit cbt">
 					<label id="labMessage" for="submit-button" style="color:red">${message }</label><br>
-									<input id="submit-button" type="submit" tabindex="120" value="Create account"></input>
+									<input id="submit-button" type="submit" tabindex="120" value="${g.message(code: "user.login.createaccount")}"></input>
 						<a class="discard-question dno" href="#">discard</a>
 					</div>
 				</form>

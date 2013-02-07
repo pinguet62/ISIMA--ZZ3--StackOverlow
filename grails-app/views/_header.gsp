@@ -21,13 +21,13 @@
 						</span>
 					</a>
 					<span class="lsep">|</span>
-					<a href="/StackOverlow/user/logout">log out</a> <!-- perso -->
+					<a href="/StackOverlow/user/logout"><g:message code="menu.logout" /></a> <!-- perso -->
 					<span class="lsep">|</span>
 				</g:if>
 			</span>
 			<span id="hlinks-nav">
 				<g:if test="${! fr.isima.stackoverlow.UserController.isConnected()}">
-					<a href="/StackOverlow/logUser">log in</a>
+					<a href="/StackOverlow/logUser"><g:message code="menu.login" /></a>
 					<span class="lsep">|</span>
 					careers 2.0
 					<span class="lsep">|</span>
@@ -58,14 +58,14 @@
 	<div id="hmenus">
 		<div class="nav mainnavs">
 			<ul>
-				<li ${locality.equals("questions") ? 'class="youarehere"' : ''}><a id="nav-questions" href="/StackOverlow/question">Questions</a></li>
-				<li ${locality.equals("tags") ? 'class="youarehere"' : ''}><a id="nav-tags" href="/StackOverlow/tag">Tags</a></li>
-				<li ${locality.equals("users") ? 'class="youarehere"' : ''}><a id="nav-users" href="/StackOverlow/user">Users</a></li>
+				<li ${locality.equals("questions") ? 'class="youarehere"' : ''}><a id="nav-questions" href="/StackOverlow/question"><g:message code="menu.questions" /></a></li>
+				<li ${locality.equals("tags") ? 'class="youarehere"' : ''}><a id="nav-tags" href="/StackOverlow/tag"><g:message code="menu.tags" /></a></li>
+				<li ${locality.equals("users") ? 'class="youarehere"' : ''}><a id="nav-users" href="/StackOverlow/user"><g:message code="menu.users" /></a></li>
 			</ul>
 		</div>
 		<div class="nav askquestion">
 			<ul>
-				<li ${locality.equals("askquestion") ? 'class="youarehere"' : ''}><a id="nav-askquestion" href="/StackOverlow/question/ask">Ask Question</a></li>
+				<li ${locality.equals("askquestion") ? 'class="youarehere"' : ''}><a id="nav-askquestion" href="/StackOverlow/question/ask"><g:message code="menu.ask" /></a></li>
 			</ul>
 		</div>
 	</div>
