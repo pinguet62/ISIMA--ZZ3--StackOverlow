@@ -339,6 +339,11 @@ class UserController {
 		return render(view:"/user/editUser",model: [userEdit:user])
 	}
 	
+	def rules()
+	{
+		return render(view:"/user/rules");
+	}
+	
 	
 	
 }

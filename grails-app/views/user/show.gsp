@@ -330,7 +330,7 @@
 							</g:if>
 		                    <td>
 		                    	<div class="answer-votes" title="" onclick="window.location.href='/StackOverlow/tag/${val.id}'">${cle }</div>
-		                    	<a href="/StackOverlow/tag/${val.id}" class="post-tag" title="">${val.name }</a>
+		                    	<g:tagIcone tag="${val}"/>
 		                    </td>                                                                                              
 	                    </g:each>
                     </g:each>
@@ -462,8 +462,8 @@
 			        </g:each>
 			        <div class="started">
 			            <a class="started-link" href="/StackOverlow/question/${quest.id }">
-			            	<span class="relativetime" title="${quest.date.getDateString()+ " " +quest.date.getTimeString() }">
-			            		${quest.date.getDateString()+ " " +quest.date.getTimeString() } 
+			            	<span class="relativetime" title="${quest.date }">
+			            		<g:dateFormatee date="${quest.date }"/>
 			            	</span>
 			            </a>
 			           
@@ -606,7 +606,7 @@
 			    											<g:each var="val" in="${lstA.get(cle)}" status="cpt">
 			    											
 												                <tr>
-												                    <td class="rep-time" title="${cle }">${cle }</td>
+												                    <td class="rep-time" title="${cle }"><g:dateFormatee date="${cle }"/></td>
 												                    
 																	
 																	
