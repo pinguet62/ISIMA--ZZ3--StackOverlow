@@ -80,10 +80,6 @@ class UrlMappings {
 		//delete user
 		"/user/deleteUser"(controller: "user", action: "delete")
 		
-		
-		//rules
-		"/user/rules"(view: "/user/rules")
-		
 		"/user"(controller: "user", action: "all")
 		"/user/error"(view: "/user/error")
 		

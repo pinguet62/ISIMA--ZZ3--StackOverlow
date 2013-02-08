@@ -45,13 +45,13 @@
 			                <tbody>
 			                    <tr>
 			                        <th></th>
-			                        <td><h3><g:message code="user.show.isAdmin" /></h3> ${usersel.admin }</td>
-			                    
+			                        <td><g:message code="user.show.isAdmin" /></td>
+			                        <td>${usersel.admin }</td>
 			                    </tr>
 			                    <tr>
 			                        <th></th>
-			                        <td><h3><g:message code="user.show.email" /></h3> ${usersel.mail }</td>
-			                      
+			                        <td><g:message code="user.show.email" /></td>
+			                        <td >${usersel.mail }</td>
 			                    </tr>
 			                </tbody>
 			                <tbody>
@@ -89,75 +89,6 @@
 			            </table>
 			            </div>
 						</div>
-				<div >
-				<h3><g:message code="user.show.award" /></h3>
-				
-					<g:if test="${lstQ.size() >0 && lstQ.size()<=10 }">
-						<a href="/StackOverlow/user/rules"><g:img dir="images/trophe" file="curious_3.jpg" title="${g.message(code: "user.show.award.curious3")}" width="40" height="50"/></a>
-					</g:if>
-					<g:if test="${lstQ.size() >10  && lstQ.size()<=50}">
-						<a href="/StackOverlow/user/rules"><g:img dir="images/trophe" file="curious_2.jpg" title="${g.message(code: "user.show.award.curious2")}" width="40" height="50"/></a>
-					</g:if>
-					<g:if test="${lstQ.size() >50 }">
-						<a href="/StackOverlow/user/rules"><g:img dir="images/trophe" file="curious_1.jpg" title="${g.message(code: "user.show.award.curious1")}" width="40" height="50"/></a>
-					</g:if>
-					
-					<g:if test="${lstR.size() >0 && lstR.size()<=10}">
-						<a href="/StackOverlow/user/rules"><g:img dir="images/trophe" file="helper_3.jpg" title="${g.message(code: "user.show.award.helper3")}" width="40" height="50"/></a>
-					</g:if>
-					<g:if test="${lstR.size() >10 && lstR.size()<=50}">
-						<a href="/StackOverlow/user/rules"><g:img dir="images/trophe" file="helper_2.jpg" title="${g.message(code: "user.show.award.helper2")}" width="40" height="50"/></a>
-					</g:if>
-					<g:if test="${lstR.size() >50 }">
-						<a href="/StackOverlow/user/rules"><g:img dir="images/trophe" file="helper_1.jpg" title="${g.message(code: "user.show.award.helper1")}" width="40" height="50"/></a>
-					</g:if>
-					
-					
-					<g:if test="${nbtag >0 && nbtag <= 10}">
-						<a href="/StackOverlow/user/rules"><g:img dir="images/trophe" file="tagger_3.jpg" title="${g.message(code: "user.show.award.tagger3")}" width="50" height="50"/></a>
-					</g:if>
-					
-					<g:if test="${nbtag >10 && nbtag <= 50}">
-						<a href="/StackOverlow/user/rules"><g:img dir="images/trophe" file="tagger_2.jpg" title="${g.message(code: "user.show.award.tagger2")}" width="50" height="50"/></a>
-					</g:if>
-					
-					<g:if test="${nbtag >50 }">
-						<a href="/StackOverlow/user/rules"><g:img dir="images/trophe" file="tagger_1.jpg" title="${g.message(code: "user.show.award.tagger1")}" width="50" height="50"/></a>
-					</g:if>
-					
-					
-					<g:if test="${voteUp+voteDown >0 && voteUp+voteDown<=10 }">
-						<a href="/StackOverlow/user/rules"><g:img dir="images/trophe" file="goodcitizen_3.jpg" title="${g.message(code: "user.show.award.goodcitizen3")}" width="50" height="50"/></a>
-					</g:if>
-					<g:if test="${voteUp+voteDown >10 && voteUp+voteDown<=50}">
-						<a href="/StackOverlow/user/rules"><g:img dir="images/trophe" file="goodcitizen_2.jpg" title="${g.message(code: "user.show.award.goodcitizen2")}" width="50" height="50"/></a>
-					</g:if>
-					<g:if test="${voteUp+voteDown >50 }">
-						<a href="/StackOverlow/user/rules"><g:img dir="images/trophe" file="goodcitizen_1.jpg" title="${g.message(code: "user.show.award.goodcitizen1")}" width="50" height="50"/></a>
-					</g:if>
-					
-					<br><br><br>
-					<g:if test="${reput > 0}">
-						<a href="/StackOverlow/user/rules"><g:img dir="images/trophe" file="1.jpg" title="${g.message(code: "user.show.award.v1")}" width="40" height="40"/></a>
-					</g:if>
-					<g:if test="${reput > 20}">
-						<a href="/StackOverlow/user/rules"><g:img dir="images/trophe" file="2.jpg" title="${g.message(code: "user.show.award.v2")}" width="40" height="40"/></a>
-					</g:if>
-					<g:if test="${reput > 50}">
-						<a href="/StackOverlow/user/rules"><g:img dir="images/trophe" file="3.jpg" title="${g.message(code: "user.show.award.v3")}" width="40" height="40"/></a>
-					</g:if>
-					<g:if test="${reput > 100}">
-						<a href="/StackOverlow/user/rules"><g:img dir="images/trophe" file="4.jpg" title="${g.message(code: "user.show.award.v4")}" width="40" height="40"/></a>
-					</g:if>
-					<g:if test="${reput > 500}">
-						<a href="/StackOverlow/user/rules"><g:img dir="images/trophe" file="5.jpg" title="${g.message(code: "user.show.award.v5")}" width="40" height="40"/></a>
-					</g:if>
-					<g:if test="${reput > 1000}">
-						<a href="/StackOverlow/user/rules"><g:img dir="images/trophe" file="6.jpg" title="${g.message(code: "user.show.award.v6")}" width="40" height="40"/></a>
-					</g:if>
-					
-       			 </div>
-
         	<br class="clear">
     	</div>
 	</div>
