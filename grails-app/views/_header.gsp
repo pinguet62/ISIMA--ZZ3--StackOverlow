@@ -2,7 +2,7 @@
 <!-- @param locality Section du site : 'questions', 'tag', 'user', 'askquestion' -->
 
 <link rel="stylesheet" type="text/css" href="${resource(dir:'css', file:'style.css')}">
- <!-- <link rel="stylesheet" type="text/css" href="http://cdn.sstatic.net/stackoverflow/all.css?v=6d7ec4d8bbbd"> -->
+ <link rel="stylesheet" type="text/css" href="http://cdn.sstatic.net/stackoverflow/all.css">
 <div id="header">
 	<div id="portalLink">
 		<a class="genu" onclick="StackExchange.ready(function(){genuwine.click();});return false;">

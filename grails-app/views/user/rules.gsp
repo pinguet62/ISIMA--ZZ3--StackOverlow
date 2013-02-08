@@ -5,7 +5,7 @@
 
 <body style="cursor: default;" class="login-page">
     <div class="container">
-        <g:render template="/header" model="[locality: 'user']"/>
+        <g:render template="/header" model="[locality: 'users']"/>
         <div id="content">
         	<div class="subheader">
         	    <h1><g:message code="user.rules.title" /></h1>

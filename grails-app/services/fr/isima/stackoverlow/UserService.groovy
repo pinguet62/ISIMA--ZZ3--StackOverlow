@@ -122,6 +122,8 @@ class UserService {
 		}
 		
 		//delete of user message and their vote
+		//déconne ici
+		//supprimer d'abord commentaire, pui reponse, puis quesion?
 		List<Message> messages = Message.findAllByAuthor(user)
 		for (Message m : messages) 
 		{
@@ -179,4 +181,7 @@ class UserService {
 		}
 		return mapRet
 	}
+	
+	
+	
 }

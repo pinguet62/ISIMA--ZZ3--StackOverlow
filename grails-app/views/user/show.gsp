@@ -9,7 +9,7 @@
     <div id="overlay-header"></div>
     <div id="custom-header"></div>
     <div class="container">
-    <g:render template="/header" model="[locality: 'user']"/>
+    <g:render template="/header" model="[locality: 'users']"/>
     
     <div id="content">
 		<div id="mainbar-full" class="user-show-new">
