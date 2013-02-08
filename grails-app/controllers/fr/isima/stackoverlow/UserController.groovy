@@ -30,7 +30,7 @@ class UserController {
 			def message = message(code: "user.login.wronglogin");
 			//refus ouverture session
 			//ServiceException exp = new ServiceException("Wrong authenification")
-			return render(view:"/user/loginForm",model: [message:message])
+			return render(view:"/user/loginForm", model: [message:message])
 		}
 	}
 	

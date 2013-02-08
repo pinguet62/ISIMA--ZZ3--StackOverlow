@@ -10,6 +10,7 @@ class ResponseController {
 	 * @author Julien
 	 */
 	def edit() {
+		// Utilisateur connecté
 		if (! UserController.isConnected())
 			redirect(url: "/user/login")
 		
@@ -22,6 +23,10 @@ class ResponseController {
 		// Question
 		MessageService mService = new MessageService()
 		Question question = mService.getQuestion(response)
+		
+		// Droits d'édition
+		if (! new UserService().isAuthorOrAdmin(UserController.getUser(), response))
+			redirect(url: "/question/"+question.id)
 		
 		return render(view: "/response/edit", model: [reponse: response, question: question])
 	}
@@ -49,6 +54,10 @@ class ResponseController {
 		// Question
 		MessageService mService = new MessageService()
 		Question question = mService.getQuestion(response)
+		
+		// Droits d'édition
+		if (! new UserService().isAuthorOrAdmin(UserController.getUser(), response))
+			redirect(url: "/question/"+question.id)
 		
 		// Vérifier le formulaire
 		def listErreurs = []
@@ -92,6 +101,10 @@ class ResponseController {
 		// Question
 		MessageService mService = new MessageService()
 		Question question = mService.getQuestion(response)
+		
+		// Droits de suppression
+		if (! new UserService().isAuthorOrAdmin(UserController.getUser(), response))
+			redirect(url: "/question/"+question.id)
 		
 		try {
 			// Supprimer

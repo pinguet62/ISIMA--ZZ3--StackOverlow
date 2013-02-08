@@ -9,6 +9,18 @@ import fr.isima.stackoverlow.ServiceException
 class UserService {
 	
 	/**
+	 * Test si l'utilisateur est l'auteur ou un adminustrateur
+	 * @param user Utilisateur
+	 * @param message Message
+	 * @return Vrai ou faux
+	 * @author Julien
+	 */
+	def isAuthorOrAdmin(User user, MessageVotable message) {
+		return (message.author == user  ||  user.admin)
+	}
+	
+	
+	/**
 	 * Existant
 	 * @param user Utilisateur
 	 * @return Vrai ou Faux

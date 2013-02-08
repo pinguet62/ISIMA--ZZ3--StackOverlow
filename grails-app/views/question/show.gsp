@@ -37,11 +37,7 @@
 										<tbody>
 											<tr>
 												<td class="vt">
-													<div class="post-menu">
-														<a class="suggest-edit-post" title="revise and improve this post" href="/StackOverlow/question/${question.id}/edit">edit</a>
-														<span class="lsep"> | </span>
-														<a class="suggest-edit-post" title="remove this post" href="/StackOverlow/question/${question.id}/delete">delete</a>
-													</div>
+													<g:authorOrAdminOptions user="${fr.isima.stackoverlow.UserController.getUser()}" messageVotable="${question}"/>
 												</td>
 												<td class="post-signature owner">
 													<div class="user-info user-hover">
@@ -102,11 +98,7 @@
 														<tbody>
 															<tr>
 																<td class="vt">
-																	<div class="post-menu">
-																		<a class="suggest-edit-post" title="revise and improve this post" href="/StackOverlow/response/${response.id}/edit">edit</a>
-																		<span class="lsep"> | </span>
-																		<a class="suggest-edit-post" title="remove this post" href="/StackOverlow/response/${response.id}/delete">delete</a>
-																	</div>
+																	<g:authorOrAdminOptions user="${fr.isima.stackoverlow.UserController.getUser()}" messageVotable="${response}"/>
 																</td>
 																<td class="post-signature owner">
 																	<div class="user-info user-hover">

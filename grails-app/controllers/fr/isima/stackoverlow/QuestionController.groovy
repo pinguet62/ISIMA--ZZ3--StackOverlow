@@ -15,9 +15,6 @@ class QuestionController {
 	 * @author Julien
 	 */
 	def all() {
-		// DEBUG
-
-		
 		// Paramètres
 		// - numéro de page
 		int page = 1
@@ -75,6 +72,7 @@ class QuestionController {
 	 * @author Julien
 	 */
 	def answer_submit() {
+		// Utilisateur connecté
 		if (! UserController.isConnected())
 			redirect(url: "/user/login")
 		
@@ -112,6 +110,7 @@ class QuestionController {
 	 * @author Julien
 	 */
 	def ask() {
+		// Utilisateur connecté
 		if (! UserController.isConnected())
 			redirect(url: "/user/login")
 		
@@ -130,6 +129,7 @@ class QuestionController {
 	 * @author Julien
 	 */
 	def ask_submit() {
+		// Utilisateur connecté
 		if (! UserController.isConnected())
 			redirect(url: "/user/login")
 		
@@ -176,8 +176,7 @@ class QuestionController {
 	 * @author Julien
 	 */
 	def edit() {
-		// Utilisateur
-		// - connecté
+		// Utilisateur connecté
 		if (! UserController.isConnected())
 			redirect(url: "/user/login")
 		
@@ -185,6 +184,10 @@ class QuestionController {
 		Question question = Question.findById(params.id)
 		if (question == null)
 			return render(view: "/question/nonexistent")
+		
+		// Droits d'édition
+		if (! new UserService().isAuthorOrAdmin(UserController.getUser(), question))
+			redirect(url: "/question/"+question.id)
 		
 		// temporaire
 		String strListTags = ""
@@ -214,6 +217,10 @@ class QuestionController {
 		Question question = Question.findById(params.id)
 		if (question == null)
 			return render(view: "/question/nonexistent")
+		
+		// Droits d'édition
+		if (! new UserService().isAuthorOrAdmin(UserController.getUser(), question))
+			redirect(url: "/question/"+question.id)
 		
 		// Vérifier le formulaire
 		def listErreurs = []
@@ -260,8 +267,7 @@ class QuestionController {
 	 * @author Julien
 	 */
 	def delete() {
-		// Utilisateur
-		// - connecté
+		// Utilisateur connecté
 		if (! UserController.isConnected())
 			redirect(url: "/user/login")
 		
@@ -269,6 +275,10 @@ class QuestionController {
 		Question question = Question.findById(params.id)
 		if (question == null)
 			return render(view: "/question/nonexistent")
+		
+		// Droits de suppression
+		if (! new UserService().isAuthorOrAdmin(UserController.getUser(), question))
+			redirect(url: "/question/"+question.id)
 		
 		try {
 			// Supprimer
