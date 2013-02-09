@@ -12,42 +12,53 @@ class UserController {
 	
 	/**
 	 * Login method
+	 * This method is called when the user want to sign-in
+	 * @param void
+	 * @return question page if successfull, login form if not
 	 */
 	def login() {
+		log.info("in login method")
 		def serv = new UserService();
 		
-		// Retour du formulaire
+		// get information from the form
 		def mail = params.mail
 		def password = params.password
-		
 		def u = User.findByMailAndPassword(mail,password)
-		
-		if (u!= null && serv.exists(u)) {
+		if (u!= null && serv.exists(u)) 
+		{
+			//user can login
 			logUser(u)
-			
+			log.info("user"+u.name + " loged in")
 		}
-		else {
+		else 
+		{
+			//user cannot login
 			def message = message(code: "user.login.wronglogin");
-			//refus ouverture session
-			//ServiceException exp = new ServiceException("Wrong authenification")
-			return render(view:"/user/loginForm", model: [message:message])
+			log.error("user"+u.name + ": "+message)
+			return render(view:"/user/loginForm",model: [message:message])
 		}
 	}
 	
-	
+	/**
+	 * this method open a session for the user passed on parameter
+	 * @param user the user to login
+	 * @return to question page
+	 */
 	def logUser(User user) 
 	{
 		session.user = user
+		log.info("user"+user.name + " logged in")
 		return redirect(controller: 'question', action:'all')
 	}
 	
 	/**
 	 * logout
+	 * this method log-out the current loged user
 	 * @return Index of site
-	 * @TODO Retourner vers la page précédente
 	 */
 	def logout() {
 		session.user = null
+		log.info("user loged out")
 		return redirect(controller: 'question', action:'all')
 	}
 	
@@ -62,7 +73,7 @@ class UserController {
 	
 	
 	/**
-	 * get the user
+	 * get the user logged in
 	 * @return the current user <br/>
 	 *         null if he is not connected
 	 */
@@ -79,25 +90,34 @@ class UserController {
 	 */
 	def show() 
 	{
+		//get wich information to display
 		def param=params.tab
+		log.info("showing user")
 		if(param==null)
 		{
+			//if not specified, the default view is "summary"
 			param = "sum"
+			log.info("default view: summary")
 		}
-		
+		//get the user to show
 		def userid=params.id;
-
+		
+		//check if the user reealy exist
 		User user = User.findById(userid)
-		// Inexistante
-		if (user == null) {
-			return render(view: "/user/error")
+		if (user == null) 
+		{
+			//if the user doesn't exist, redirect user list page
+			log.error("user id "+param.id+" is unknow")
+			return redirect(url: "/user/")
 		}
+		//if the user exist, we get all the information to display
 		QuestionService Qserv 	= new QuestionService()
 		ResponseService Rserv 	= new ResponseService()
 		VoteService Vserv 		= new VoteService()
 		TagService Tserv 		= new TagService()
 		UserService Userv		= new UserService()
 		
+		//get reputation information, vote, questions, responses, activity and tag information
 		def reput = Vserv.getReputation(user)
 		List<Vote> lstVR		= Vserv.getDetailedReput(user)
 		List<Vote> lstV			= Vserv.getVoteFromUser(user)
@@ -106,11 +126,13 @@ class UserController {
 		Map<Integer,Tag> lstT 	= Tserv.getTagFromUser(user)
 		Map<Date,List<Message>> lstA 	= Userv.getUserActivity(user)
 		
+		//extract a sample of the previous information to display in the summary
 		Map<Integer,Tag> lstT4 	= new HashMap<Integer,Tag>()
 		List<Vote> lstVR4 		= new ArrayList<Vote>()
 		List<Response> lstR4 	= new ArrayList<Response>()
 		List<Question> lstQ4 	= new ArrayList<Question>()
 		
+		//sample for responses, questions, reputation details
 		for(int i = 0; i<4; ++i)
 		{
 			if(lstR.size()>i)
@@ -121,11 +143,12 @@ class UserController {
 				lstVR4.add(lstVR.get(i));
 		}
 		
-		int i=0;
-		int nbtag=0;
+		//sample for tags of the user
+		int i=0
+		int nbtag=0
 		for (Integer cle : lstT.keySet()) 
 		{
-			if(i<10)
+			if(i < 10)
 			{
 				lstT4.put(cle, new ArrayList<Tag>())
 				for (Tag t : lstT.get(cle)) 
@@ -134,7 +157,6 @@ class UserController {
 					lstT4.get(cle).add(t)
 				}
 			}
-			
 			++i;
 		}
 		
@@ -153,7 +175,6 @@ class UserController {
 			{
 				++voteDown
 			}
-			
 			if(vote.messageVotable.hasProperty("title"))
 			{
 				++questions
@@ -164,7 +185,8 @@ class UserController {
 			}
 		}
 		
-		
+		log.info("redirecting to the view /user/show")
+		//redirect to the view with data
 		return render(view: "/user/show", model: [usersel: user,
 			reput: reput,
 			lstQ: lstQ, 
@@ -187,13 +209,17 @@ class UserController {
 	
 	/**
 	 * Display a list of all users
+	 * @param sort: used to select which user is display
 	 * @return render to the users page
 	 * 
 	 */
-	def all() {
+	def all() 
+	{	//get the sorting parameter
+		log.info("call of user/all view")
 		def param=params.sort
 		if(param==null)
 		{
+			log.info("no parameter specfied, no filtering")
 			param="nofilter"
 		}
 		List<User> lst=null;
@@ -201,37 +227,41 @@ class UserController {
 		switch(param)
 		{
 			case "nofilter":
-				lst = User.list();
+				lst = serv.getAll()
 				break;
 			
 			case "mark": 
-				lst = serv.getUserWithMark();
+				lst = serv.getUserWithMark()
 				break;
 			
 			case "admin":
-				lst = User.findAllByAdmin(true);
+				lst = serv.getAdmin()
 				break;		
 			default: 
-				lst = User.list();
+				lst = serv.getAll();
 				break;
 		}
-		
+		//render the view with data
+		log.info("render the view /user/all")
 		return render(view: "/user/all", model: [listUsers: lst, view: param])
 	}
 	
 	/**
 	 * create an user
-	 * @return render Index
+	 * @return the questions page if success
+	 * 	an error message the the create form if error
 	 */
 	def create()
 	{
-		//retour du formulaire
+		log.info("create an user")
+		//get data from the form
 		def name = params.username
 		def urlProf = params.profile
 		def password =  params.password1
 		def mail = params.mail
 		def admin = false
 		
+		//create the user
 		User u = new User()
 		u.name = name
 		u.mail = mail
@@ -241,12 +271,16 @@ class UserController {
 
 		UserService serv = new UserService()
 		
-		try{
+		try
+		{
+			//try to save the user
 			User ret = serv.create(u)
+			//loggin the new user
 			logUser(u)
 		}
 		catch(Exception e)
 		{
+			//if an error occurs, rending the form with error message
 			def erreur=""
 			if(e.getClass() == IllegalArgumentException.class )
 			{
@@ -256,89 +290,117 @@ class UserController {
 			{
 				erreur=message(code: "user.create.creationfailed")
 			}
+			log.error("Error creating user: "+erreur)
 			return render(view:"/user/newUser",model: [message:erreur])
 		}
 	}
 	
+	
 	/**
 	 * delete an user
-	 * @return render Index
+	 * @param the user id to delete
+	 * @return render the users list
 	 */
 	def delete()
 	{
-		//retour de formulaire
+		//get the id to delete
 		def iduser=params.id
-		
+		//get the user to delete
 		def userDel = User.findById(iduser)
 		
-		
-		//délog de l'user
-		if(session.user.id == userDel.id){
+		log.info("deleting user "+userDel.name)
+
+		//if the user is log, we log him out
+		if(session.user.id == userDel.id)
+		{
+			log.info("logout user")
 			session.user=null
 		}
+		
 		UserService userv = new UserService()
 		userv.delete(userDel)
-		
+		log.info("user deleted")
+		//redirect to users list
 		return redirect(url: "/user")
 	}
 	
 	
 	/**
-	 * delete an user
-	 *{@link TODO} faire en sorte de redirigé sur la page précedente
+	 * update an user in database
 	 * @return render Index
 	 */
 	def updateUser()
 	{
-		//retour de formulaire
+		//get data from the form
+		def iduser = params.iduser
 		def name = params.username
 		def urlProf = params.profile
 		def password =  params.password1
 		def mail = params.mail
 		def relog=false;
-		def iduser = params.iduser
 		
+		//get the edited user
 		User u = User.findById(iduser)
+		log.info("updating user "+u.name)
+		//if the edited user if the logged user
 		if(u.id == session.user.id)
 		{
+			//we log him out
+			log.info("logout user")
 			session.user = null
 			relog=true;
 		}
 		
+		//updating data
 		u.name = name
 		u.mail = mail
 		u.avatarUrl = urlProf
 		u.password = password
 		
-		
-		
 		UserService serv = new UserService()
-		try{
-			
+		try
+		{
+			//saving the news values
 			u.save()
-			if(relog)
+			if(relog) //if we have log out the user, we re-log him in
 			{
+				log.info("login user")
 				session.user = u
 			}
-			
-			//params.id=u.id
+			//we redirect to the user's page
+			log.info("render the detail page of the user")
 			return redirect(url: "/user/"+u.id)
 		}
 		catch(Exception e)
 		{
-			
+			log.error("while updating user: "+e.getMessage())
+			//if we can't edit the user, we show why in the editing form
 			return render(view:"/user/newUser",model: [message:e.getMessage()])
 		}
 	}
 	
 	
+	/**
+	 * the method is used to initiate the editing-form values
+	 * @return render to editing form with user data
+	 */
 	def edit()
 	{
 		def id=params.id
+		//get the user to edit
 		User user = User.findById(id)
+		log.info("seting data from "+user.name+" to the editing form")
+		//rendering the edit form
 		return render(view:"/user/editUser",model: [userEdit:user])
 	}
 	
-	
-	
+	/**
+	 * This method redirect to the rules page
+	 * @return
+	 */
+	def rules()
+	{
+		log.info("render the rules pages")
+		return render(view:"/user/rules");
+	}
 }

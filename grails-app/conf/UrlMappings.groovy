@@ -102,7 +102,7 @@ class UrlMappings {
 		
 		
 		//rules
-		"/user/rules"(view: "/user/rules")
+		"/user/rules"(controller: "user", action: "rules")
 		
 		"/user"(controller: "user", action: "all")
 		"/user/error"(view: "/user/error")

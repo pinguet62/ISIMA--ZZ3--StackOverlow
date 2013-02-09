@@ -240,11 +240,13 @@ class BootStrap {
 				questionQi.addToTags(tagQiT1)
 				tagQiT1.save()
 		}
-		// Tags bidons
+		
+		// Tags
 		for (int i=5 ; i<50 ; i++)
 			Tag tag = new Tag(name: "Tag"+i, description: "petite description de "+i+"qui n'en est pas une, mais c'est juste pour afficher plein de choses sur la page pour vérifier que cela ne bug pas trop mdr.").save()
+		
 		// Tags multiple
-		Tag tagMultiple = new Tag(name: "tagMultiple", description: "j'existe plusieurs fois").save()
+		Tag tagMultiple = new Tag(name: "tagMultiple", description: "Ceci est un tag qui apparait dans plusieurs questions pour pouvoir apparaitre en premier dans la liste des tags les plus utilisés").save()
 		User userTagMultiple = new User(name: "userTagMultiple", mail: "userTagMultipleAdresse@mail.com", password: "userTagMultiplePassword").save()
 		for (int i=0 ; i<5 ; i++) {
 			Question qTagMultiple = new Question(title: "titleQTagMultiple"+i, content: "contentqTagMultiple"+i, date: new Date())

@@ -4,7 +4,7 @@ import org.junit.Before
 import org.junit.Test
 
 @TestFor(QuestionService)
-@Mock([User, Question])
+@Mock([User, Question,Tag])
 class QuestionServiceTests {
 	
 	QuestionService service = new QuestionService()
@@ -24,7 +24,9 @@ class QuestionServiceTests {
 		
 		Question question = new Question(title:"titre", content:"content", date: new Date())
 		question.author = user
-		
+		Tag tagQ1T2 = new Tag(name: "tagQ1T2")
+			question.addToTags(tagQ1T2)
+			tagQ1T2.save()
 		service.create(question)
 		assertEquals(Question.findAll().size(), 1)
 	}
@@ -37,6 +39,9 @@ class QuestionServiceTests {
 		
 		Question question = new Question(title:"titre", content:"content", date: new Date())
 		question.author = user
+		Tag tagQ1T2 = new Tag(name: "tagQ1T2")
+		question.addToTags(tagQ1T2)
+		tagQ1T2.save()
 		
 		service.create(question)
 		

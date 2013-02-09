@@ -1,5 +1,5 @@
 <head>
-    <title><g:message code="user.login.login" /> - Stack Overflow</title>
+    <title><g:message code="user.login.login" /> - Stack Overlow</title>
     <link rel="shortcut icon" href="http://cdn.sstatic.net/stackoverflow/img/favicon.ico">
     <link rel="apple-touch-icon" href="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png">
     <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="/opensearch.xml">

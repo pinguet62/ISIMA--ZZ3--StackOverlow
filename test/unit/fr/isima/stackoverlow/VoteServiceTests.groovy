@@ -39,7 +39,7 @@ class VoteServiceTests {
 		vote2.messageVotable = question
 		vote2.save()
 		
-		def note = service.getMark(user1)
+		def note = service.getReputation(user1)
 		assertEquals(note, +2)
 	}
 	
@@ -78,7 +78,7 @@ class VoteServiceTests {
 	
 	
 	@Test
-	void voteUp_annulerNegatif() {
+	void voteUp_cancelDownVote() {
 		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
 		user.save()
 		
@@ -98,7 +98,7 @@ class VoteServiceTests {
 	
 	
 	@Test
-	void voteUp_dejaVote() {
+	void voteUp_alreadyVote() {
 		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
 		user.save()
 		
@@ -132,7 +132,7 @@ class VoteServiceTests {
 	
 	
 	@Test
-	void voteDown_annulerPositif() {
+	void voteDown_cancelVoteDown() {
 		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
 		user.save()
 		
@@ -152,7 +152,7 @@ class VoteServiceTests {
 	
 	
 	@Test
-	void voteDown_dejaVote() {
+	void voteDown_alreadyVote() {
 		User user = new User(name: "userName", mail: "userAdresse@mail.com", password: "userPassword")
 		user.save()
 		

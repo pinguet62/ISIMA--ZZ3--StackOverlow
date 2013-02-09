@@ -1,5 +1,5 @@
 <head>
-    <title><g:message code="user.login.createaccount" /> - Stack Overflow</title>
+    <title><g:message code="user.login.createaccount" /> - Stack Overlow</title>
     <link rel="shortcut icon" href="http://cdn.sstatic.net/stackoverflow/img/favicon.ico">
     <link rel="apple-touch-icon" href="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png">
     <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="/opensearch.xml">
@@ -123,7 +123,7 @@
 
 <body style="cursor: default;" class="login-page">
     <div class="container">
-        <g:render template="/header" model="[locality: 'user']"/>
+        <g:render template="/header" model="[locality: 'users']"/>
         <div id="content">
         	<div class="subheader">
         	    <h1><g:message code="user.login.createaccount" /></h1>

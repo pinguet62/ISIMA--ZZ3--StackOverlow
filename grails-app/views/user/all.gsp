@@ -1,5 +1,5 @@
 <head>
-    <title><g:message code="user.all.title" /> - Stack Overflow</title>
+    <title><g:message code="user.all.title" /> - Stack Overlow</title>
     <link rel="shortcut icon" href="http://cdn.sstatic.net/stackoverflow/img/favicon.ico">
     
 </head>
