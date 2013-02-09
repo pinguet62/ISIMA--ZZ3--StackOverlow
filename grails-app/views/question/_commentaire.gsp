@@ -1,6 +1,6 @@
 <!-- Affiche un commentaire d'un message votable (question ou réponse) -->
 <!-- @param commentaire Commentaire -->
-<!-- @TODO Option si le commentaire vient de l'autheur de la question -->
+<!-- @author Julien -->
 
 
 
@@ -16,7 +16,7 @@
 				${commentaire.author.name}
 			</a>
 			<span class="comment-date" dir="ltr">
-				${commentaire.date}
+				<g:stackDate date="${commentaire.date}"/>
 			</span>
 		</div>
 	</td>

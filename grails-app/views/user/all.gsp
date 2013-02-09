@@ -11,7 +11,7 @@
     <div id="custom-header"></div>
 
     <div class="container">
-        <g:render template="/header" model="[locality: 'user']"/>
+        <g:render template="/header" model="[locality: 'users']"/>
            
 
 

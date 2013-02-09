@@ -215,7 +215,7 @@ class BootStrap {
 		questionQ3.author = userQ3
 		questionQ3.save()
 			// Tag Q3T1
-			Tag tagQ3T1 = new Tag(name: "C/C++")
+			Tag tagQ3T1 = new Tag(name: "C++", description: "C++ est le meilleur langage ! Le langage orienté objet le plus rapide. La programmation bas-niveau c'est mieux car on sait comment ça fonctionne !")
 			questionQ3.addToTags(tagQ3T1)
 			tagQ3T1.save()
 		// Question Q4
@@ -225,7 +225,7 @@ class BootStrap {
 		questionQ4.author = userQ4
 		questionQ4.save()
 			// Tag Q4T1
-			Tag tagQ4T1 = new Tag(name: "JAVA")
+			Tag tagQ4T1 = new Tag(name: "JAVA", description: "Java est lent car la JVM est lente, rame à cause du ramasse-mièttes, pas du tout portable car tourne uniquement sur la JVM")
 			questionQ4.addToTags(tagQ4T1)
 			tagQ4T1.save()
 		for (int i=5 ; i<35 ; i++) {
@@ -240,7 +240,18 @@ class BootStrap {
 				questionQi.addToTags(tagQiT1)
 				tagQiT1.save()
 		}
-		
+		// Tags bidons
+		for (int i=5 ; i<50 ; i++)
+			Tag tag = new Tag(name: "Tag"+i, description: "petite description de "+i+"qui n'en est pas une, mais c'est juste pour afficher plein de choses sur la page pour vérifier que cela ne bug pas trop mdr.").save()
+		// Tags multiple
+		Tag tagMultiple = new Tag(name: "tagMultiple", description: "j'existe plusieurs fois").save()
+		User userTagMultiple = new User(name: "userTagMultiple", mail: "userTagMultipleAdresse@mail.com", password: "userTagMultiplePassword").save()
+		for (int i=0 ; i<5 ; i++) {
+			Question qTagMultiple = new Question(title: "titleQTagMultiple"+i, content: "contentqTagMultiple"+i, date: new Date())
+			qTagMultiple.author = userTagMultiple
+			qTagMultiple.addToTags(tagMultiple)
+			qTagMultiple.save()
+		}
 		
 		Vote v = new Vote()
 		v.messageVotable = questionQ4
@@ -268,6 +279,7 @@ class BootStrap {
 		println "- " + Response.count + " reponses"
 		println "- " + Commentaire.count + " comments"
 		println "- " + Vote.count + " votes"
+		println "- " + Tag.count + " tags"
 	}
 	
 	

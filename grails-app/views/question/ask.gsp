@@ -1,5 +1,6 @@
 <!-- Formulaire de création d'une question -->
 <!-- @param listErreurs Liste des erreurs (optionnel) -->
+<!-- @author Julien -->
 
 
 
@@ -36,7 +37,7 @@
 							<div class="wmd-container">
 								<!-- Mise en forme -->
 								<!-- Lien, image, ... -->
-								<textarea id="wmd-input" class="wmd-input processed" tabindex="101" rows="15" cols="92" name="post-text"></textarea>
+								<textarea id="wmd-input" class="wmd-input processed" tabindex="101" rows="15" cols="92" name="content"></textarea>
 								<div class="grippie" style="margin-right: 0px;"></div>
 							</div>
 							<div class="fl" style="margin-top: 8px; height:24px;"></div>

@@ -1,5 +1,6 @@
 <!-- En-tête des pages web -->
-<!-- @param locality Section du site : 'questions', 'tag', 'user', 'askquestion' -->
+<!-- @param locality Section du site : 'questions', 'tags', 'users', 'askquestion' -->
+<!-- @author Julien -->
 
 
 
@@ -21,25 +22,22 @@
 						</span>
 					</a>
 					<span class="lsep">|</span>
-					<a href="/StackOverlow/user/logout"><g:message code="menu.logout" /></a> <!-- perso -->
+					<a href="/StackOverlow/user/logout"><g:message code="menu.logout"/></a>
 					<span class="lsep">|</span>
 				</g:if>
 			</span>
 			<span id="hlinks-nav">
 				<g:if test="${! fr.isima.stackoverlow.UserController.isConnected()}">
-					<a href="/StackOverlow/logUser"><g:message code="menu.login" /></a>
-					<span class="lsep">|</span>
-		
-					<span class="lsep">|</span>
+					<a href="/StackOverlow/logUser"><g:message code="menu.login"/></a>
 				</g:if>
 			</span>
 			<span id="hlinks-custom"></span>
 			<span class="lsep">|</span>
 				<a href="/StackOverlow/?lang=en"><g:img dir="" file="en.jpg" width="20" height="15"/></a>
 			<span class="lsep">|</span>
-		
-			<span class="lsep">|</span>
-			<a href="/StackOverlow/?lang=fr"><g:img dir="" file="fr.jpg" width="20" height="15"/></a>
+			<a href="/StackOverlow/?lang=fr">
+				<g:img dir="" file="fr.jpg" width="20" height="15"/>
+			</a>
 		</div>
 		<div id="hsearch">
 			<form id="search" autocomplete="off" method="get" action="/search">
@@ -59,13 +57,13 @@
 		<div class="nav mainnavs">
 			<ul>
 				<li ${locality.equals("questions") ? 'class="youarehere"' : ''}><a id="nav-questions" href="/StackOverlow/question"><g:message code="menu.questions" /></a></li>
-				<li ${locality.equals("tags") ? 'class="youarehere"' : ''}><a id="nav-tags" href="/StackOverlow/tag"><g:message code="menu.tags" /></a></li>
-				<li ${locality.equals("users") ? 'class="youarehere"' : ''}><a id="nav-users" href="/StackOverlow/user"><g:message code="menu.users" /></a></li>
+				<li ${locality.equals("tags") ? 'class="youarehere"' : ''}><a id="nav-tags" href="/StackOverlow/tag"><g:message code="menu.tags"/></a></li>
+				<li ${locality.equals("users") ? 'class="youarehere"' : ''}><a id="nav-users" href="/StackOverlow/user"><g:message code="menu.users"/></a></li>
 			</ul>
 		</div>
 		<div class="nav askquestion">
 			<ul>
-				<li ${locality.equals("askquestion") ? 'class="youarehere"' : ''}><a id="nav-askquestion" href="/StackOverlow/question/ask"><g:message code="menu.ask" /></a></li>
+				<li ${locality.equals("askquestion") ? 'class="youarehere"' : ''}><a id="nav-askquestion" href="/StackOverlow/question/ask"><g:message code="menu.ask"/></a></li>
 			</ul>
 		</div>
 	</div>

@@ -13,6 +13,7 @@ class Application {
 	 * @return Liste
 	 * @exception IllegalArgumentException Nombre total de pages incorrect
 	 * @exception IllegalArgumentException Page courrante incorrecte
+	 * @author Julien
 	 */
 	def getListPages(int currentPage, int totalPages) {
 		if (totalPages <= 0)

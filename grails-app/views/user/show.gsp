@@ -1,15 +1,14 @@
 
 <head>
+	<meta name="layout" content="main">
     <title><g:message code="user.all.title" /> - Stack Overflow</title>
-   
 </head>
-
 <body class="users-page">
     <div id="notify-container"></div>
     <div id="overlay-header"></div>
     <div id="custom-header"></div>
     <div class="container">
-    <g:render template="/header" model="[locality: 'user']"/>
+    <g:render template="/header" model="[locality: 'users']"/>
     
     <div id="content">
 		<div id="mainbar-full" class="user-show-new">

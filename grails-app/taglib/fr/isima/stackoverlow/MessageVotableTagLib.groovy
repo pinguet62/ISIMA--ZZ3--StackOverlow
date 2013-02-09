@@ -9,7 +9,7 @@ class MessageVotableTagLib {
 	 * @return code HTML
 	 * @author Julien
 	 */
-	def authorOrAdminOptions = { attrs, body ->
+	def stackMessageOptions = { attrs, body ->
 		User user = attrs.user
 		if (user == null)
 			return out
@@ -20,9 +20,9 @@ class MessageVotableTagLib {
 		UserService uService = new UserService()
 		if (uService.isAuthorOrAdmin(user, message)) {
 			out << '<div class="post-menu">'
-			out <<     '<a class="suggest-edit-post" title="revise and improve this post" href="/StackOverlow/question/' << ${message.id} << '/edit">edit</a>'
+			out <<     '<a class="suggest-edit-post" title="revise and improve this post" href="/StackOverlow/question/' << message.id << '/edit">edit</a>'
 			out <<     '<span class="lsep"> | </span>'
-			out <<     '<a class="suggest-edit-post" title="remove this post" href="/StackOverlow/question/' << ${message.id} << '/delete">delete</a>'
+			out <<     '<a class="suggest-edit-post" title="remove this post" href="/StackOverlow/question/' << message.id << '/delete">delete</a>'
 			out << '</div>'
 		}
 		

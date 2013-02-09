@@ -67,14 +67,14 @@ class QuestionController {
 	/**
 	 * Valider la création d'une réponse
 	 * @param id Identifiant de la question
-	 * @param response-content Contenu de la réponse
+	 * @param content Contenu de la réponse
 	 * @return Page de la question
 	 * @author Julien
 	 */
 	def answer_submit() {
 		// Utilisateur connecté
 		if (! UserController.isConnected())
-			redirect(url: "/user/login")
+			return redirect(url: "/user/login")
 		
 		// Question
 		Question question = Question.findById(params.id)
@@ -84,19 +84,19 @@ class QuestionController {
 			return render(view: "/question/moderationDeleted")
 		
 		// Vérifier le formulaire
-		if (params["response-content"] == null  ||  params["response-content"] == "")
+		if (params.content == null  ||  params.content == "")
 			return render(view: "/question/show", model: [question: question, listErreurs: ["body is missing"]])
 		
 		try {
 			// Créer la réponse
-			Response response = new Response(content: params["response-content"], date: new Date())
+			Response response = new Response(content: params.content, date: new Date())
 			response.author = UserController.getUser()
 			response.question = question
 			// Sauvegarder
 			ResponseService rService = new ResponseService()
 			rService.create(response)
 			// Affichage
-			redirect(url: "/question/"+question.id)
+			return redirect(url: "/question/"+question.id)
 		} catch (ServiceException e) {
 			return render(view: "/question/show", model: [question: question, listErreurs: [e.getMessage()]])
 		}
@@ -112,7 +112,7 @@ class QuestionController {
 	def ask() {
 		// Utilisateur connecté
 		if (! UserController.isConnected())
-			redirect(url: "/user/login")
+			return redirect(url: "/user/login")
 		
 		return render(view: "/question/ask")
 	}
@@ -121,7 +121,7 @@ class QuestionController {
 	/**
 	 * Valider la création d'une question
 	 * @param title Titre
-	 * @param post-text Contenu
+	 * @param content Contenu
 	 * @param strListTags Liste des noms des tags
 	 * @return Page de la question <br/>
 	 *         Page du formulaire si erreur <br/>
@@ -131,7 +131,7 @@ class QuestionController {
 	def ask_submit() {
 		// Utilisateur connecté
 		if (! UserController.isConnected())
-			redirect(url: "/user/login")
+			return redirect(url: "/user/login")
 		
 		// Vérifier le formulaire
 		def listErreurs = []
@@ -139,7 +139,7 @@ class QuestionController {
 		if (params.title == null  ||  params.title == "")
 			listErreurs.add("title is missing")
 		// - content
-		if (params["post-text"] == null  ||  params["post-text"] == "")
+		if (params.content == null  ||  params.content == "")
 			listErreurs.add("body is missing")
 		// - tags
 		if (params.strListTags == null  ||  params.strListTags == "")
@@ -149,7 +149,7 @@ class QuestionController {
 		
 		try {
 			// Créer la question
-			Question question = new Question(title: params.title, content: params["post-text"], date: new Date())
+			Question question = new Question(title: params.title, content: params.content, date: new Date())
 			question.author = UserController.getUser()
 			TagService tService = new TagService()
 			for (String name : params.strListTags.split(" +"))
@@ -161,7 +161,7 @@ class QuestionController {
 			QuestionService qService = new QuestionService()
 			qService.create(question)
 			// Affichage
-			redirect(url: "/question/"+question.id)
+			return redirect(url: "/question/"+question.id)
 		} catch (ServiceException e) {
 			return render(view: "/question/ask", model: [listErreurs: [e.getMessage()]])
 		}
@@ -178,7 +178,7 @@ class QuestionController {
 	def edit() {
 		// Utilisateur connecté
 		if (! UserController.isConnected())
-			redirect(url: "/user/login")
+			return redirect(url: "/user/login")
 		
 		// Question
 		Question question = Question.findById(params.id)
@@ -187,7 +187,7 @@ class QuestionController {
 		
 		// Droits d'édition
 		if (! new UserService().isAuthorOrAdmin(UserController.getUser(), question))
-			redirect(url: "/question/"+question.id)
+			return redirect(url: "/question/"+question.id)
 		
 		// temporaire
 		String strListTags = ""
@@ -203,7 +203,7 @@ class QuestionController {
 	 * Valider l'édition d'une question
 	 * @param id Identifiant de la question
 	 * @param title Titre
-	 * @param post-text Contenu
+	 * @param content Contenu
 	 * @param strListTags Liste des noms des tags
 	 * @return Page de la question <br/>
 	 *         Page du formulaire si erreur
@@ -211,7 +211,7 @@ class QuestionController {
 	 */
 	def edit_submit() {
 		if (! UserController.isConnected())
-			redirect(url: "/user/login")
+			return redirect(url: "/user/login")
 		
 		// Question
 		Question question = Question.findById(params.id)
@@ -220,7 +220,7 @@ class QuestionController {
 		
 		// Droits d'édition
 		if (! new UserService().isAuthorOrAdmin(UserController.getUser(), question))
-			redirect(url: "/question/"+question.id)
+			return redirect(url: "/question/"+question.id)
 		
 		// Vérifier le formulaire
 		def listErreurs = []
@@ -228,7 +228,7 @@ class QuestionController {
 		if (params.title == null  ||  params.title == "")
 			listErreurs.add("title is missing")
 		// - content
-		if (params["post-text"] == null  ||  params["post-text"] == "")
+		if (params.content == null  ||  params.content == "")
 			listErreurs.add("body is missing")
 		// - tags
 		if (params.strListTags == null  ||  params.strListTags == "")
@@ -239,7 +239,7 @@ class QuestionController {
 		try {
 			// Modifier la question
 			question.title = params.title
-			question.content = params["post-text"]
+			question.content = params.content
 			question.tags = []
 			TagService tService = new TagService()
 			for (String name : params.strListTags.split(" +"))
@@ -251,7 +251,7 @@ class QuestionController {
 			QuestionService qService = new QuestionService()
 			qService.update(question)
 			// Affichage
-			redirect(url: "/question/"+question.id)
+			return redirect(url: "/question/"+question.id)
 		} catch (ServiceException e) {
 			return render(view: "/question/edit", model: [question: question, strListTags: params.strListTags, listErreurs: [e.getMessage()]])
 		}
@@ -269,7 +269,7 @@ class QuestionController {
 	def delete() {
 		// Utilisateur connecté
 		if (! UserController.isConnected())
-			redirect(url: "/user/login")
+			return redirect(url: "/user/login")
 		
 		// Question
 		Question question = Question.findById(params.id)
@@ -278,7 +278,7 @@ class QuestionController {
 		
 		// Droits de suppression
 		if (! new UserService().isAuthorOrAdmin(UserController.getUser(), question))
-			redirect(url: "/question/"+question.id)
+			return redirect(url: "/question/"+question.id)
 		
 		try {
 			// Supprimer
@@ -287,7 +287,7 @@ class QuestionController {
 		} catch (ServiceException e) {
 		}
 		
-		redirect(url: "/question")
+		return redirect(url: "/question")
 	}
 	
 }

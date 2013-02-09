@@ -12,7 +12,7 @@ class ResponseController {
 	def edit() {
 		// Utilisateur connecté
 		if (! UserController.isConnected())
-			redirect(url: "/user/login")
+			return redirect(url: "/user/login")
 		
 		// Réponse
 		Response response = Response.findById(params.id)
@@ -26,7 +26,7 @@ class ResponseController {
 		
 		// Droits d'édition
 		if (! new UserService().isAuthorOrAdmin(UserController.getUser(), response))
-			redirect(url: "/question/"+question.id)
+			return redirect(url: "/question/"+question.id)
 		
 		return render(view: "/response/edit", model: [reponse: response, question: question])
 	}
@@ -43,7 +43,7 @@ class ResponseController {
 	 */
 	def edit_submit() {
 		if (! UserController.isConnected())
-			redirect(url: "/user/login")
+			return redirect(url: "/user/login")
 		
 		// Réponse
 		Response response = Response.findById(params.id)
@@ -57,7 +57,7 @@ class ResponseController {
 		
 		// Droits d'édition
 		if (! new UserService().isAuthorOrAdmin(UserController.getUser(), response))
-			redirect(url: "/question/"+question.id)
+			return redirect(url: "/question/"+question.id)
 		
 		// Vérifier le formulaire
 		def listErreurs = []
@@ -74,7 +74,7 @@ class ResponseController {
 			ResponseService rService = new ResponseService()
 			rService.update(response)
 			// Affichage
-			redirect(url: "/question/"+question.id)
+			return redirect(url: "/question/"+question.id)
 		} catch (ServiceException e) {
 			return render(view: "/response/edit", model: [reponse: response, question: question, listErreurs: [e.getMessage()]])
 		}
@@ -92,7 +92,7 @@ class ResponseController {
 		// Utilisateur
 		// - connecté
 		if (! UserController.isConnected())
-			redirect(url: "/user/login")
+			return redirect(url: "/user/login")
 		
 		// Réponse
 		Response response = Response.findById(params.id)
@@ -104,7 +104,7 @@ class ResponseController {
 		
 		// Droits de suppression
 		if (! new UserService().isAuthorOrAdmin(UserController.getUser(), response))
-			redirect(url: "/question/"+question.id)
+			return redirect(url: "/question/"+question.id)
 		
 		try {
 			// Supprimer
@@ -113,7 +113,7 @@ class ResponseController {
 		} catch (ServiceException e) {
 		}
 		
-		redirect(url: "/question/"+question.id)
+		return redirect(url: "/question/"+question.id)
 	}
 	
 }

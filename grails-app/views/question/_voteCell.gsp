@@ -1,5 +1,6 @@
 <!-- Afficher la cellule de vote + ou - -->
 <!-- @param message Message votable -->
+<!-- @author Julien -->
 
 
 

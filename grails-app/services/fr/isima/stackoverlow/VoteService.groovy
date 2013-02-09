@@ -34,7 +34,7 @@ class VoteService {
 	 */
 	def getReputation(User user) {
 		int rep = 0
-		Vote.all.each { vote->
+		Vote.all.each { vote ->
 			if (vote.messageVotable.author.id == user.id)
 				rep += vote.mark
 		}

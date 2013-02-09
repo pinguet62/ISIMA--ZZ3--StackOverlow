@@ -59,6 +59,26 @@ class UrlMappings {
 		}
 		
 		
+		// Tag
+		// - afficher
+		"/tag?"(controller: "tag", action: "all")
+		"/tag/$id"(controller: "tag", action: "show") {
+			constraints {
+				id matches: /[0-9]+/
+			}
+		}
+		// - éditer
+		"/tag/$id/edit"(controller: "tag", action: "edit") {
+			constraints {
+				id matches: /[0-9]+/
+			}
+		}
+		"/tag/$id/edit/submit"(controller: "tag", action: "edit_submit") {
+			constraints {
+				id matches: /[0-9]+/
+			}
+		}
+		
 		
 		// User
 		
@@ -94,15 +114,12 @@ class UrlMappings {
 	
 		
 		
-		// Tag
-		"/tag/$id"(controller: "tag", action: "show")
-		"/tag/all"(controller: "tag", action: "all") // page 1
-		"/tag/all/$page"(controller: "tag", action: "all")		
-		
-		"/index"(view: "/")
-		
-		
+		// Accueil
+		"/index"(controller: "question", action: "all")
 		"/"(controller: "question", action: "all")
+		
+		
+		// Erreurs
 		"500"(view: "/error")
 	}
 }

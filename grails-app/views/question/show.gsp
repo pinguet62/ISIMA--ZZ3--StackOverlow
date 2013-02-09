@@ -1,6 +1,7 @@
 <!-- Afficher une question -->
 <!-- @param question Question -->
 <!-- @param listErreurs Liste des erreurs (optionnel) -->
+<!-- @author Julien -->
 
 
 
@@ -37,18 +38,18 @@
 										<tbody>
 											<tr>
 												<td class="vt">
-													<g:authorOrAdminOptions user="${fr.isima.stackoverlow.UserController.getUser()}" messageVotable="${question}"/>
+													<g:stackMessageOptions user="${fr.isima.stackoverlow.UserController.getUser()}" messageVotable="${question}"/>
 												</td>
 												<td class="post-signature owner">
 													<div class="user-info user-hover">
 														<div class="user-action-time">
 															asked
-															<g:dateFormatee date="${question.date}"/>
+															<g:stackDate date="${question.date}"/>
 														</div>
 														<div class="user-gravatar32">
 															<a href="/StackOverlow/user/${question.author}">
 																<div class="">
-																	<g:avatar user="${question.author}"/>
+																	<g:stackAvatar user="${question.author}"/>
 																</div>
 															</a>
 														</div>
@@ -73,11 +74,16 @@
 							<div class="subheader answers-subheader">
 								<h2>
 									<g:if test="${question.responses.size() != 0}">
-										${question.responses.size()} Answers
+										<g:if test="${question.responses.size() == 1}">
+											<g:message code="question.show.oneAnswers"/>
+										</g:if>
+										<g:else>
+											<g:message code="question.show.manyAnswers" args="${[question.responses.size()]}"/>
+										</g:else>
 									</g:if>
 								</h2>
 								<div id="tabs">
-									<a class="youarehere" title="Answers in the order they were provided" href="/StackOverlow/question/2096891?answertab=oldest">oldest</a>
+									<a class="youarehere" title="Answers in the order they were provided" href="/StackOverlow/question/2096891?answertab=oldest"><g:message code="application.tri.oldest"/></a>
 								</div>
 							</div>
 						</div>
@@ -98,18 +104,18 @@
 														<tbody>
 															<tr>
 																<td class="vt">
-																	<g:authorOrAdminOptions user="${fr.isima.stackoverlow.UserController.getUser()}" messageVotable="${response}"/>
+																	<g:stackMessageOptions user="${fr.isima.stackoverlow.UserController.getUser()}" messageVotable="${response}"/>
 																</td>
 																<td class="post-signature owner">
 																	<div class="user-info user-hover">
 																		<div class="user-action-time">
 																			answered
-																			<g:dateFormatee date="${response.date}"/>
+																			<g:stackDate date="${response.date}"/>
 																		</div>
 																		<div class="user-gravatar32">
 																			<a href="/StackOverlow/user/${response.author}">
 																				<div class="">
-																					<g:avatar user="${response.author}"/>
+																					<g:stackAvatar user="${response.author}"/>
 																				</div>
 																			</a>
 																		</div>
@@ -148,12 +154,12 @@
 						</g:each>
 						<a name="new-answer"></a>
 						<form id="post-form" action="/StackOverlow/question/${question.id}/answer/submit" method="post" class="post-form">
-							<h2 class="space">Your Answer</h2>
+							<h2 class="space"><g:message code="question.show.yourAnswer"/></h2>
 							<div class="post-editor">
 								<div class="wmd-container">
 									<!-- Mise en forme -->
 									<!-- Lien, image, ... -->
-									<textarea class="wmd-input processed" tabindex="101" rows="15" cols="92" name="response-content"></textarea>
+									<textarea class="wmd-input processed" tabindex="101" rows="15" cols="92" name="content"></textarea>
 									<div class="grippie" style="margin-right: 0px;"></div>
 								</div>
 								<div class="fl" style="margin-top: 8px; height:24px;"></div>
@@ -170,13 +176,13 @@
 								</div>
 							</g:if>
 							<div class="form-submit cbt">
-								<input type="submit" tabindex="110" value="Post Your Answer"></input>
+								<input type="submit" tabindex="110" value="${message(code: 'question.show.postYourAnswer')}"></input>
 							</div>
 						</form>
 						<h2 class="bottom-notice">
 							Not the answer you're looking for? Browse other questions tagged
 							<g:each var="tag" in="${question.tags}">
-								<g:tagIcone tag="${tag}"/>
+								<g:stackTagIcon tag="${tag}"/>
 							</g:each>
 							or
 							<a href="/StackOverlow/question/ask">ask your own question</a>
@@ -186,10 +192,10 @@
 				</div>
 				<div class="sidebar">
 					<div class="module question-stats">
-						<p class="label-key">tagged</p>
+						<p class="label-key"><g:message code="question.show.tagged"/></p>
 						<div class="tagged">
 							<g:each var="tag" in="${question.tags}">
-								<g:render template="/tag/iconeAndCount" model="[tag: tag]"/>
+								<g:stackTagIconAndPopularity tag="${tag}"/>
 								<br></br>
 							</g:each>
 						</div>

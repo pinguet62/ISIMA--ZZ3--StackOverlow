@@ -2,6 +2,7 @@
 <!-- @param question Question -->
 <!-- @param strListTags Liste des noms des tags (temporaire) -->
 <!-- @param listErreurs Liste des erreurs (optionnel) -->
+<!-- @author Julien -->
 
 
 
@@ -40,7 +41,7 @@
 								</table>
 							</div>
 							<div class="wmd-container">
-								<textarea id="wmd-input-${question.id}" class="wmd-input processed" tabindex="101" rows="15" cols="92" name="post-text">${question.content}</textarea>
+								<textarea id="wmd-input-${question.id}" class="wmd-input processed" tabindex="101" rows="15" cols="92" name="content">${question.content}</textarea>
 								<div class="grippie" style="margin-right: 0px;"></div>
 							</div>
 							<div class="fl" style="margin-top: 8px; height:24px;"></div>

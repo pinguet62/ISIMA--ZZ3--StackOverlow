@@ -8,7 +8,7 @@ class UserTagLib {
 	 * @return Code HTML
 	 * @author Julien
 	 */
-	 def avatar = { attrs, body ->
+	 def stackAvatar = { attrs, body ->
 		 User user = attrs.user
 		 if (user == null)
 		 	return out

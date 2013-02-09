@@ -7,22 +7,53 @@ package fr.isima.stackoverlow
 class TagService {
 	
 	/**
-	 * Obtenir la liste des tags, triée par ordre décroissant dans le classement
-	 * @param premier Classement du premier tag
-	 * @param dernier Classement du dernier tag
+	 * Obtenir le nombre de questions taggués
+	 * @param tag Tag
+	 * @return Nombre de questions
+	 */
+	def nbQuestionsTagged(Tag tag) {
+		int cpt = 0
+		Question.all.each { question ->
+			if (question.tags.contains(tag))
+				cpt ++
+		}
+		return cpt
+	}
+	
+	
+	/**
+	 * Obtenir la liste des tags triée
+	 * @param offset Id du premier tag
+	 * @param max Nombre de tags
+	 * @param sort Type de tri
 	 * @return Liste de tags
-	 * @exception IllegalArgumentException Arguments incorrects
+	 * @exception IllegalArgumentException Indices incorrects
+	 * @exception IllegalArgumentException Tri incorrect
 	 * @author Julien
 	 */
-    def getAsc(int premier, int dernier) {
+	def get(int offset, int max, Sort sort) {
 		// Tests
-		if (premier < 0 || dernier < premier)
-			throw new IllegalArgumentException("Arguments incorrects")
+		if (offset < 0  ||  max < 0)
+			throw new IllegalArgumentException("Paramètres incorrects")
 		
-		int nb = dernier - premier + 1
-		List<Tag> listTags = Tag.findAll([offset: premier, max: nb, sort: "name", order: "asc"])
-		return listTags
-    }
+		// Tri
+		if (sort == Sort.DEFAULT)
+			return Tag.findAll([offset: offset, max: max])
+		else if (sort == Sort.POPULAR)
+			return Tag.executeQuery(""" SELECT tag
+										FROM Tag tag left join tag.questions as questions
+										GROUP BY tag.id
+										ORDER BY count(questions) desc, tag.name asc
+									""", [offset: offset, max: max])
+		else if (sort == Sort.NAME)
+			return Tag.executeQuery(""" SELECT tag
+										FROM Tag tag
+										ORDER BY tag.name asc
+									""", [offset: offset, max: max])
+		else {
+			throw new IllegalArgumentException("Tri incorrect")
+		}
+	}
 	
 	
 	/**
@@ -33,19 +64,27 @@ class TagService {
 	 * @author Julien
 	 */
 	def getOrCreate(String name) {
-		Tag tag = null
-		// Existant
-		tag = Tag.findByName(name)
-		if (tag != null)
-			return tag
-		// Créer
-		tag = new Tag(name: name)
+		Tag tag = Tag.findOrCreateByName(name)
+		
 		// Echec
-		def obj = tag.save()
-		if (obj == null)
+		if (tag == null)
 			throw new ServiceException("Echec de la création")
 		// Ok
-		return tag
+			return tag
+	}
+	
+	
+	/**
+	 * Mettre à jour
+	 * @param tag Tag
+	 * @exception ServiceException Echec de la mise à jour du tag
+	 */
+	def update(Tag tag) {
+		def obj = tag.save()
+		
+		// Echec
+		if (obj == null)
+			throw new ServiceException("Echec de la mise à jour du tag")
 	}
 	
 	
@@ -58,7 +97,7 @@ class TagService {
 		
 		for (Tag t : lst) 
 		{
-			for (Question q : t.question) 
+			for (Question q : t.questions) 
 			{
 				q = Question.findById(q.id)
 				User author = q.author

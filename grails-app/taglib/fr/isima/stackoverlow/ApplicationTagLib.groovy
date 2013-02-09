@@ -1,8 +1,6 @@
 package fr.isima.stackoverlow
 
-import java.text.SimpleDateFormat
-
-class DateTagLib {
+class ApplicationTagLib {
 	
 	/**
 	 * Afficher la date
@@ -11,7 +9,7 @@ class DateTagLib {
 	 * @param date Date
 	 * @return Code HTML
 	 */
-	def dateFormatee = { attrs, body ->
+	def stackDate = { attrs, body ->
 		Date date = attrs.date
 		if (date == null)
 			return out

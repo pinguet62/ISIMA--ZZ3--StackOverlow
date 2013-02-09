@@ -9,15 +9,16 @@ class Tag {
 	
 	// Attributs
 	String name
+	String description
 	
 	// Liens avec la BDD
-	// TODO
-	static hasMany = [question: Question]
+	static hasMany = [questions: Question]
 	static belongsTo = Question
 	
 	
     static constraints = {
 		name(unique: true, minSize: 1)
+		description(nullable: true)
     }
 	
 }

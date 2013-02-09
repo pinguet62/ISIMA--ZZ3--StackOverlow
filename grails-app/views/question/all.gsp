@@ -1,26 +1,27 @@
 <!-- Afficher la liste des question -->
-<!-- @param listQuestions Liste de questions -->
+<!-- @param listQuestions Liste des questions -->
 <!-- @param currentPage Numéro de page courrante -->
 <!-- @param listPages Liste des numéros de page -->
 <!-- @param pagesize Nombre de questions par page -->
+<!-- @author Julien -->
 
 
 
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<title>Question</title>
+		<title>Questions</title>
 	</head>
 	<body class="question-page">
-		<div id="custom-header"/>
+		<div id="custom-header"></div>
 		<div class="container">
 			<g:render template="/header" model="[locality: 'questions']"/>
 			<div id="content">
 				<div id="mainbar">
 					<div class="subheader">
-						<h1 id="h-all-questions">All Questions</h1>
+						<h1 id="h-all-questions"><g:message code="question.all.title"/></h1>
 						<div id="tabs">
-							<a class="youarehere" title="the most recently asked questions" href="/question?sort=newest">newest</a>
+							<a class="youarehere" title="the most recently asked questions" href="/StackOverlow/question?sort=newest"><g:message code="application.tri.newest"/></a>
 						</div>
 					</div>
 					<div id="questions">
@@ -62,19 +63,19 @@
 									</div>
 									<div class="tags t-cñ t-javascript t-aspûnet t-web-applications">
 										<g:each var="tag" in="${question.tags}">
-											<g:tagIcone tag="${tag}"/>
+											<g:stackTagIcon tag="${tag}"/>
 										</g:each>
 									</div>
 									<div class="started fr">
 										<div class="user-info">
 											<div class="user-action-time">
 												asked
-												<g:dateFormatee date="${question.date}"/>
+												<g:stackDate date="${question.date}"/>
 											</div>
 											<div class="user-gravatar32">
 												<a href="/user/${question.author.id}">
 													<div class="">
-														<g:avatar user="${question.author}"/>
+														<g:stackAvatar user="${question.author}"/>
 													</div>
 												</a>
 											</div>
@@ -97,7 +98,7 @@
 						<a class="page-numbers ${pagesize==15 ? 'current' : ''}" title="show 15 items per page" href="/StackOverlow/question?pagesize=15">15</a>
 						<a class="page-numbers ${pagesize==30 ? 'current' : ''}" title="show 30 items per page" href="/StackOverlow/question?pagesize=30">30</a>
 						<a class="page-numbers ${pagesize==50 ? 'current' : ''}" title="show 50 items per page" href="/StackOverlow/question?pagesize=50">50</a>
-						<span class="page-numbers desc">per page</span>
+						<span class="page-numbers desc"><g:message code="application.pagesize"/></span>
 					</div>
 					<g:render template="/listPages" model="[currentPage: currentPage, listPages: listPages, baseURL: '/StackOverlow/question']"/>
 				</div>
@@ -109,9 +110,9 @@
 						<p>questions</p>
 					</div>
 					<div id="related-tags" class="module">
-						<h4 id="h-related-tags">Related Tags</h4>
-						<g:each var="tag" in="${new fr.isima.stackoverlow.TagService().getAsc(0, 25)}">
-							<g:render template="/tag/iconeAndCount" model="[tag: tag]"/>
+						<h4 id="h-related-tags"><g:message code="questiol.all.relatedTags"/></h4>
+						<g:each var="tag" in="${new fr.isima.stackoverlow.TagService().get(0, 25, fr.isima.stackoverlow.Sort.POPULAR)}">
+							<g:stackTagIconAndPopularity tag="${tag}"/>
 							<br></br>
 						</g:each>
 					</div>
