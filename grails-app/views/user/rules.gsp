@@ -1,5 +1,5 @@
 <head>
-    <title><g:message code="user.rules.title" /> - Stack Overflow</title>
+    <title><g:message code="user.rules.title" /> - Stack Overlow</title>
  
 </head>
 

@@ -17,6 +17,7 @@ class UserController {
 	 * @return question page if successfull, login form if not
 	 */
 	def login() {
+		log.info("in login method")
 		def serv = new UserService();
 		
 		// get information from the form
@@ -27,11 +28,13 @@ class UserController {
 		{
 			//user can login
 			logUser(u)
+			log.info("user"+u.name + " loged in")
 		}
 		else 
 		{
 			//user cannot login
 			def message = message(code: "user.login.wronglogin");
+			log.error("user"+u.name + ": "+message)
 			return render(view:"/user/loginForm",model: [message:message])
 		}
 	}
@@ -44,6 +47,7 @@ class UserController {
 	def logUser(User user) 
 	{
 		session.user = user
+		log.info("user"+user.name + " logged in")
 		return redirect(controller: 'question', action:'all')
 	}
 	
@@ -54,6 +58,7 @@ class UserController {
 	 */
 	def logout() {
 		session.user = null
+		log.info("user loged out")
 		return redirect(controller: 'question', action:'all')
 	}
 	
@@ -87,10 +92,12 @@ class UserController {
 	{
 		//get wich information to display
 		def param=params.tab
+		log.info("showing user")
 		if(param==null)
 		{
 			//if not specified, the default view is "summary"
 			param = "sum"
+			log.info("default view: summary")
 		}
 		//get the user to show
 		def userid=params.id;
@@ -99,9 +106,9 @@ class UserController {
 		User user = User.findById(userid)
 		if (user == null) 
 		{
-			//if the user doesn't exist, redirect to the error page
-			Exception e = new Exception("Cette utilisateur n'existe pas");
-			return render(view: "/error",model: [exception: e])
+			//if the user doesn't exist, redirect user list page
+			log.error("user id "+param.id+" is unknow")
+			return redirect(url: "/user/")
 		}
 		//if the user exist, we get all the information to display
 		QuestionService Qserv 	= new QuestionService()
@@ -178,6 +185,7 @@ class UserController {
 			}
 		}
 		
+		log.info("redirecting to the view /user/show")
 		//redirect to the view with data
 		return render(view: "/user/show", model: [usersel: user,
 			reput: reput,
@@ -207,9 +215,11 @@ class UserController {
 	 */
 	def all() 
 	{	//get the sorting parameter
+		log.info("call of user/all view")
 		def param=params.sort
 		if(param==null)
 		{
+			log.info("no parameter specfied, no filtering")
 			param="nofilter"
 		}
 		List<User> lst=null;
@@ -232,6 +242,7 @@ class UserController {
 				break;
 		}
 		//render the view with data
+		log.info("render the view /user/all")
 		return render(view: "/user/all", model: [listUsers: lst, view: param])
 	}
 	
@@ -242,6 +253,7 @@ class UserController {
 	 */
 	def create()
 	{
+		log.info("create an user")
 		//get data from the form
 		def name = params.username
 		def urlProf = params.profile
@@ -278,6 +290,7 @@ class UserController {
 			{
 				erreur=message(code: "user.create.creationfailed")
 			}
+			log.error("Error creating user: "+erreur)
 			return render(view:"/user/newUser",model: [message:erreur])
 		}
 	}
@@ -294,15 +307,19 @@ class UserController {
 		def iduser=params.id
 		//get the user to delete
 		def userDel = User.findById(iduser)
+		
+		log.info("deleting user "+userDel.name)
 
 		//if the user is log, we log him out
 		if(session.user.id == userDel.id)
 		{
+			log.info("logout user")
 			session.user=null
 		}
 		
 		UserService userv = new UserService()
 		userv.delete(userDel)
+		log.info("user deleted")
 		//redirect to users list
 		return redirect(url: "/user")
 	}
@@ -324,10 +341,12 @@ class UserController {
 		
 		//get the edited user
 		User u = User.findById(iduser)
+		log.info("updating user "+u.name)
 		//if the edited user if the logged user
 		if(u.id == session.user.id)
 		{
 			//we log him out
+			log.info("logout user")
 			session.user = null
 			relog=true;
 		}
@@ -345,13 +364,16 @@ class UserController {
 			u.save()
 			if(relog) //if we have log out the user, we re-log him in
 			{
+				log.info("login user")
 				session.user = u
 			}
 			//we redirect to the user's page
+			log.info("render the detail page of the user")
 			return redirect(url: "/user/"+u.id)
 		}
 		catch(Exception e)
 		{
+			log.error("while updating user: "+e.getMessage())
 			//if we can't edit the user, we show why in the editing form
 			return render(view:"/user/newUser",model: [message:e.getMessage()])
 		}
@@ -367,6 +389,7 @@ class UserController {
 		def id=params.id
 		//get the user to edit
 		User user = User.findById(id)
+		log.info("seting data from "+user.name+" to the editing form")
 		//rendering the edit form
 		return render(view:"/user/editUser",model: [userEdit:user])
 	}
@@ -377,6 +400,7 @@ class UserController {
 	 */
 	def rules()
 	{
+		log.info("render the rules pages")
 		return render(view:"/user/rules");
 	}
 }

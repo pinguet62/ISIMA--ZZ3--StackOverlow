@@ -1,6 +1,6 @@
 
 <head>
-    <title><g:message code="user.all.title" /> - Stack Overflow</title>
+    <title><g:message code="user.all.title" /> - Stack Overlow</title>
    
 </head>
 
