@@ -12,6 +12,7 @@ class MessageService {
 	 * Créer
 	 * @param message Message
 	 * @exception ServiceException Echec de la création du message
+	 * @author Julien
 	 */
 	def create(Message message) {
 		def obj = message.save(flush: true)
@@ -26,6 +27,7 @@ class MessageService {
 	 * Mettre à jour
 	 * @param message Message
 	 * @exception ServiceException Echec de la mise à jour du message
+	 * @author Julien
 	 */
 	def update(Message message) {
 		def obj = message.save()
@@ -37,18 +39,10 @@ class MessageService {
 	
 	
 	/**
-	 * Cacher
-	 * @param message Message
-	 */
-	def disable(Message message) {
-		message.display = false
-	}
-	
-	
-	/**
 	 * Supprimer
 	 * @param message Message
 	 * @exception ServiceException Echec de la suppression du message
+	 * @author Julien
 	 */
 	def delete(Message message) {
 		message.delete()

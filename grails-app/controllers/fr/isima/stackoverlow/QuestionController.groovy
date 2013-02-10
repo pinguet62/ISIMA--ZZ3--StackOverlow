@@ -10,6 +10,7 @@ class QuestionController {
 	 * Afficher la liste des questions
 	 * @param page Numéro de page (optionnel)
 	 * @param pagesize Nombre de questions par page (optionnel)
+	 * @param sort Type de tri
 	 * @return Page des questions <br/>
 	 *         Page d'erreur si inexistante
 	 * @author Julien
@@ -22,28 +23,35 @@ class QuestionController {
 			page = params.page.toInteger()
 		// - nombre de questions par page
 		int pagesize = 15
-		if (params.pagesize != null) {
-			if ([15, 30, 50].contains(params.pagesize.toInteger())) {
-				pagesize = params.pagesize.toInteger()
-				session.question_pagesize = pagesize
-			}
-		} else if (session.question_pagesize != null)
+		if (params.pagesize != null  &&  params.pagesize.isInteger())
+			pagesize = params.pagesize.toInteger()
+		else if (session.question_pagesize != null)
 			pagesize = session.question_pagesize
+		if (! [15, 30, 50].contains(pagesize))
+			pagesize = 15
+		session.question_pagesize = pagesize // TODO
 		// - tri
-		// TODO
+		Sort sort = Sort.NEWEST
+		if (params.sort != null)
+			sort = Sort.fromString(params.sort)
+		else if (session.question_sort != null)
+				sort = session.question_sort
+		if (! [Sort.NEWEST, Sort.VOTES].contains(sort))
+			sort = Sort.NEWEST
+		session.question_sort = sort
 		
 		// Liste des questions
 		int offset = pagesize*(page-1)
 		int max = pagesize
-		def listQuestions = new QuestionService().getDesc(offset, max)
+		def listQuestions = new QuestionService().get(offset, max, sort)
 		if (listQuestions.isEmpty())
-			return render(view: "/question/nonexistent")
+			return render(view: "/notFound", model: [locality: "questions"])
 		
 		// Liste des pages
 		int totalPages = Math.ceil(Question.count / pagesize)
 		def listPages = new Application().getListPages(page, totalPages)
 		
-		return render(view: "/question/all", model: [listQuestions: listQuestions, currentPage: page, listPages: listPages, pagesize: pagesize])
+		return render(view: "/question/all", model: [listQuestions: listQuestions, sort: sort, currentPage: page, listPages: listPages, pagesize: pagesize])
 	}
 	
 	
@@ -58,9 +66,9 @@ class QuestionController {
 		// Question
 		Question question = Question.findById(params.id)
 		if (question == null)
-			return render(view: "/question/nonexistent")
-		else
-			return render(view: "/question/show", model: [question: question])
+			return render(view: "/notFound", model: [locality: "questions"])
+		
+		return render(view: "/question/show", model: [question: question])
 	}
 	
 	
@@ -78,10 +86,8 @@ class QuestionController {
 		
 		// Question
 		Question question = Question.findById(params.id)
-		if (question == null) {
-			return render(view: "/question/nonexistent")
-		} else if (! question.display)
-			return render(view: "/question/moderationDeleted")
+		if (question == null)
+			return render(view: "/notFound", model: [locality: "questions"])
 		
 		// Vérifier le formulaire
 		if (params.content == null  ||  params.content == "")
@@ -183,7 +189,7 @@ class QuestionController {
 		// Question
 		Question question = Question.findById(params.id)
 		if (question == null)
-			return render(view: "/question/nonexistent")
+			return render(view: "/notFound", model: [locality: "questions"])
 		
 		// Droits d'édition
 		if (! new UserService().isAuthorOrAdmin(UserController.getUser(), question))
@@ -216,7 +222,7 @@ class QuestionController {
 		// Question
 		Question question = Question.findById(params.id)
 		if (question == null)
-			return render(view: "/question/nonexistent")
+			return render(view: "/notFound", model: [locality: "questions"])
 		
 		// Droits d'édition
 		if (! new UserService().isAuthorOrAdmin(UserController.getUser(), question))
@@ -274,7 +280,7 @@ class QuestionController {
 		// Question
 		Question question = Question.findById(params.id)
 		if (question == null)
-			return render(view: "/question/nonexistent")
+			return render(view: "/notFound", model: [locality: "questions"])
 		
 		// Droits de suppression
 		if (! new UserService().isAuthorOrAdmin(UserController.getUser(), question))

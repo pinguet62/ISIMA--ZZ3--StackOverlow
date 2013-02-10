@@ -16,10 +16,8 @@ class ResponseController {
 		
 		// Réponse
 		Response response = Response.findById(params.id)
-		if (response == null) {
-			return render(view: "/question/nonexistent")
-		} else if (! response.display)
-			return render(view: "/question/moderationDeleted")
+		if (response == null)
+			return render(view: "/notFound", model: [locality: "questions"])
 		// Question
 		MessageService mService = new MessageService()
 		Question question = mService.getQuestion(response)
@@ -47,10 +45,8 @@ class ResponseController {
 		
 		// Réponse
 		Response response = Response.findById(params.id)
-		if (response == null) {
-			return render(view: "/question/nonexistent")
-		} else if (! response.display)
-			return render(view: "/question/moderationDeleted")
+		if (response == null)
+			return render(view: "/notFound", model: [locality: "questions"])
 		// Question
 		MessageService mService = new MessageService()
 		Question question = mService.getQuestion(response)
@@ -97,7 +93,7 @@ class ResponseController {
 		// Réponse
 		Response response = Response.findById(params.id)
 		if (response == null)
-			return render(view: "/question/nonexistent")
+			return render(view: "/notFound", model: [locality: "questions"])
 		// Question
 		MessageService mService = new MessageService()
 		Question question = mService.getQuestion(response)

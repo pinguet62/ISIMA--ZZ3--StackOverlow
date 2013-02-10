@@ -25,7 +25,7 @@ class TagService {
 	 * Obtenir la liste des tags triée
 	 * @param offset Id du premier tag
 	 * @param max Nombre de tags
-	 * @param sort Type de tri
+	 * @param sort Type de tri (DEFAULT, POPULAR, NAME)
 	 * @return Liste de tags
 	 * @exception IllegalArgumentException Indices incorrects
 	 * @exception IllegalArgumentException Tri incorrect
@@ -40,19 +40,22 @@ class TagService {
 		if (sort == Sort.DEFAULT)
 			return Tag.findAll([offset: offset, max: max])
 		else if (sort == Sort.POPULAR)
-			return Tag.executeQuery(""" SELECT tag
-										FROM Tag tag left join tag.questions as questions
-										GROUP BY tag.id
-										ORDER BY count(questions) desc, tag.name asc
-									""", [offset: offset, max: max])
+			return Tag.executeQuery(	"""
+											SELECT tag
+											FROM Tag tag 
+											  LEFT JOIN tag.questions as questions
+											GROUP BY tag.id
+											ORDER BY count(questions) DESC,
+													 tag.name ASC
+										""", [offset: offset, max: max])
 		else if (sort == Sort.NAME)
-			return Tag.executeQuery(""" SELECT tag
-										FROM Tag tag
-										ORDER BY tag.name asc
-									""", [offset: offset, max: max])
-		else {
+			return Tag.executeQuery(	"""
+											SELECT tag
+											FROM Tag tag
+											ORDER BY tag.name ASC
+										""", [offset: offset, max: max])
+		else
 			throw new IllegalArgumentException("Tri incorrect")
-		}
 	}
 	
 	

@@ -1,5 +1,6 @@
 <!-- Afficher la liste des question -->
 <!-- @param listQuestions Liste des questions -->
+<!-- @param sort Type de tri -->
 <!-- @param currentPage Numéro de page courrante -->
 <!-- @param listPages Liste des numéros de page -->
 <!-- @param pagesize Nombre de questions par page -->
@@ -21,7 +22,8 @@
 					<div class="subheader">
 						<h1 id="h-all-questions"><g:message code="question.all.title"/></h1>
 						<div id="tabs">
-							<a class="youarehere" title="the most recently asked questions" href="/StackOverlow/question?sort=newest"><g:message code="application.tri.newest"/></a>
+							<a ${sort == fr.isima.stackoverlow.Sort.NEWEST ? 'class="youarehere"' : ''} title="the most recently asked questions" href="/StackOverlow/question?sort=${fr.isima.stackoverlow.Sort.NEWEST.toString()}"><g:message code="application.tri.newest"/></a>
+							<a ${sort == fr.isima.stackoverlow.Sort.VOTES ? 'class="youarehere"' : ''} title="questions with the most votes" href="/StackOverlow/question?sort=${fr.isima.stackoverlow.Sort.VOTES.toString()}"><g:message code="application.tri.votes"/></a>
 						</div>
 					</div>
 					<div id="questions">

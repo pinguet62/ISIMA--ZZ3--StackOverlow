@@ -9,6 +9,7 @@ class TagController {
     /**
 	 * Afficher la liste des tags
 	 * @param page Numéro de page (optionnel)
+	 * @param sort Type de tri
 	 * @return Page des tags <br/>
 	 *         Page d'erreur si inexistante
 	 * @author Julien
@@ -23,20 +24,20 @@ class TagController {
 			page = params.page.toInteger()
 		// - tri
 		Sort sort = Sort.POPULAR
-		if (params.sort != null) {
-			if ([Sort.POPULAR, Sort.NAME].contains(Sort.fromString(params.sort))) {
-				sort = Sort.fromString(params.sort)
-				session.tag_sort = sort
-			}
-		} else if (session.tag_sort != null)
+		if (params.sort != null)
+			sort = Sort.fromString(params.sort)
+		else if (session.tag_sort != null)
 			sort = session.tag_sort
+		if (! [Sort.POPULAR, Sort.NAME].contains(sort))
+			sort = Sort.POPULAR
+		session.tag_sort = sort
 		
 		// Liste des tags
 		int offset = pagesize*(page-1)
 		int max = pagesize
 		def listTags = new TagService().get(offset, max, sort)
 		if (listTags.isEmpty())
-			return render(view: "/tag/nonexistent")
+			return render(view: "/notFound", model: [locality: "tags"])
 		
 		// Liste des pages
 		int totalPages = Math.ceil(Tag.count / pagesize)
@@ -57,9 +58,9 @@ class TagController {
 		// Tag
 		Tag tag = Tag.findById(params.id)
 		if (tag == null)
-			return render(view: "/question/nonexistent")
-		else
-			return render(view: "/tag/show", model: [tag: tag])
+			return render(view: "/notFound", model: [locality: "tags"])
+		
+		return render(view: "/tag/show", model: [tag: tag])
 	}
 	
 	
@@ -78,7 +79,7 @@ class TagController {
 		// Question
 		Tag tag = Tag.findById(params.id)
 		if (tag == null)
-			return render(view: "/question/nonexistent")
+			return render(view: "/notFound", model: [locality: "tags"])
 		
 		// Droits d'édition
 		if (! UserController.getUser().admin)
@@ -103,7 +104,7 @@ class TagController {
 		// Tag
 		Tag tag = Tag.findById(params.id)
 		if (tag == null)
-			return render(view: "/question/nonexistent")
+			return render(view: "/notFound", model: [locality: "tags"])
 		
 		// Droits d'édition
 		if (! UserController.getUser().admin)

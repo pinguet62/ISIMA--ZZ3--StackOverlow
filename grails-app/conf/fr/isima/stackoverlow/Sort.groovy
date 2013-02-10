@@ -7,10 +7,14 @@ package fr.isima.stackoverlow
 enum Sort {
 	
 	DEFAULT("default"),
-	NEWEST("newest"),
 	OLDEST("oldest"),
+	// Question
+	NEWEST("newest"),
+	VOTES("votes"),
+	// Tags
 	POPULAR("popular"),
 	NAME("name"),
+	// Users
 	REPUTATION("reputation")
 	
 	private final String text
