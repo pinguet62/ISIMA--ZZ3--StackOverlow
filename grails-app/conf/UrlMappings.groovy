@@ -59,6 +59,19 @@ class UrlMappings {
 		}
 		
 		
+		// Vote
+		"/vote/$id/up"(controller: "vote", action: "up") {
+			constraints {
+				id matches: /[0-9]+/
+			}
+		}
+		"/vote/$id/down"(controller: "vote", action: "down") {
+			constraints {
+				id matches: /[0-9]+/
+			}
+		}
+		
+		
 		// Tag
 		// - afficher
 		"/tag?"(controller: "tag", action: "all")

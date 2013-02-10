@@ -1,7 +1,7 @@
 package fr.isima.stackoverlow
 
-import org.junit.Before
-import org.junit.Test
+import grails.test.mixin.*
+import org.junit.*
 
 @TestFor(CommentaireService)
 @Mock([User, Question, Response, Commentaire])

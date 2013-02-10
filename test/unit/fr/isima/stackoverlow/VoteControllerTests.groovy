@@ -3,7 +3,7 @@ package fr.isima.stackoverlow
 import grails.test.mixin.*
 import org.junit.*
 
-@TestFor(TagTagLib)
+@TestFor(VoteController)
 @Ignore
-class TagTagLibTests {
+class VoteControllerTests {
 }

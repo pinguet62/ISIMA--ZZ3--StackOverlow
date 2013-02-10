@@ -7,11 +7,12 @@ package fr.isima.stackoverlow
 class TagService {
 	
 	/**
-	 * Obtenir le nombre de questions taggués
+	 * Obtenir la popularité du tag <br/>
+	 * Il s'aggit du nombre de questions possédant ce tag
 	 * @param tag Tag
-	 * @return Nombre de questions
+	 * @return Popularité
 	 */
-	def nbQuestionsTagged(Tag tag) {
+	def getPopularity(Tag tag) {
 		int cpt = 0
 		Question.all.each { question ->
 			if (question.tags.contains(tag))
@@ -37,8 +38,10 @@ class TagService {
 			throw new IllegalArgumentException("Paramètres incorrects")
 		
 		// Tri
+		// - DEFAULT : id croissant
 		if (sort == Sort.DEFAULT)
 			return Tag.findAll([offset: offset, max: max])
+		// - POPULAR : nombre de questions associées décroissante, nom croissant
 		else if (sort == Sort.POPULAR)
 			return Tag.executeQuery(	"""
 											SELECT tag
@@ -48,6 +51,7 @@ class TagService {
 											ORDER BY count(questions) DESC,
 													 tag.name ASC
 										""", [offset: offset, max: max])
+		// - NAME : nom croissant
 		else if (sort == Sort.NAME)
 			return Tag.executeQuery(	"""
 											SELECT tag
@@ -72,8 +76,8 @@ class TagService {
 		// Echec
 		if (tag == null)
 			throw new ServiceException("Echec de la création")
-		// Ok
-			return tag
+		
+		return tag
 	}
 	
 	

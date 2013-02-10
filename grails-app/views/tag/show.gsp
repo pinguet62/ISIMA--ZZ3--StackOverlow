@@ -41,7 +41,7 @@
 				<div class="sidebar">
 					<div class="module">
 						<div class="summarycount al">
-							${new fr.isima.stackoverlow.TagService().nbQuestionsTagged(tag)}
+							${new fr.isima.stackoverlow.TagService().getPopularity(tag)}
 						</div>
 						<p>questions tagged</p>
 						<div class="tagged">

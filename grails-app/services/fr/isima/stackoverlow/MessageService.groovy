@@ -15,7 +15,7 @@ class MessageService {
 	 * @author Julien
 	 */
 	def create(Message message) {
-		def obj = message.save(flush: true)
+		def obj = message.save()
 		
 		// Echec
 		if (obj == null)

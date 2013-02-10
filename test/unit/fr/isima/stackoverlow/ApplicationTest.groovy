@@ -1,6 +1,7 @@
 package fr.isima.stackoverlow
 
-import org.junit.Test
+import grails.test.mixin.*
+import org.junit.*
 
 @TestFor(Application)
 class ApplicationTest {

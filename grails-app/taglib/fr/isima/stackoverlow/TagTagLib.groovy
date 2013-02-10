@@ -37,7 +37,7 @@ class TagTagLib {
 		out << '<span class="item-multiplier">'
 		out <<     '<span class="item-multiplier-x"> x </span>'
 		out <<     '<span class="item-multiplier-count">'
-		out <<         new TagService().nbQuestionsTagged(tag)
+		out <<         new TagService().getPopularity(tag)
 		out <<     '</span>'
 		out << '</span>'
 		return out

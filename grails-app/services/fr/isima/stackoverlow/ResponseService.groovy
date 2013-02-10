@@ -9,26 +9,6 @@ import fr.isima.stackoverlow.ServiceException
 class ResponseService extends MessageVotableService {
 	
 	/**
-	 * Cacher
-	 * @param reponse Réponse
-	 */
-	def disable(Response reponse) {
-		// Cascade
-		for (Commentaire commentaire in reponse.commentaires)
-			commentaire.disable()
-		reponse.disable()
-	}
-	
-	
-	
-	
-	def getNbReponse(Question quest)
-	{
-		return Response.findAllByQuestion(quest).size();
-		
-	}
-	
-	/**
 	 * Supprimer
 	 * @param reponse Réponse
 	 * @exception ServiceException Echec de la suppression du message
@@ -42,6 +22,13 @@ class ResponseService extends MessageVotableService {
 		// Echec
 		if (Question.findById(reponse.id) != null)
 			throw new ServiceException("Echec de la suppression du message")
+	}
+	
+	
+	def getNbReponse(Question quest)
+	{
+		return Response.findAllByQuestion(quest).size();
+		
 	}
 	
 	

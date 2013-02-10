@@ -24,22 +24,45 @@ class QuestionService extends MessageVotableService {
 			throw new IllegalArgumentException("Paramètres incorrects")
 		
 		// Tri
+		// - DEFAULT : id croissant
 		if (sort == Sort.DEFAULT)
 			return Question.findAll([offset: offset, max: max])
+		// - NEWEST : date décroissante
 		else if (sort == Sort.NEWEST)
 			return Question.executeQuery(	"""
 												SELECT question
 												FROM Question question
 												ORDER BY question.date DESC
 											""", [offset: offset, max: max])
-		else if (sort == Sort.VOTES) { // TODO
-			return Question.executeQuery(	"""
-												SELECT vote.messageVotable
-												FROM Vote vote
-												WHERE vote.messageVotable IN (SELECT question FROM Question question)
-												GROUP BY vote.messageVotable.id
-												ORDER BY SUM(vote.mark) DESC
-											""", [offset: offset, max: max])
+		// - VOTES : note décroissante, date décroissante
+		else if (sort == Sort.VOTES) { // TODO: proprement...
+			def listQuestions = Question.executeQuery(	"""
+															SELECT vote.messageVotable
+															FROM Vote vote
+															WHERE vote.messageVotable IN (SELECT question FROM Question question)
+																AND vote.mark > 0
+															GROUP BY vote.messageVotable.id
+															ORDER BY SUM(vote.mark) DESC,
+															         vote.messageVotable.date DESC
+														""") +
+								Question.executeQuery(	"""
+															SELECT question
+															FROM Question question
+															WHERE question NOT IN (SELECT vote.messageVotable FROM Vote vote WHERE vote.mark != 0)
+															GROUP BY question.id
+															ORDER BY question.date DESC
+														""") +
+								Question.executeQuery(	"""
+															SELECT vote.messageVotable
+															FROM Vote vote
+															WHERE vote.messageVotable IN (SELECT question FROM Question question)
+																AND vote.mark < 0
+															GROUP BY vote.messageVotable.id
+															ORDER BY SUM(vote.mark) DESC,
+															         vote.messageVotable.date DESC
+														""")
+			int last = (listQuestions.size() < offset+max ? listQuestions.size()-1 : offset+max-1)
+			return listQuestions[offset..last]
 		}
 		else
 			throw new IllegalArgumentException("Tri incorrect")

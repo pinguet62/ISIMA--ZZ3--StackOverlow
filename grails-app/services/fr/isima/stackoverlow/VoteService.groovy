@@ -8,23 +8,6 @@ import fr.isima.stackoverlow.ServiceException
  */
 class VoteService {
 	
-	def getDetailedReput(User user)
-	{
-		List<Vote> ret = new ArrayList<Vote>()
-		for (Vote vote : Vote.list())
-			if (vote.messageVotable.author.equals(user))
-				ret.add(vote)
-		return ret
-		
-	}
-	
-	def getVoteFromUser(User user)
-	{
-		List<Vote> ret = Vote.findAllByUser(user)
-		return ret
-	}
-	
-	
 	/**
 	 * Obtenir la réputation d'un utilisateur
 	 * @param user Utilisateur
@@ -39,12 +22,6 @@ class VoteService {
 				rep += vote.mark
 		}
 		return rep
-		
-		/*def res = Vote.executeQuery("SELECT sum(v.mark) FROM Vote AS v AND Question AS q WHERE v.messageVotable = q AND q.author = :u", [u: user])
-		if (res[0] == null)
-			return 0
-		else
-			return res[0]*/
 	}
 	
 	
@@ -64,20 +41,51 @@ class VoteService {
 	}
 	
 	
-	static def getNbVoteStatic(MessageVotable message)
-	{
-		List<Vote> tmp = Vote.findAllByMessageVotable(message) 
-		return tmp.size()//.size();
+	/**
+	 * Test si l'utilisateur a voté positivement pour le message
+	 * @param message Message
+	 * @param user Utilisateur
+	 * @return Autorisé
+	 */
+	def votedUp(MessageVotable message, User user) {
+		// Test
+		if (user == null)
+			return false
+		
+		Vote vote = Vote.findByUserAndMessageVotable(user, message)
+		return (vote != null  &&  vote.mark == +1)
 	}
+	
+	
+	/**
+	 * Test si l'utilisateur a voté négativement pour le message
+	 * @param message Message
+	 * @param user Utilisateur
+	 * @return Autorisé
+	 */
+	def votedDown(MessageVotable message, User user) {
+		// Test
+		if (user == null)
+			return false
+		
+		Vote vote = Vote.findByUserAndMessageVotable(user, message)
+		return (vote != null  &&  vote.mark == -1)
+	}
+	
 	
 	/**
 	 * Vote up
-	 * @param message the message
-	 * @param user the user
-	 * @exception ServiceException if the vote fail
+	 * @param message The message
+	 * @param user The user
+	 * @exception ServiceException Vote pour soi impossible
+	 * @exception ServiceException Fail of the vote
 	 * @author Julien
 	 */
 	def voteUp(MessageVotable message, User user) {
+		// Vote pour soi
+		if (message.author == user)
+			throw new ServiceException("Vote pour soi impossible")
+		
 		Vote vote = Vote.findByUserAndMessageVotable(user, message)
 		// Nouveau vote
 		if (vote == null) {
@@ -112,12 +120,17 @@ class VoteService {
 	
 	/**
 	 * Vote down
-	 * @param message the message to vote
-	 * @param user the vote
-	 * @exception ServiceException fail of the vote
+	 * @param message The message to vote
+	 * @param user The vote
+	 * @exception ServiceException Vote pour soi impossible
+	 * @exception ServiceException Fail of the vote
 	 * @author Julien
 	 */
 	def voteDown(MessageVotable message, User user) {
+		// Vote pour soi
+		if (message.author == user)
+			throw new ServiceException("Vote pour soi impossible")
+		
 		Vote vote = Vote.findByUserAndMessageVotable(user, message)
 		// Nouveau vote
 		if (vote == null) {
@@ -147,6 +160,31 @@ class VoteService {
 				if (Vote.findById(vote.id) != null)
 					throw new ServiceException("Echec du vote")
 		}
+	}
+	
+	
+	def getDetailedReput(User user)
+	{
+		List<Vote> ret = new ArrayList<Vote>()
+		for (Vote vote : Vote.list())
+			if (vote.messageVotable.author.equals(user))
+				ret.add(vote)
+		return ret
+		
+	}
+	
+	
+	def getVoteFromUser(User user)
+	{
+		List<Vote> ret = Vote.findAllByUser(user)
+		return ret
+	}
+	
+	
+	static def getNbVoteStatic(MessageVotable message)
+	{
+		List<Vote> tmp = Vote.findAllByMessageVotable(message)
+		return tmp.size()//.size();
 	}
 	
 }
