@@ -39,8 +39,9 @@ class QuestionService extends MessageVotableService {
 			def listQuestions = Question.executeQuery(	"""
 															SELECT vote.messageVotable
 															FROM Vote vote
-															WHERE vote.messageVotable IN (SELECT question FROM Question question)
-																AND vote.mark > 0
+															WHERE vote.messageVotable IN (SELECT question
+																						  FROM Question question)
+															  AND vote.mark > 0
 															GROUP BY vote.messageVotable.id
 															ORDER BY SUM(vote.mark) DESC,
 															         vote.messageVotable.date DESC
@@ -48,14 +49,16 @@ class QuestionService extends MessageVotableService {
 								Question.executeQuery(	"""
 															SELECT question
 															FROM Question question
-															WHERE question NOT IN (SELECT vote.messageVotable FROM Vote vote WHERE vote.mark != 0)
+															WHERE question NOT IN (SELECT vote.messageVotable
+																				   FROM Vote vote WHERE vote.mark != 0)
 															GROUP BY question.id
 															ORDER BY question.date DESC
 														""") +
 								Question.executeQuery(	"""
 															SELECT vote.messageVotable
 															FROM Vote vote
-															WHERE vote.messageVotable IN (SELECT question FROM Question question)
+															WHERE vote.messageVotable IN (SELECT question
+																						  FROM Question question)
 																AND vote.mark < 0
 															GROUP BY vote.messageVotable.id
 															ORDER BY SUM(vote.mark) DESC,
@@ -96,6 +99,7 @@ class QuestionService extends MessageVotableService {
 	 * @param question Question
 	 * @exception ServiceException Echec de la suppression du message
 	 * @author Julien
+	 * @TODO Tests
 	 */
 	def delete(Question question) {
 		// Cascade

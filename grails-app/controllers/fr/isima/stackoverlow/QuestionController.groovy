@@ -58,6 +58,7 @@ class QuestionController {
 	/**
 	 * Afficher une question
 	 * @param id Identifiant de la question
+	 * @param sort Type de tri
 	 * @return Page de la question <br/>
 	 *         Page d'erreur si inexistante
 	 * @author Julien
@@ -68,7 +69,14 @@ class QuestionController {
 		if (question == null)
 			return render(view: "/notFound", model: [locality: "questions"])
 		
-		return render(view: "/question/show", model: [question: question])
+		// Paramètres
+		// - tri
+		Sort sort = Sort.fromString(params.sort)
+		if (! [Sort.OLDEST, Sort.VOTES].contains(sort))
+			sort = Sort.OLDEST
+		question.responses = new ResponseService().get(question, sort)
+		
+		return render(view: "/question/show", model: [question: question, sort: sort])
 	}
 	
 	

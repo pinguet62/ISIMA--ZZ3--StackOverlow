@@ -1,5 +1,6 @@
 <!-- Afficher une question -->
 <!-- @param question Question -->
+<!-- @param sort Type de tri (optionnel) -->
 <!-- @param listErreurs Liste des erreurs (optionnel) -->
 <!-- @author Julien -->
 
@@ -82,8 +83,9 @@
 										</g:else>
 									</g:if>
 								</h2>
-								<div id="tabs">
-									<a class="youarehere" title="Answers in the order they were provided" href="/StackOverlow/question/2096891?answertab=oldest"><g:message code="application.tri.oldest"/></a>
+								<div id="tabs" ${(question.responses.size()==0 ? 'style="display:none;"' : '')}>
+									<a ${(sort==null || sort==fr.isima.stackoverlow.Sort.OLDEST ? 'class="youarehere"' : '')} title="Answers in the order they were provided" href="/StackOverlow/question/${question.id}?sort=${fr.isima.stackoverlow.Sort.OLDEST.toString()}"><g:message code="application.tri.oldest"/></a>
+									<a ${(sort==fr.isima.stackoverlow.Sort.VOTES ? 'class="youarehere"' : '')} title="Answers with the highest score first" href="/StackOverlow/question/${question.id}?sort=${fr.isima.stackoverlow.Sort.VOTES.toString()}"><g:message code="application.tri.votes"/></a>
 								</div>
 							</div>
 						</div>
@@ -179,15 +181,6 @@
 								<input type="submit" tabindex="110" value="${message(code: 'question.show.postYourAnswer')}"></input>
 							</div>
 						</form>
-						<h2 class="bottom-notice">
-							Not the answer you're looking for? Browse other questions tagged
-							<g:each var="tag" in="${question.tags}">
-								<g:stackTagIcon tag="${tag}"/>
-							</g:each>
-							or
-							<a href="/StackOverlow/question/ask">ask your own question</a>
-							.
-						</h2>
 					</div>
 				</div>
 				<div class="sidebar">

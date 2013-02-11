@@ -5,15 +5,13 @@
 
 
 <div id="header">
-	<div id="portalLink">
-		<a class="genu" onclick="StackExchange.ready(function(){genuwine.click();});return false;">
-			Stack Exchange
-		</a>
-	</div>
 	<div id="topbar">
 		<div id="hlinks">
 			<span id="hlinks-user">
-				<g:if test="${fr.isima.stackoverlow.UserController.isConnected()}">
+				<g:if test="${! fr.isima.stackoverlow.UserController.isConnected()}">
+					<a href="/StackOverlow/logUser"><g:message code="menu.login"/></a>
+				</g:if>
+				<g:else>
 					<g:set var="user" value="${fr.isima.stackoverlow.UserController.getUser()}"/>
 					<a class="profile" href="/StackOverlow/user/${user.id}">${user.name}</a>
 					<a href="/StackOverlow/user/${user.id}">
@@ -21,30 +19,15 @@
 							${new fr.isima.stackoverlow.VoteService().getReputation(user)}
 						</span>
 					</a>
-					<span class="lsep">|</span>
+					<span class="lsep"> | </span>
 					<a href="/StackOverlow/user/logout"><g:message code="menu.logout"/></a>
-					<span class="lsep">|</span>
-				</g:if>
+					<span class="lsep"> | </span>
+				</g:else>
 			</span>
-			<span id="hlinks-nav">
-				<g:if test="${! fr.isima.stackoverlow.UserController.isConnected()}">
-					<a href="/StackOverlow/logUser"><g:message code="menu.login"/></a>
-				</g:if>
-			</span>
-			<span id="hlinks-custom"></span>
-			<span class="lsep">|</span>
-				<a href="/StackOverlow/?lang=en"><g:img dir="" file="en.jpg" width="20" height="15"/></a>
-			<span class="lsep">|</span>
-			<a href="/StackOverlow/?lang=fr">
-				<g:img dir="" file="fr.jpg" width="20" height="15"/>
-			</a>
-		</div>
-		<div id="hsearch">
-			<form id="search" autocomplete="off" method="get" action="/search">
-				<div>
-					<input class="textbox" type="text" value="" size="28" maxlength="140" tabindex="1" placeholder="search" name="q" autocomplete="off"></input>
-				</div>
-			</form>
+			<span class="lsep"> | </span>
+			<a href="/StackOverlow/?lang=en"><g:img dir="" file="en.jpg" width="20" height="15"/></a>
+			<span class="lsep"> | </span>
+			<a href="/StackOverlow/?lang=fr"><g:img dir="" file="fr.jpg" width="20" height="15"/></a>
 		</div>
 	</div>
 	<br class="cbt"></br>

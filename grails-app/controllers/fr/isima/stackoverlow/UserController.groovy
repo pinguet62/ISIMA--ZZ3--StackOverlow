@@ -35,7 +35,7 @@ class UserController {
 			//user cannot login
 			def message = message(code: "user.login.wronglogin");
 			log.error("user"+u.name + ": "+message)
-			return render(view:"/user/loginForm",model: [message:message])
+			return render(view: "/user/loginForm", model: [message: message])
 		}
 	}
 	

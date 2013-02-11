@@ -26,9 +26,6 @@
 							<g:message code="page.notFound.content.contact"/>
 						</p>
 					</div>
-					<div class="rightcol">
-						<img width="500" alt="page not found" src="http://sstatic.net/stackoverflow/img/polyglot-404.png"/>
-					</div>
 				</div>
 			</div>
 		</div>

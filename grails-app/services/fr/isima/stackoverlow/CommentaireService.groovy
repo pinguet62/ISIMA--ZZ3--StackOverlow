@@ -16,6 +16,7 @@ class CommentaireService extends MessageService {
 	 * @param commentaire Commentaire
 	 * @exception ServiceException Echec de la création du commentaire
 	 * @exception ServiceException Echec de l'ajout du commentaire
+	 * @TODO Tests
 	 */
     def add(MessageVotable message, Commentaire commentaire) {
 		def obj = commentaire.save()
