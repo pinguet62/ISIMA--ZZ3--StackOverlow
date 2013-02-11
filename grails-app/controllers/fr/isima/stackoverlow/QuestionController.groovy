@@ -35,7 +35,7 @@ class QuestionController {
 		if (params.sort != null)
 			sort = Sort.fromString(params.sort)
 		else if (session.question_sort != null)
-				sort = session.question_sort
+			sort = session.question_sort
 		if (! [Sort.NEWEST, Sort.VOTES].contains(sort))
 			sort = Sort.NEWEST
 		session.question_sort = sort
@@ -90,7 +90,7 @@ class QuestionController {
 	def answer_submit() {
 		// Utilisateur connecté
 		if (! UserController.isConnected())
-			return redirect(url: "/user/login")
+			return redirect(url: "/logUser") // return redirect(url: "/user/login")
 		
 		// Question
 		Question question = Question.findById(params.id)
@@ -126,7 +126,7 @@ class QuestionController {
 	def ask() {
 		// Utilisateur connecté
 		if (! UserController.isConnected())
-			return redirect(url: "/user/login")
+			return redirect(url: "/logUser") // return redirect(url: "/user/login")
 		
 		return render(view: "/question/ask")
 	}
@@ -145,7 +145,7 @@ class QuestionController {
 	def ask_submit() {
 		// Utilisateur connecté
 		if (! UserController.isConnected())
-			return redirect(url: "/user/login")
+			return redirect(url: "/logUser") // return redirect(url: "/user/login")
 		
 		// Vérifier le formulaire
 		def listErreurs = []
@@ -192,7 +192,7 @@ class QuestionController {
 	def edit() {
 		// Utilisateur connecté
 		if (! UserController.isConnected())
-			return redirect(url: "/user/login")
+			return redirect(url: "/logUser") // return redirect(url: "/user/login")
 		
 		// Question
 		Question question = Question.findById(params.id)
@@ -225,7 +225,7 @@ class QuestionController {
 	 */
 	def edit_submit() {
 		if (! UserController.isConnected())
-			return redirect(url: "/user/login")
+			return redirect(url: "/logUser") // return redirect(url: "/user/login")
 		
 		// Question
 		Question question = Question.findById(params.id)
@@ -283,7 +283,7 @@ class QuestionController {
 	def delete() {
 		// Utilisateur connecté
 		if (! UserController.isConnected())
-			return redirect(url: "/user/login")
+			return redirect(url: "/logUser") // return redirect(url: "/user/login")
 		
 		// Question
 		Question question = Question.findById(params.id)

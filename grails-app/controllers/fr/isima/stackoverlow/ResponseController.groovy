@@ -12,7 +12,7 @@ class ResponseController {
 	def edit() {
 		// Utilisateur connecté
 		if (! UserController.isConnected())
-			return redirect(url: "/user/login")
+			return redirect(url: "/logUser") // return redirect(url: "/user/login")
 		
 		// Réponse
 		Response response = Response.findById(params.id)
@@ -41,7 +41,7 @@ class ResponseController {
 	 */
 	def edit_submit() {
 		if (! UserController.isConnected())
-			return redirect(url: "/user/login")
+			return redirect(url: "/logUser") // return redirect(url: "/user/login")
 		
 		// Réponse
 		Response response = Response.findById(params.id)
@@ -88,7 +88,7 @@ class ResponseController {
 		// Utilisateur
 		// - connecté
 		if (! UserController.isConnected())
-			return redirect(url: "/user/login")
+			return redirect(url: "/logUser") // return redirect(url: "/user/login")
 		
 		// Réponse
 		Response response = Response.findById(params.id)

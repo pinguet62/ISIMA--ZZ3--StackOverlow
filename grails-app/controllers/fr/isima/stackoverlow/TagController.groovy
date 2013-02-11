@@ -74,7 +74,7 @@ class TagController {
 	def edit() {
 		// Utilisateur connecté
 		if (! UserController.isConnected())
-			return redirect(url: "/user/login")
+			return redirect(url: "/logUser") // return redirect(url: "/user/login")
 		
 		// Question
 		Tag tag = Tag.findById(params.id)
@@ -99,7 +99,7 @@ class TagController {
 	 */
 	def edit_submit() {
 		if (! UserController.isConnected())
-			return redirect(url: "/user/login")
+			return redirect(url: "/logUser") // return redirect(url: "/user/login")
 		
 		// Tag
 		Tag tag = Tag.findById(params.id)

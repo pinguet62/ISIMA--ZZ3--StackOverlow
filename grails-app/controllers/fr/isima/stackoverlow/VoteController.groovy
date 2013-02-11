@@ -14,7 +14,7 @@ class VoteController {
 	def up() {
 		// Utilisateur connecté
 		if (! UserController.isConnected())
-			return redirect(url: "/user/login")
+			return redirect(url: "/logUser") // return redirect(url: "/user/login")
 		
 		// Message
 		MessageVotable message = MessageVotable.findById(params.id)
@@ -44,7 +44,7 @@ class VoteController {
 	def down() {
 		// Utilisateur connecté
 		if (! UserController.isConnected())
-			return redirect(url: "/user/login")
+			return redirect(url: "/logUser") // return redirect(url: "/user/login")
 		
 		// Message
 		MessageVotable message = MessageVotable.findById(params.id)
