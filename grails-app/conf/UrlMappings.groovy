@@ -18,15 +18,9 @@ class UrlMappings {
 				id matches: /[0-9]+/
 			}
 		}
-		// - répondre
-		"/question/$id/answer/submit"(controller: "question", action: "answer_submit") {
-			constraints {
-				id matches: /[0-9]+/
-			}
-		}
 		// - créer
-		"/question/ask"(controller: "question", action: "ask")
-		"/question/ask/submit"(controller: "question", action: "ask_submit")
+		"/question/create"(controller: "question", action: "create")
+		"/question/create/submit"(controller: "question", action: "create_submit")
 		// - éditer
 		"/question/$id/edit"(controller: "question", action: "edit") {
 			constraints {
@@ -46,6 +40,12 @@ class UrlMappings {
 		}
 		
 		// Response
+		// - créer
+		"/response/$id/create/submit"(controller: "response", action: "create_submit") {
+			constraints {
+				id matches: /[0-9]+/
+			}
+		}
 		// - éditer
 		"/response/$id/edit"(controller: "response", action: "edit") {
 			constraints {
@@ -60,7 +60,7 @@ class UrlMappings {
 		
 		
 		// Commentaire
-		// - éditer
+		// - créer
 		"/commentaire/$id/create/submit"(controller: "commentaire", action: "create_submit") {
 			constraints {
 				id matches: /[0-9]+/

@@ -1,7 +1,6 @@
 <!-- Afficher une question -->
 <!-- @param question Question -->
 <!-- @param sort Type de tri (optionnel) -->
-<!-- @param listErreurs Liste des erreurs (optionnel) -->
 <!-- @author Julien -->
 
 
@@ -80,9 +79,9 @@
 												</g:each>
 											</tbody>
 										</table>
-										<form id="comment-form-${question.id}" action="/StackOverlow/commentaire/${question.id}/create/submit" method="post" style="display: none">
+										<form style="display: none" id="comment-form-${question.id}" action="/StackOverlow/commentaire/${question.id}/create/submit" method="post" onSubmit="return validCommentaireForm(${question.id})">
 											<textarea cols="70" rows="1" name="content"></textarea>
-											<input type="submit" value="${message(code: 'question.show.postYourComment')}" onClick="return validCommentaireForm(${question.id})">
+											<input type="submit" value="${message(code: 'question.show.postYourComment')}">
 										</form>
 									</div>
 								</td>
@@ -164,9 +163,9 @@
 															</g:each>
 														</tbody>
 													</table>
-													<form id="comment-form-${response.id}" action="/StackOverlow/commentaire/${response.id}/create/submit" method="post" style="display: none">
+													<form style="display: none" id="comment-form-${response.id}" action="/StackOverlow/commentaire/${response.id}/create/submit" method="post" onSubmit="return validCommentaireForm(${response.id})">
 														<textarea cols="70" rows="1" name="content"></textarea>
-														<input type="submit" value="${message(code: 'question.show.postYourComment')}" onClick="return validCommentaireForm(${response.id})">
+														<input type="submit" value="${message(code: 'question.show.postYourComment')}">
 													</form>
 												</div>
 											</td>
@@ -177,28 +176,22 @@
 						</g:each>
 						<g:if test="${fr.isima.stackoverlow.UserController.isConnected()}">
 							<a name="new-answer"></a>
-							<form id="post-form" action="/StackOverlow/question/${question.id}/answer/submit" method="post" class="post-form">
+							<form class="post-form" action="/StackOverlow/response/${question.id}/create/submit" method="post" id="post-form" onSubmit="return validResponseForm()">
 								<h2 class="space"><g:message code="question.show.yourAnswer"/></h2>
 								<div class="post-editor">
 									<div class="wmd-container">
 										<!-- Mise en forme -->
 										<!-- Lien, image, ... -->
 										<textarea class="wmd-input processed" tabindex="101" rows="15" cols="92" name="content"></textarea>
-										<div class="grippie" style="margin-right: 0px;"></div>
 									</div>
 									<div class="fl" style="margin-top: 8px; height:24px;"></div>
-									<div class="wmd-preview"></div>
 								</div>
-								<g:if test="${listErreurs != null  &&  ! listErreurs.isEmpty()}">
-									<div class="form-error" style="margin-top:10px">
-										<p>Oops! Your answer couldn't be submitted because:</p>
-										<ul>
-											<g:each var="erreur" in="${listErreurs}">
-												<li>${erreur}</li>
-											</g:each>
-										</ul>
-									</div>
-								</g:if>
+								<div class="form-error" style="margin-top:10px; display:none" id="errorList1">
+									<p>Ta réponse ne peut pas être publiée car :</p><!-- Your answer couldn't be submitted because: -->
+									<ul style="display:none" id="errorList2">
+										<li style="display:none" id="errorEmptyContent">le message est vide</li>
+									</ul>
+								</div>
 								<div class="form-submit cbt">
 									<input type="submit" tabindex="110" value="${message(code: 'question.show.postYourAnswer')}"></input>
 								</div>

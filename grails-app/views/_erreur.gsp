@@ -1,5 +1,6 @@
-<!-- Page demandée inexistante -->
-<!-- @param locality Section du site : 'questions', 'tags', 'users', 'askquestion' (optionnel) -->
+<!-- Page d'erreur -->
+<!-- @param locality Section du site : 'questions', 'tags', 'users', 'askquestion' -->
+<!-- @param error Message d'erreur -->
 <!-- @author Julien -->
 
 
@@ -16,14 +17,11 @@
 			<div id="content">
 				<div class="mainbar-full">
 					<div class="subheader">
-						<h1><g:message code="page.notFound.title"/></h1>
+						<h1><g:message code="page.erreur.title"/></h1>
 					</div>
 					<div class="content-page leftcol">
 						<p>
-							<g:message code="page.notFound.content.message"/>
-						</p>
-						<p>
-							<g:message code="page.notFound.content.contact"/>
+							${error}
 						</p>
 					</div>
 				</div>

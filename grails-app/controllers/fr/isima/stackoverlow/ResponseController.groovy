@@ -3,6 +3,43 @@ package fr.isima.stackoverlow
 class ResponseController {
 	
 	/**
+	 * Valider la création d'une réponse
+	 * @param id Identifiant de la question
+	 * @param content Contenu de la réponse
+	 * @return Page de la question
+	 * @author Julien
+	 */
+	def create_submit() {
+		// Utilisateur connecté
+		if (! UserController.isConnected())
+			return redirect(url: "/logUser") // return redirect(url: "/user/login")
+		
+		// Question
+		Question question = Question.findById(params.id)
+		if (question == null)
+			return render(view: "/question/erreur", model: [error: "Question inexistante."])
+		
+		// Vérifier le formulaire
+		if (params.content == null  ||  params.content == "")
+			return render(view: "/question/erreur", model: [error: "Passage par le formulaire obligatoire."])
+		
+		try {
+			// Créer
+			Response response = new Response(content: params.content, date: new Date())
+			response.author = UserController.getUser()
+			response.question = question
+			// Sauvegarder
+			ResponseService rService = new ResponseService()
+			rService.create(response)
+			// Afficher
+			return redirect(url: "/question/"+question.id)
+		} catch (ServiceException e) {
+			return render(view: "/question/erreur", model: [error: e.getMessage()])
+		}
+	}
+	
+	
+	/**
 	 * Editer une réponse
 	 * @param id Identifiant de la réponse
 	 * @return Page du formulaire <br/>
@@ -17,7 +54,7 @@ class ResponseController {
 		// Réponse
 		Response response = Response.findById(params.id)
 		if (response == null)
-			return render(view: "/notFound", model: [locality: "questions"])
+			return render(view: "/question/erreur", model: [error: "Réponse inexistante."])
 		// Question
 		MessageService mService = new MessageService()
 		Question question = mService.getQuestion(response)
@@ -47,7 +84,7 @@ class ResponseController {
 		// Réponse
 		Response response = Response.findById(params.id)
 		if (response == null)
-			return render(view: "/notFound", model: [locality: "questions"])
+			return render(view: "/question/erreur", model: [error: "Réponse inexistante."])
 		// Question
 		MessageService mService = new MessageService()
 		Question question = mService.getQuestion(response)
@@ -94,14 +131,14 @@ class ResponseController {
 		// Réponse
 		Response response = Response.findById(params.id)
 		if (response == null)
-			return render(view: "/notFound", model: [locality: "questions"])
+			return render(view: "/question/erreur", model: [error: "Réponse inexistante."])
 		// Question
 		MessageService mService = new MessageService()
 		Question question = mService.getQuestion(response)
 		
 		// Droits de suppression
 		if (! new UserService().isAuthorOrAdmin(UserController.getUser(), response))
-			return redirect(url: "/question/"+question.id)
+			return render(view: "/question/erreur", model: [error: "Vous devez être l'author ou un administrateur pour pouvoir supprimer la réponse."])
 		
 		try {
 			// Supprimer

@@ -18,34 +18,44 @@ class QuestionController {
 	def all() {
 		// Paramètres
 		// - numéro de page
-		int page = 1
-		if (params.page != null)
+		int defaultPage = 1
+		int page = defaultPage
+		try {
 			page = params.page.toInteger()
+		} catch (NumberFormatException e) {
+			return render(view: "/question/erreur", model: [error: "Numéro de page incorrect."])
+		} catch (NullPointerException e) {}
 		// - nombre de questions par page
-		int pagesize = 15
-		if (params.pagesize != null  &&  params.pagesize.isInteger())
-			pagesize = params.pagesize.toInteger()
-		else if (session.question_pagesize != null)
-			pagesize = session.question_pagesize
+		int defaultPagesize = 15
+		int pagesize = defaultPagesize
+		try {
+			if (params.pagesize != null)
+				pagesize = params.pagesize.toInteger()
+			else
+				pagesize = session.question_pagesize
+		} catch (NumberFormatException e) {
+			return render(view: "/question/erreur", model: [error: "Nombre de questions par pages incorrect."])
+		} catch (NullPointerException e) {}
+		// catch (GroovyCastException e) {} TODO: bug
 		if (! [15, 30, 50].contains(pagesize))
-			pagesize = 15
-		session.question_pagesize = pagesize // TODO
+			pagesize = defaultPagesize
+		session.question_pagesize = pagesize
 		// - tri
-		Sort sort = Sort.NEWEST
+		Sort defaultSort = Sort.NEWEST
+		Sort sort = defaultSort
 		if (params.sort != null)
-			sort = Sort.fromString(params.sort)
+			Sort.fromString(params.sort)
 		else if (session.question_sort != null)
 			sort = session.question_sort
 		if (! [Sort.NEWEST, Sort.VOTES].contains(sort))
-			sort = Sort.NEWEST
+			sort = defaultSort
 		session.question_sort = sort
 		
 		// Liste des questions
 		int offset = pagesize*(page-1)
-		int max = pagesize
-		def listQuestions = new QuestionService().get(offset, max, sort)
+		def listQuestions = new QuestionService().get(offset, pagesize, sort)
 		if (listQuestions.isEmpty())
-			return render(view: "/notFound", model: [locality: "questions"])
+			return render(view: "/question/erreur", model: [error: "Aucune question trouvée."])
 		
 		// Liste des pages
 		int totalPages = Math.ceil(Question.count / pagesize)
@@ -67,13 +77,14 @@ class QuestionController {
 		// Question
 		Question question = Question.findById(params.id)
 		if (question == null)
-			return render(view: "/notFound", model: [locality: "questions"])
+			return render(view: "/question/erreur", model: [error: "Question inexistante."])
 		
 		// Paramètres
 		// - tri
+		Sort defaultSort = Sort.OLDEST
 		Sort sort = Sort.fromString(params.sort)
 		if (! [Sort.OLDEST, Sort.VOTES].contains(sort))
-			sort = Sort.OLDEST
+			sort = defaultSort
 		question.responses = new ResponseService().get(question, sort)
 		
 		// Trier les commentaires
@@ -87,54 +98,17 @@ class QuestionController {
 	
 	
 	/**
-	 * Valider la création d'une réponse
-	 * @param id Identifiant de la question
-	 * @param content Contenu de la réponse
-	 * @return Page de la question
-	 * @author Julien
-	 */
-	def answer_submit() {
-		// Utilisateur connecté
-		if (! UserController.isConnected())
-			return redirect(url: "/logUser") // return redirect(url: "/user/login")
-		
-		// Question
-		Question question = Question.findById(params.id)
-		if (question == null)
-			return render(view: "/notFound", model: [locality: "questions"])
-		
-		// Vérifier le formulaire
-		if (params.content == null  ||  params.content == "")
-			return render(view: "/question/show", model: [question: question, listErreurs: ["body is missing"]])
-		
-		try {
-			// Créer la réponse
-			Response response = new Response(content: params.content, date: new Date())
-			response.author = UserController.getUser()
-			response.question = question
-			// Sauvegarder
-			ResponseService rService = new ResponseService()
-			rService.create(response)
-			// Affichage
-			return redirect(url: "/question/"+question.id)
-		} catch (ServiceException e) {
-			return render(view: "/question/show", model: [question: question, listErreurs: [e.getMessage()]])
-		}
-	}
-	
-	
-	/**
 	 * Créer une question
 	 * @return Page du formulaire <br/>
 	 *         Page de connexion si l'utilisateur n'est pas connecté
 	 * @author Julien
 	 */
-	def ask() {
+	def create() {
 		// Utilisateur connecté
 		if (! UserController.isConnected())
 			return redirect(url: "/logUser") // return redirect(url: "/user/login")
 		
-		return render(view: "/question/ask")
+		return render(view: "/question/create")
 	}
 	
 	
@@ -148,27 +122,17 @@ class QuestionController {
 	 *         Page de connexion si l'utilisateur n'est pas connecté
 	 * @author Julien
 	 */
-	def ask_submit() {
+	def create_submit() {
 		// Utilisateur connecté
 		if (! UserController.isConnected())
 			return redirect(url: "/logUser") // return redirect(url: "/user/login")
 		
 		// Vérifier le formulaire
-		def listErreurs = []
-		// - title
-		if (params.title == null  ||  params.title == "")
-			listErreurs.add("title is missing")
-		// - content
-		if (params.content == null  ||  params.content == "")
-			listErreurs.add("body is missing")
-		// - tags
-		if (params.strListTags == null  ||  params.strListTags == "")
-			listErreurs.add("you need at least one valid tag")
-		if (! listErreurs.isEmpty())
-			return render(view: "/question/ask", model: [listErreurs: listErreurs])
+		if (params.title == null  ||  params.content == null  ||  params.strListTags == null)
+			return render(view: "/question/erreur", model: [locality: "askquestion", error: "Passage par le formulaire obligatoire."])
 		
 		try {
-			// Créer la question
+			// Créer
 			Question question = new Question(title: params.title, content: params.content, date: new Date())
 			question.author = UserController.getUser()
 			TagService tService = new TagService()
@@ -180,10 +144,10 @@ class QuestionController {
 			// Sauvegarder
 			QuestionService qService = new QuestionService()
 			qService.create(question)
-			// Affichage
+			// Afficher
 			return redirect(url: "/question/"+question.id)
 		} catch (ServiceException e) {
-			return render(view: "/question/ask", model: [listErreurs: [e.getMessage()]])
+			return render(view: "/question/erreur", model: [locality: "askquestion", error: e.getMessage()])
 		}
 	}
 	
@@ -203,11 +167,11 @@ class QuestionController {
 		// Question
 		Question question = Question.findById(params.id)
 		if (question == null)
-			return render(view: "/notFound", model: [locality: "questions"])
+			return render(view: "/question/erreur", model: [error: "Question inexistante."])
 		
-		// Droits d'édition
+		// Droits
 		if (! new UserService().isAuthorOrAdmin(UserController.getUser(), question))
-			return redirect(url: "/question/"+question.id)
+			return render(view: "/question/erreur", model: [error: "Vous devez être l'author ou un administrateur pour pouvoir éditer la question."])
 		
 		// temporaire
 		String strListTags = ""
@@ -236,28 +200,18 @@ class QuestionController {
 		// Question
 		Question question = Question.findById(params.id)
 		if (question == null)
-			return render(view: "/notFound", model: [locality: "questions"])
+			return render(view: "/question/erreur", model: [error: "Question inexistante."])
 		
-		// Droits d'édition
+		// Droits
 		if (! new UserService().isAuthorOrAdmin(UserController.getUser(), question))
-			return redirect(url: "/question/"+question.id)
+			return render(view: "/question/erreur", model: [error: "Vous devez être l'author ou un administrateur pour pouvoir éditer la question."])
 		
 		// Vérifier le formulaire
-		def listErreurs = []
-		// - title
-		if (params.title == null  ||  params.title == "")
-			listErreurs.add("title is missing")
-		// - content
-		if (params.content == null  ||  params.content == "")
-			listErreurs.add("body is missing")
-		// - tags
-		if (params.strListTags == null  ||  params.strListTags == "")
-			listErreurs.add("you need at least one valid tag")
-		if (! listErreurs.isEmpty())
-			return render(view: "/question/edit", model: [question: question, strListTags: params.strListTags, listErreurs: listErreurs])
+		if (params.title == null  ||  params.content == null  ||  params.strListTags == null)
+			return render(view: "/question/erreur", model: [error: "Passage par le formulaire obligatoire."])
 		
 		try {
-			// Modifier la question
+			// Modifier
 			question.title = params.title
 			question.content = params.content
 			question.tags = []
@@ -270,10 +224,10 @@ class QuestionController {
 			// Sauvegarder
 			QuestionService qService = new QuestionService()
 			qService.update(question)
-			// Affichage
+			// Afficher
 			return redirect(url: "/question/"+question.id)
 		} catch (ServiceException e) {
-			return render(view: "/question/edit", model: [question: question, strListTags: params.strListTags, listErreurs: [e.getMessage()]])
+			return render(view: "/question/erreur", model: [error: e.getMessage()])
 		}
 	}
 	
@@ -294,11 +248,11 @@ class QuestionController {
 		// Question
 		Question question = Question.findById(params.id)
 		if (question == null)
-			return render(view: "/notFound", model: [locality: "questions"])
+			return render(view: "/question/erreur", model: [error: "Question inexistante."])
 		
-		// Droits de suppression
+		// Droits
 		if (! new UserService().isAuthorOrAdmin(UserController.getUser(), question))
-			return redirect(url: "/question/"+question.id)
+			return render(view: "/question/erreur", model: [error: "Vous devez être l'author ou un administrateur pour pouvoir supprimer la question."])
 		
 		try {
 			// Supprimer

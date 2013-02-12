@@ -46,7 +46,7 @@
 		</div>
 		<div class="nav askquestion">
 			<ul>
-				<li ${locality.equals("askquestion") ? 'class="youarehere"' : ''}><a id="nav-askquestion" href="/StackOverlow/question/ask"><g:message code="menu.ask"/></a></li>
+				<li ${locality.equals("askquestion") ? 'class="youarehere"' : ''}><a id="nav-askquestion" href="/StackOverlow/question/create"><g:message code="menu.ask"/></a></li>
 			</ul>
 		</div>
 	</div>
