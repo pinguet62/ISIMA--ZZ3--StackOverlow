@@ -17,15 +17,16 @@ class MessageVotableTagLib {
 		if (message == null)
 			return out
 		
+		out << '<div class="post-menu">'
+		out <<     '<a class="suggest-comment-post" title="comment this post" onClick="showCommentaireForm(' << message.id << ')">comment</a>'
 		UserService uService = new UserService()
 		if (uService.isAuthorOrAdmin(user, message)) {
-			out << '<div class="post-menu">'
+			out <<     '<span class="lsep"> | </span>'
 			out <<     '<a class="suggest-edit-post" title="revise and improve this post" href="/StackOverlow/question/' << message.id << '/edit">edit</a>'
 			out <<     '<span class="lsep"> | </span>'
-			out <<     '<a class="suggest-edit-post" title="remove this post" href="/StackOverlow/question/' << message.id << '/delete">delete</a>'
-			out << '</div>'
+			out <<     '<a class="suggest-remove-post" title="remove this post" href="/StackOverlow/question/' << message.id << '/delete">delete</a>'
 		}
-		
+		out << '</div>'
 		return out
 	}
 	

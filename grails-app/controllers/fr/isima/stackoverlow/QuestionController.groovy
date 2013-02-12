@@ -76,6 +76,12 @@ class QuestionController {
 			sort = Sort.OLDEST
 		question.responses = new ResponseService().get(question, sort)
 		
+		// Trier les commentaires
+		CommentaireService cService = new CommentaireService()
+		question.commentaires = cService.get(question)
+		for (Response response : question.responses)
+			response.commentaires = cService.get(response)
+		
 		return render(view: "/question/show", model: [question: question, sort: sort])
 	}
 	

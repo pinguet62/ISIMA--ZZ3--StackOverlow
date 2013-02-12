@@ -11,23 +11,18 @@ import fr.isima.stackoverlow.MessageVotable
 class CommentaireService extends MessageService {
 	
 	/**
-	 * Ajouter à un message votable
-	 * @param message Message commentable
-	 * @param commentaire Commentaire
-	 * @exception ServiceException Echec de la création du commentaire
-	 * @exception ServiceException Echec de l'ajout du commentaire
-	 * @TODO Tests
+	 * Obtenir la liste des commentaires triés
+	 * @param message Message
+	 * @return Liste de commentaires
+	 * @author Julien
 	 */
-    def add(MessageVotable message, Commentaire commentaire) {
-		def obj = commentaire.save()
-		// Echec
-		if (obj == null)
-			throw new ServiceException("Echec de la création du commentaire")
-		
-		message.addToCommentaires(commentaire)
-		// Echec
-		if (Commentaire.findByMessageVotableAndId(message, commentaire.id) == null)
-			throw new ServiceException("Echec de l'ajout du commentaire")
-    }
+	def get(MessageVotable message) {
+		return Commentaire.executeQuery(	"""
+												SELECT commentaire
+												FROM Commentaire commentaire
+												WHERE commentaire.messageVotable = :message
+												ORDER BY commentaire.date ASC
+											""", [message: message])
+	}
 	
 }

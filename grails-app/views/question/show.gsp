@@ -9,6 +9,7 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
+		<g:javascript src="questionShow.js" />
 		<title>Question</title>
 	</head>
 	<body class="question-page">
@@ -68,6 +69,24 @@
 									</table>
 								</td>
 							</tr>
+							<tr>
+								<td class="votecell"></td>
+								<td>
+									<div class="comments-${question.id}" class="comments">
+										<table>
+											<tbody>
+												<g:each var="commentaire" in="${question.commentaires}">
+													<g:render template="/question/commentaire" model="[commentaire: commentaire]"/>
+												</g:each>
+											</tbody>
+										</table>
+										<form id="comment-form-${question.id}" action="/StackOverlow/commentaire/${question.id}/create/submit" method="post" style="display: none">
+											<textarea cols="70" rows="1" name="content"></textarea>
+											<input type="submit" value="${message(code: 'question.show.postYourComment')}" onClick="return validCommentaireForm(${question.id})">
+										</form>
+									</div>
+								</td>
+							</tr>
 						</table>
 					</div>
 					<div id="answers" ${question.responses.size()==0 ? 'class="no-answers"' : ''}>
@@ -90,97 +109,101 @@
 							</div>
 						</div>
 						<g:each var="response" in="${question.responses}">
-							<g:if test="${response.display}">
-								<div id="answer-${response.id}" class="answer">
-									<table>
-										<tbody>
-											<tr>
-												<td class="votecell">
-													<g:render template="/question/voteCell" model="[message: response]"/>
-												</td>
-												<td class="answercell">
-													<div class="post-text">
-														<p>${response.content}</p>
-													</div>
-													<table class="fw">
-														<tbody>
-															<tr>
-																<td class="vt">
-																	<g:stackMessageOptions user="${fr.isima.stackoverlow.UserController.getUser()}" messageVotable="${response}"/>
-																</td>
-																<td class="post-signature owner">
-																	<div class="user-info user-hover">
-																		<div class="user-action-time">
-																			answered
-																			<g:stackDate date="${response.date}"/>
-																		</div>
-																		<div class="user-gravatar32">
-																			<a href="/StackOverlow/user/${response.author}">
-																				<div class="">
-																					<g:stackAvatar user="${response.author}"/>
-																				</div>
-																			</a>
-																		</div>
-																		<div class="user-details">
-																			<a href="/StackOverlow/user/${response.author.id}">${response.author.name}</a>
-																			<br/>
-																			<span class="reputation-score" dir="ltr" title="reputation score">
-																				${new fr.isima.stackoverlow.VoteService().getReputation(response.author)}
-																			</span>
-																		</div>
+							<div id="answer-${response.id}" class="answer">
+								<table>
+									<tbody>
+										<tr>
+											<td class="votecell">
+												<g:render template="/question/voteCell" model="[message: response]"/>
+											</td>
+											<td class="answercell">
+												<div class="post-text">
+													<p>${response.content}</p>
+												</div>
+												<table class="fw">
+													<tbody>
+														<tr>
+															<td class="vt">
+																<g:stackMessageOptions user="${fr.isima.stackoverlow.UserController.getUser()}" messageVotable="${response}"/>
+															</td>
+															<td class="post-signature owner">
+																<div class="user-info user-hover">
+																	<div class="user-action-time">
+																		answered
+																		<g:stackDate date="${response.date}"/>
 																	</div>
-																</td>
-															</tr>
+																	<div class="user-gravatar32">
+																		<a href="/StackOverlow/user/${response.author}">
+																			<div class="">
+																				<g:stackAvatar user="${response.author}"/>
+																			</div>
+																		</a>
+																	</div>
+																	<div class="user-details">
+																		<a href="/StackOverlow/user/${response.author.id}">${response.author.name}</a>
+																		<br/>
+																		<span class="reputation-score" dir="ltr" title="reputation score">
+																			${new fr.isima.stackoverlow.VoteService().getReputation(response.author)}
+																		</span>
+																	</div>
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+										</tr>
+										<tr>
+											<td class="votecell"></td>
+											<td>
+												<div class="comments-${response.id}" class="comments">
+													<table>
+														<tbody>
+															<g:each var="commentaire" in="${response.commentaires}">
+																<g:render template="/question/commentaire" model="[commentaire: commentaire]"/>
+															</g:each>
 														</tbody>
 													</table>
-												</td>
-											</tr>
-											<tr>
-												<td class="votecell"></td>
-												<td>
-													<div class="comments-${response.id}" class="comments">
-														<table>
-															<tbody>
-																<g:each var="commentaire" in="${response.commentaires}">
-																	<g:render template="/question/commentaire" model="[commentaire: commentaire]"/>
-																</g:each>
-															</tbody>
-														</table>
-													</div>
-												</td>
-											</tr>
-										<tbody>
-									</table>
-								</div>
-							</g:if>
+													<form id="comment-form-${response.id}" action="/StackOverlow/commentaire/${response.id}/create/submit" method="post" style="display: none">
+														<textarea cols="70" rows="1" name="content"></textarea>
+														<input type="submit" value="${message(code: 'question.show.postYourComment')}" onClick="return validCommentaireForm(${response.id})">
+													</form>
+												</div>
+											</td>
+										</tr>
+									<tbody>
+								</table>
+							</div>
 						</g:each>
-						<a name="new-answer"></a>
-						<form id="post-form" action="/StackOverlow/question/${question.id}/answer/submit" method="post" class="post-form">
-							<h2 class="space"><g:message code="question.show.yourAnswer"/></h2>
-							<div class="post-editor">
-								<div class="wmd-container">
-									<!-- Mise en forme -->
-									<!-- Lien, image, ... -->
-									<textarea class="wmd-input processed" tabindex="101" rows="15" cols="92" name="content"></textarea>
-									<div class="grippie" style="margin-right: 0px;"></div>
+						<g:if test="${fr.isima.stackoverlow.UserController.isConnected()}">
+							<a name="new-answer"></a>
+							<form id="post-form" action="/StackOverlow/question/${question.id}/answer/submit" method="post" class="post-form">
+								<h2 class="space"><g:message code="question.show.yourAnswer"/></h2>
+								<div class="post-editor">
+									<div class="wmd-container">
+										<!-- Mise en forme -->
+										<!-- Lien, image, ... -->
+										<textarea class="wmd-input processed" tabindex="101" rows="15" cols="92" name="content"></textarea>
+										<div class="grippie" style="margin-right: 0px;"></div>
+									</div>
+									<div class="fl" style="margin-top: 8px; height:24px;"></div>
+									<div class="wmd-preview"></div>
 								</div>
-								<div class="fl" style="margin-top: 8px; height:24px;"></div>
-								<div class="wmd-preview"></div>
-							</div>
-							<g:if test="${listErreurs != null  &&  ! listErreurs.isEmpty()}">
-								<div class="form-error" style="margin-top:10px">
-									<p>Oops! Your answer couldn't be submitted because:</p>
-									<ul>
-										<g:each var="erreur" in="${listErreurs}">
-											<li>${erreur}</li>
-										</g:each>
-									</ul>
+								<g:if test="${listErreurs != null  &&  ! listErreurs.isEmpty()}">
+									<div class="form-error" style="margin-top:10px">
+										<p>Oops! Your answer couldn't be submitted because:</p>
+										<ul>
+											<g:each var="erreur" in="${listErreurs}">
+												<li>${erreur}</li>
+											</g:each>
+										</ul>
+									</div>
+								</g:if>
+								<div class="form-submit cbt">
+									<input type="submit" tabindex="110" value="${message(code: 'question.show.postYourAnswer')}"></input>
 								</div>
-							</g:if>
-							<div class="form-submit cbt">
-								<input type="submit" tabindex="110" value="${message(code: 'question.show.postYourAnswer')}"></input>
-							</div>
-						</form>
+							</form>
+						</g:if>
 					</div>
 				</div>
 				<div class="sidebar">

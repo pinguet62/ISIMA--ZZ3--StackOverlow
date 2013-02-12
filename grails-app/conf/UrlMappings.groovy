@@ -45,7 +45,7 @@ class UrlMappings {
 			}
 		}
 		
-		// Réponse
+		// Response
 		// - éditer
 		"/response/$id/edit"(controller: "response", action: "edit") {
 			constraints {
@@ -53,6 +53,15 @@ class UrlMappings {
 			}
 		}
 		"/response/$id/edit/submit"(controller: "response", action: "edit_submit") {
+			constraints {
+				id matches: /[0-9]+/
+			}
+		}
+		
+		
+		// Commentaire
+		// - éditer
+		"/commentaire/$id/create/submit"(controller: "commentaire", action: "create_submit") {
 			constraints {
 				id matches: /[0-9]+/
 			}

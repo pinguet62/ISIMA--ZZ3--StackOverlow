@@ -40,6 +40,7 @@ class ResponseController {
 	 * @author Julien
 	 */
 	def edit_submit() {
+		// Utilisateur connecté
 		if (! UserController.isConnected())
 			return redirect(url: "/logUser") // return redirect(url: "/user/login")
 		
@@ -58,14 +59,14 @@ class ResponseController {
 		// Vérifier le formulaire
 		def listErreurs = []
 		// - content
-		if (params["post-text"] == null  ||  params["post-text"] == "")
+		if (params.content == null  ||  params.content == "")
 			listErreurs.add("body is missing")
 		if (! listErreurs.isEmpty())
 			return render(view: "/response/edit", model: [reponse: response, question: question, listErreurs: listErreurs])
 		
 		try {
 			// Modifier la réponse
-			response.content = params["post-text"]
+			response.content = params.content
 			// Sauvegarder
 			ResponseService rService = new ResponseService()
 			rService.update(response)

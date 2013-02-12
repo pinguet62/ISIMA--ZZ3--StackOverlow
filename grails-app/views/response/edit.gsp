@@ -32,7 +32,7 @@
 							</div>
 							<h2 style="margin-top:15px;">Answer</h2>
 							<div class="wmd-container">
-								<textarea id="wmd-input-${reponse.id}" class="wmd-input processed" tabindex="101" rows="15" cols="92" name="post-text">${reponse.content}</textarea>
+								<textarea id="wmd-input-${reponse.id}" class="wmd-input processed" tabindex="101" rows="15" cols="92" name="content">${reponse.content}</textarea>
 								<div class="grippie" style="margin-right: 0px;"></div>
 							</div>
 							<div class="fl" style="margin-top: 8px; height:24px;"></div>
