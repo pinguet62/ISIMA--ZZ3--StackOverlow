@@ -17,8 +17,8 @@ class Tag {
 	
 	
     static constraints = {
-		name(unique: true, minSize: 1)
-		description(nullable: true)
+		name unique: true, minSize: 1
+		description nullable: true
     }
 	
 }

@@ -1,5 +1,7 @@
 package fr.isima.stackoverlow
 
+import org.codehaus.groovy.runtime.typehandling.GroovyCastException
+
 /**
  * Controlleur des pages des questions
  * @author Julien
@@ -36,7 +38,7 @@ class QuestionController {
 		} catch (NumberFormatException e) {
 			return render(view: "/question/erreur", model: [error: "Nombre de questions par pages incorrect."])
 		} catch (NullPointerException e) {}
-		// catch (GroovyCastException e) {} TODO: bug
+		catch (GroovyCastException e) {} //TODO: bug
 		if (! [15, 30, 50].contains(pagesize))
 			pagesize = defaultPagesize
 		session.question_pagesize = pagesize
@@ -92,6 +94,9 @@ class QuestionController {
 		question.commentaires = cService.get(question)
 		for (Response response : question.responses)
 			response.commentaires = cService.get(response)
+		
+		for (Response response : question.responses)
+			println response.getQuestion()
 		
 		return render(view: "/question/show", model: [question: question, sort: sort])
 	}

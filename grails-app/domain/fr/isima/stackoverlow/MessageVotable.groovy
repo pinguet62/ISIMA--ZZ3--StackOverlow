@@ -13,8 +13,4 @@ package fr.isima.stackoverlow
     static constraints = { 
     }
 	
-	
-	/*User getQuestionAuthor() {
-	}*/
-	
 }

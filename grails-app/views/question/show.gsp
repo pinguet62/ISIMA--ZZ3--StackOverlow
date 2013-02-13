@@ -71,7 +71,7 @@
 							<tr>
 								<td class="votecell"></td>
 								<td>
-									<div class="comments-${question.id}" class="comments">
+									<div id="comments-${question.id}" class="comments">
 										<table>
 											<tbody>
 												<g:each var="commentaire" in="${question.commentaires}">
@@ -155,7 +155,7 @@
 										<tr>
 											<td class="votecell"></td>
 											<td>
-												<div class="comments-${response.id}" class="comments">
+												<div id="comments-${response.id}" class="comments">
 													<table>
 														<tbody>
 															<g:each var="commentaire" in="${response.commentaires}">

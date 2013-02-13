@@ -14,13 +14,23 @@ class Question extends MessageVotable {
 	
 	
     static constraints = {
-		title(unique: true, minSize: 1)
+		title unique: true, minSize: 1
 		// tags(unique: true)
     }
 	
 	
-	/*User getQuestionAuthor() {
-		return author
+	static mapping = {
+		title type: "text"
+	}
+	
+	
+	/**
+	 * Récupérer la question associée au message
+	 * @return Question
+	 * @author Julien
+	 */
+	/*def getQuestion() {
+		return this
 	}*/
 	
 	

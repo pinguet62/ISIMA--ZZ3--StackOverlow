@@ -16,11 +16,12 @@ package fr.isima.stackoverlow
 	
 	
     static constraints = {
-		content(minSize: 1)
+		content minSize: 1, length: 1..10240
     }
 	
 	
-	/*User getQuestionAuthor() {
-	}*/
+	static mapping = {
+		content type: "text"
+	}
 	
 }

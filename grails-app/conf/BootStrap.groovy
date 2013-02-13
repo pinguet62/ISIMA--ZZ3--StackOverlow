@@ -14,7 +14,7 @@ class BootStrap {
     def init = { servletContext ->
 		// Administrateur
 		User admin1 = new User(name: "adminustrator1Name", mail: "adminustrator1Adresse@mail.com", password: "adminustrator1Password", admin: true)
-		admin1.save()
+		admin1.save(failOnError: true)
 		User admin2 = new User(name: "adminustrator2Name", mail: "adminustrator2Adresse@mail.com", password: "adminustrator2Password", avatarUrl: "/avatar/01.png", admin: true)
 		admin2.save()
 		// Question Q1
@@ -22,7 +22,6 @@ class BootStrap {
 		userQ1.save()
 		Question questionQ1 = new Question(title: "Editablegrids HTML", content: "am having a problem with editable grid from mySql DB. It loads the data well but when I need to edit they pick only data from the first row only. it doesn't load the other cell data on the update text boxes.Any help will be appreciated.am useing this http://www.editablegrid.net/en modules", date: new Date())
 		questionQ1.author = userQ1
-		questionQ1.save()
 			// Tag Q1T1
 			Tag tagQ1T1 = new Tag(name: "mysql")
 			questionQ1.addToTags(tagQ1T1)
@@ -31,6 +30,7 @@ class BootStrap {
 			Tag tagQ1T2 = new Tag(name: "ajax")
 			questionQ1.addToTags(tagQ1T2)
 			tagQ1T2.save()
+		questionQ1.save()
 				// Commentaire Q1C1
 				User userQ1C1 = new User(name: "userQ1C1Name", mail: "userQ1C1Adresse@mail.com", password: "userQ1C1Password", avatarUrl: "/avatar/02.png")
 				userQ1C1.save()
@@ -130,7 +130,6 @@ class BootStrap {
 		userQ2.save()
 		Question questionQ2 = new Question(title: "TSQL creating a dynamic report from two tables.", content: "Imagine a scenario in which I want to get a dynamic report from [FormValues] as data, based on [Title] column of [ReportItems] as header. I'm really confused how to do it and tried many ways, but none of them work fine. I should be able to give a procedure a [ReportID] and get the result. [FormID] and [FieldID] are relational keys in between two tables.Any kind help would be highly appreciated.", date: new Date())
 		questionQ2.author = userQ2
-		questionQ2.save()
 			// Tag Q2T1
 			Tag tagQ2T1 = new Tag(name: "sql")
 			questionQ2.addToTags(tagQ2T1)
@@ -139,6 +138,7 @@ class BootStrap {
 			Tag tagQ2T2 = new Tag(name: "oracle")
 			questionQ2.addToTags(tagQ2T2)
 			tagQ2T2.save()
+		questionQ2.save()
 				// Commentaire Q2C1
 				User userQ2C1 = new User(name: "userQ2C1Name", mail: "userQ2C1Adresse@mail.com", password: "userQ2C1Password", avatarUrl: "/avatar/09.jpg")
 				userQ2C1.save()
@@ -188,7 +188,7 @@ class BootStrap {
 			questionQ2.addToResponses(responseQ2R2)
 			responseQ2R2.save()
 				// Commentaire Q2R2C1
-				User userQ2R2C1 = new User(name: "The only way I can think of doing this without maintaining a separate sheets collection is to maintain a static array of sheet names (or sheet codenames) and compare this to the actual sheets in the workbook each time the SheetActivate event fires to detect any additions. If you don't want to/can't keep the list in an array you could always use a hidden sheet to store the list. Whether this is any more or less of a pain than maintaining a separate collection is debatable :)", mail: "userQ2R2C1Adresse@mail.com", password: "userQ2R2C1Password")
+				User userQ2R2C1 = new User(name: "userQ2R2C1Name", mail: "userQ2R2C1Adresse@mail.com", password: "userQ2R2C1Password")
 				userQ2R2C1.save()
 				Commentaire commentaireQ2R2C1 = new Commentaire(content: "I would use the Amazon Product Advertising API ItemSearch API (see doc: http://docs.amazonwebservices.com/AWSECommerceService/2010-11-01/DG/ItemSearch.html)When forming your request, you will need to pass a number of parameters such as \"Title\", \"SearchIndex\" (\"Books\" in your case) and additional mandatory parameters (Note that you can try adding more request parameters, such as \"Author\" or \"Keywords\" to fine tune your query).", date: new Date())
 				commentaireQ2R2C1.author = userQ2R2C1
@@ -213,21 +213,21 @@ class BootStrap {
 		userQ3.save()
 		Question questionQ3 = new Question(title: "Probleme compilation", content: "Bonjour, grand programmeur en C, je ne parvien pas a compiler mon programme: <br> l'erreur est la suivante: missing function 'Main' in 'monAppli.c.'<br> quelqu'un peut-il m'aider?", date: new Date())
 		questionQ3.author = userQ3
-		questionQ3.save()
 			// Tag Q3T1
 			Tag tagQ3T1 = new Tag(name: "C++", description: "C++ est le meilleur langage ! Le langage orienté objet le plus rapide. La programmation bas-niveau c'est mieux car on sait comment ça fonctionne !")
 			questionQ3.addToTags(tagQ3T1)
 			tagQ3T1.save()
+		questionQ3.save()
 		// Question Q4
 		User userQ4 = new User(name: "Jean63", mail: "jean-retyui@outlook.com", password: "uiopaaazaze")
 		userQ4.save()
 		Question questionQ4 = new Question(title: "Qu'est ce qu'un bean?", content: "Bonjour.\n\nJ'ai eu un cours sur les JavaBeans. Je n'ai absuloment rien compris, car ce qui se passe par la fenetre etait bien plus interessant !!!\nQuelqu'un peut-il m'expliquer rapidement? vite car j'ai piscine dans 15 minute.\n\n>Merci, et bisous", date: new Date())
 		questionQ4.author = userQ4
-		questionQ4.save()
 			// Tag Q4T1
 			Tag tagQ4T1 = new Tag(name: "JAVA", description: "Java est Super mais les gens ne le savent pas encore! Très portable car tourne partous grace à la JVM")
 			questionQ4.addToTags(tagQ4T1)
 			tagQ4T1.save()
+		questionQ4.save()
 		for (int i=5 ; i<35 ; i++) {
 			// Question Qi
 			User userQi = new User(name: "userQ"+i+"Name", mail: "userQ"+i+"Adresse@mail.com", password: "userQ"+i+"Password")

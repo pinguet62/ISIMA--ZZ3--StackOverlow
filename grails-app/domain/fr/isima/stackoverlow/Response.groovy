@@ -14,8 +14,13 @@ class Response extends MessageVotable {
     }
 	
 	
-	/*User getQuestionAuthor() {
-		return question.getQuestionAuthor()
+	/**
+	 * Récupérer la question associée à la réponse
+	 * @return Question
+	 * @author Julien
+	 */
+	/*def getQuestion() {
+		return this.question.id
 	}*/
 	
 }

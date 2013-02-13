@@ -14,7 +14,7 @@ class Vote {
 	
 	
     static constraints = {
-		mark(inList: [-1, 0, +1])
+		mark inList: [-1, 0, +1]
     }
 	
 }

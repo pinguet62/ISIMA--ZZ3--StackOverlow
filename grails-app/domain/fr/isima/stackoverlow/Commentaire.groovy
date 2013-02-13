@@ -14,8 +14,13 @@ class Commentaire extends Message {
     }
 	
 	
-	/*User getQuestionAuthor() {
-		return messageVotable.getQuestionAuthor()
+	/**
+	 * Récupérer la question associée au commentaire
+	 * @return Question
+	 * @author Julien
+	 */
+	/*def getQuestion() {
+		return messageVotable.getQuestion()
 	}*/
 	
 }
