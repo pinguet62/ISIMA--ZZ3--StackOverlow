@@ -20,21 +20,21 @@ class BootStrap {
 		// Question Q1
 		User userQ1 = new User(name: "userQ1Name", mail: "userQ1Adresse@mail.com", password: "userQ1Password", avatarUrl: "/avatar/01.png")
 		userQ1.save()
-		Question questionQ1 = new Question(title: "titleQ1", content: "contentQ1", date: new Date())
+		Question questionQ1 = new Question(title: "Editablegrids HTML", content: "am having a problem with editable grid from mySql DB. It loads the data well but when I need to edit they pick only data from the first row only. it doesn't load the other cell data on the update text boxes.Any help will be appreciated.am useing this http://www.editablegrid.net/en modules", date: new Date())
 		questionQ1.author = userQ1
 		questionQ1.save()
 			// Tag Q1T1
-			Tag tagQ1T1 = new Tag(name: "tagQ1T1")
+			Tag tagQ1T1 = new Tag(name: "mysql")
 			questionQ1.addToTags(tagQ1T1)
 			tagQ1T1.save()
 			// Tag Q1T2
-			Tag tagQ1T2 = new Tag(name: "tagQ1T2")
+			Tag tagQ1T2 = new Tag(name: "ajax")
 			questionQ1.addToTags(tagQ1T2)
 			tagQ1T2.save()
 				// Commentaire Q1C1
 				User userQ1C1 = new User(name: "userQ1C1Name", mail: "userQ1C1Adresse@mail.com", password: "userQ1C1Password", avatarUrl: "/avatar/02.png")
 				userQ1C1.save()
-				Commentaire commentaireQ1C1 = new Commentaire(content: "contentQ1C1", date: new Date())
+				Commentaire commentaireQ1C1 = new Commentaire(content: "Use an AsyncTask. Its specially designed for this kinda stuff", date: new Date())
 				commentaireQ1C1.author = userQ1C1
 				commentaireQ1C1.messageVotable = questionQ1
 				questionQ1.addToCommentaires(commentaireQ1C1)
@@ -50,7 +50,7 @@ class BootStrap {
 			// Reponse Q1R1
 			User userQ1R1 = new User(name: "userQ1R1Name", mail: "userQ1R1Adresse@mail.com", password: "userQ1R1Password", avatarUrl: "/avatar/04.jpg")
 			userQ1R1.save()
-			Response responseQ1R1 = new Response(content: "contentQ1R1", date: new Date())
+			Response responseQ1R1 = new Response(content: "To get the result that you want, you will need to use the PIVOT function. If all of your values (title) are known ahead of time, then you can hard-code a static query:blablabla", date: new Date())
 			responseQ1R1.author = userQ1R1
 			responseQ1R1.question = questionQ1
 			questionQ1.addToResponses(responseQ1R1)
@@ -58,7 +58,7 @@ class BootStrap {
 				// Commentaire Q1R1C1
 				User userQ1R1C1 = new User(name: "userQ1R1C1Name", mail: "userQ1R1C1Adresse@mail.com", password: "userQ1R1C1Password", avatarUrl: "/avatar/05.jpg")
 				userQ1R1C1.save()
-				Commentaire commentaireQ1R1C1 = new Commentaire(content: "contentQ1R1C1", date: new Date())
+				Commentaire commentaireQ1R1C1 = new Commentaire(content: "thanks a lot for you perfect answer. If you dont mind I need to have two more options: 1. how to request the result by [ReportID] 2. how to sort the headers by a column called [SortOrder] in [ReportItems]? ", date: new Date())
 				commentaireQ1R1C1.author = userQ1R1C1
 				commentaireQ1R1C1.messageVotable = responseQ1R1
 				responseQ1R1.addToCommentaires(commentaireQ1R1C1)
@@ -66,7 +66,7 @@ class BootStrap {
 				// Commentaire Q1R1C2
 				User userQ1R1C2 = new User(name: "userQ1R1C2Name", mail: "userQ1R1C2Adresse@mail.com", password: "userQ1R1C2Password", avatarUrl: "/avatar/06.jpg")
 				userQ1R1C2.save()
-				Commentaire commentaireQ1R1C2 = new Commentaire(content: "contentQ1R1C2", date: new Date())
+				Commentaire commentaireQ1R1C2 = new Commentaire(content: "@Kardo can you edit the sql fiddle with the additional data needed? When you edit it, post the link here. Or create a new question with the additional details. ", date: new Date())
 				commentaireQ1R1C2.author = userQ1R1C2
 				commentaireQ1R1C2.messageVotable = responseQ1R1
 				responseQ1R1.addToCommentaires(commentaireQ1R1C2)
@@ -84,7 +84,7 @@ class BootStrap {
 			// Reponse Q1R2
 			User userQ1R2 = new User(name: "userQ1R2Name", mail: "userQ1R2Adresse@mail.com", password: "userQ1R2Password", avatarUrl: "/avatar/07.jpg")
 			userQ1R2.save()
-			Response responseQ1R2 = new Response(content: "contentQ1R2", date: new Date())
+			Response responseQ1R2 = new Response(content: "Well, there was an article by Phil Factor (On simple-talk.com, I think), that argued that the CASE solutions performed better then the PIVOT one. Anyway, it's your call.", date: new Date())
 			responseQ1R2.author = userQ1R2
 			responseQ1R2.question = questionQ1
 			questionQ1.addToResponses(responseQ1R2)
@@ -92,7 +92,7 @@ class BootStrap {
 				// Commentaire Q1R2C1
 				User userQ1R2C1 = new User(name: "userQ1R2C1Name", mail: "userQ1R2C1Adresse@mail.com", password: "userQ1R2C1Password", avatarUrl: "/avatar/08.jpg")
 				userQ1R2C1.save()
-				Commentaire commentaireQ1R2C1 = new Commentaire(content: "contentQ1R2C1", date: new Date())
+				Commentaire commentaireQ1R2C1 = new Commentaire(content: "Hi @Daniel, Your answer is correct too. Now I'm confused which one is a better solution to use? Many Thanks again :)", date: new Date())
 				commentaireQ1R2C1.author = userQ1R2C1
 				commentaireQ1R2C1.messageVotable = responseQ1R2
 				responseQ1R2.addToCommentaires(commentaireQ1R2C1)
@@ -100,7 +100,7 @@ class BootStrap {
 				// Commentaire Q1R2C2
 				User userQ1R2C2 = new User(name: "userQ1R2C2Name", mail: "userQ1R2C2Adresse@mail.com", password: "userQ1R2C2Password", avatarUrl: "/avatar/09.jpg")
 				userQ1R2C2.save()
-				Commentaire commentaireQ1R2C2 = new Commentaire(content: "contentQ1R2C2", date: new Date())
+				Commentaire commentaireQ1R2C2 = new Commentaire(content: "@Kardo see my edit with how you can use the SortOrder to keep the columns in the correct order. ", date: new Date())
 				commentaireQ1R2C2.author = userQ1R2C2
 				commentaireQ1R2C2.messageVotable = responseQ1R2
 				responseQ1R2.addToCommentaires(commentaireQ1R2C2)
@@ -128,21 +128,21 @@ class BootStrap {
 		// Question Q2
 		User userQ2 = new User(name: "userQ2Name", mail: "userQ2Adresse@mail.com", password: "userQ2Password")
 		userQ2.save()
-		Question questionQ2 = new Question(title: "titleQ2", content: "contentQ2", date: new Date())
+		Question questionQ2 = new Question(title: "TSQL creating a dynamic report from two tables.", content: "Imagine a scenario in which I want to get a dynamic report from [FormValues] as data, based on [Title] column of [ReportItems] as header. I'm really confused how to do it and tried many ways, but none of them work fine. I should be able to give a procedure a [ReportID] and get the result. [FormID] and [FieldID] are relational keys in between two tables.Any kind help would be highly appreciated.", date: new Date())
 		questionQ2.author = userQ2
 		questionQ2.save()
 			// Tag Q2T1
-			Tag tagQ2T1 = new Tag(name: "tagQ2T1")
+			Tag tagQ2T1 = new Tag(name: "sql")
 			questionQ2.addToTags(tagQ2T1)
 			tagQ2T1.save()
 			// Tag Q2T2
-			Tag tagQ2T2 = new Tag(name: "tagQ2T2")
+			Tag tagQ2T2 = new Tag(name: "oracle")
 			questionQ2.addToTags(tagQ2T2)
 			tagQ2T2.save()
 				// Commentaire Q2C1
 				User userQ2C1 = new User(name: "userQ2C1Name", mail: "userQ2C1Adresse@mail.com", password: "userQ2C1Password", avatarUrl: "/avatar/09.jpg")
 				userQ2C1.save()
-				Commentaire commentaireQ2C1 = new Commentaire(content: "contentQ2C1", date: new Date())
+				Commentaire commentaireQ2C1 = new Commentaire(content: "You can stretch the texture across the surface by interpolating from 0 to 1:", date: new Date())
 				commentaireQ2C1.author = userQ2C1
 				commentaireQ2C1.messageVotable = questionQ2
 				questionQ2.addToCommentaires(commentaireQ2C1)
@@ -150,7 +150,7 @@ class BootStrap {
 				// Commentaire Q2C2
 				User userQ2C2 = new User(name: "userQ2C2Name",  mail: "userQ2C2Adresse@mail.com", password: "userQ2C2Password", avatarUrl: "/avatar/10.jpg")
 				userQ2C2.save()
-				Commentaire commentaireQ2C2 = new Commentaire(content: "contentQ2C2", date: new Date())
+				Commentaire commentaireQ2C2 = new Commentaire(content: "Your guess is good.You are using a JTATransactionFactory, so the transaction is demarcated by JTA (i.e by the container).The method you are using to save the Request (here I presume it is defined in an EJB ) needs to be annotated with a transactional annotation: @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW), so when the method ends, the transaction gets committed.", date: new Date())
 				commentaireQ2C2.author = userQ2C2
 				commentaireQ2C2.messageVotable = questionQ2
 				questionQ2.addToCommentaires(commentaireQ2C2)
@@ -158,7 +158,7 @@ class BootStrap {
 			// Reponse Q2R1
 			User userQ2R1 = new User(name: "userQ2R1Name",  mail: "userQ2R1Adresse@mail.com", password: "userQ2R1Password", avatarUrl: "/avatar/11.jpg")
 			userQ2R1.save()
-			Response responseQ2R1 = new Response(content: "contentQ2R1", date: new Date())
+			Response responseQ2R1 = new Response(content: "Hmmm, this looks good and is probably close to the mark but the method isn't in an EJB. I tried Seam's @Transactional attribute but this didn't make any difference... any suggestions?", date: new Date())
 			responseQ2R1.author = userQ2R1
 			responseQ2R1.question = questionQ2
 			questionQ2.addToResponses(responseQ2R1)
@@ -166,7 +166,7 @@ class BootStrap {
 				// Commentaire Q2R1C1
 				User userQ2R1C1 = new User(name: "userQ2R1C1Name", mail: "userQ2R1C1Adresse@mail.com", password: "userQ2R1C1Password", avatarUrl: "/avatar/02.png")
 				userQ2R1C1.save()
-				Commentaire commentaireQ2R1C1 = new Commentaire(content: "contentQ2R1C1", date: new Date())
+				Commentaire commentaireQ2R1C1 = new Commentaire(content: "That might be an option. securing workbook is not an option as I want to provide an option to the user to import some sheets, so when the do Copy or Move from old version of the file, it would not add new sheets, instead it will update the existing sheet in the file with data from copied/moved data.", date: new Date())
 				commentaireQ2R1C1.author = userQ2R1C1
 				commentaireQ2R1C1.messageVotable = responseQ2R1
 				responseQ2R1.addToCommentaires(commentaireQ2R1C1)
@@ -174,7 +174,7 @@ class BootStrap {
 				// Commentaire Q2R1C2
 				User userQ2R1C2 = new User(name: "userQ2R1C2Name", mail: "userQ2R1C2Adresse@mail.com", password: "userQ2R1C2Password")
 				userQ2R1C2.save()
-				Commentaire commentaireQ2R1C2 = new Commentaire(content: "contentQ2R1C2", date: new Date())
+				Commentaire commentaireQ2R1C2 = new Commentaire(content: "\"SheetActivate event will fire under all of those circumstances\" It does not.. when multiple sheets are copied over it fires only once for the first sheet.. Maintaining a separate sheets collection is a pain, So as of now I have chosen to disable Move/Copy sheets option from Ply menu, so user can not move sheets from one version of the file to other. Also I handled New Sheet to block new sheets being added. So as of now I am done with that tool. But hope to see more robust events modal in next version of Excel than one Joel designed long back. ", date: new Date())
 				commentaireQ2R1C2.author = userQ2R1C2
 				commentaireQ2R1C2.messageVotable = responseQ2R1
 				responseQ2R1.addToCommentaires(commentaireQ2R1C2)
@@ -182,15 +182,15 @@ class BootStrap {
 			// Reponse Q2R2
 			User userQ2R2 = new User(name: "userQ2R2Name", mail: "userQ2R2Adresse@mail.com", password: "userQ2R2Password", avatarUrl: "http://icons.iconarchive.com/icons/deleket/sleek-xp-software/256/Yahoo-Messenger-icon.png")
 			userQ2R2.save()
-			Response responseQ2R2 = new Response(content: "contentQ2R2", date: new Date())
+			Response responseQ2R2 = new Response(content: "When a sheet is copied, its name will always end with \"(2)\", or at least \")\". You could check on that like this", date: new Date())
 			responseQ2R2.author = userQ2R2
 			responseQ2R2.question = questionQ2
 			questionQ2.addToResponses(responseQ2R2)
 			responseQ2R2.save()
 				// Commentaire Q2R2C1
-				User userQ2R2C1 = new User(name: "userQ2R2C1Name", mail: "userQ2R2C1Adresse@mail.com", password: "userQ2R2C1Password")
+				User userQ2R2C1 = new User(name: "The only way I can think of doing this without maintaining a separate sheets collection is to maintain a static array of sheet names (or sheet codenames) and compare this to the actual sheets in the workbook each time the SheetActivate event fires to detect any additions. If you don't want to/can't keep the list in an array you could always use a hidden sheet to store the list. Whether this is any more or less of a pain than maintaining a separate collection is debatable :)", mail: "userQ2R2C1Adresse@mail.com", password: "userQ2R2C1Password")
 				userQ2R2C1.save()
-				Commentaire commentaireQ2R2C1 = new Commentaire(content: "contentQ2R2C1", date: new Date())
+				Commentaire commentaireQ2R2C1 = new Commentaire(content: "I would use the Amazon Product Advertising API ItemSearch API (see doc: http://docs.amazonwebservices.com/AWSECommerceService/2010-11-01/DG/ItemSearch.html)When forming your request, you will need to pass a number of parameters such as \"Title\", \"SearchIndex\" (\"Books\" in your case) and additional mandatory parameters (Note that you can try adding more request parameters, such as \"Author\" or \"Keywords\" to fine tune your query).", date: new Date())
 				commentaireQ2R2C1.author = userQ2R2C1
 				commentaireQ2R2C1.messageVotable = responseQ2R2
 				responseQ2R2.addToCommentaires(commentaireQ2R2C1)
@@ -198,7 +198,7 @@ class BootStrap {
 				// Commentaire Q2R2C2
 				User userQ2R2C2 = new User(name: "userQ2R2C2Name", mail: "userQ2R2C2Adresse@mail.com", password: "userQ2R2C2Password", avatarUrl: "/avatar/06.jpg")
 				userQ2R2C2.save()
-				Commentaire commentaireQ2R2C2 = new Commentaire(content: "contentQ2R2C2", date: new Date())
+				Commentaire commentaireQ2R2C2 = new Commentaire(content: "webwiz, did you ever find a solution to getting a book's ASIN programmatically, given its title? ", date: new Date())
 				commentaireQ2R2C2.author = userQ2R2C2
 				commentaireQ2R2C2.messageVotable = responseQ2R2
 				responseQ2R2.addToCommentaires(commentaireQ2R2C2)
@@ -225,7 +225,7 @@ class BootStrap {
 		questionQ4.author = userQ4
 		questionQ4.save()
 			// Tag Q4T1
-			Tag tagQ4T1 = new Tag(name: "JAVA", description: "Java est lent car la JVM est lente, rame à cause du ramasse-mièttes, pas du tout portable car tourne uniquement sur la JVM")
+			Tag tagQ4T1 = new Tag(name: "JAVA", description: "Java est Super mais les gens ne le savent pas encore! Très portable car tourne partous grace à la JVM")
 			questionQ4.addToTags(tagQ4T1)
 			tagQ4T1.save()
 		for (int i=5 ; i<35 ; i++) {
