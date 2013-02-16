@@ -30,7 +30,7 @@ class User {
 	 * @return String
 	 */
 	String toString() {
-		return String.format("Name: %s, Mail: %s, Password: %s, Admin: %s", name, mail, password, admin.toString())
+		return String.format('User: id=%d, name="%s", mail="%s", password="%s", admin=%s, votes=%s, messages=%s, avatarUrl="%s"', id, name, mail, password, admin.toString(), votes.collect{it.id}, messages.collect{it.id}, avatarUrl)
 	}
 	
 }

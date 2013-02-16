@@ -15,7 +15,7 @@ class Question extends MessageVotable {
 	
     static constraints = {
 		title unique: true, minSize: 1
-		// tags(unique: true)
+		//tags unique: true, minSize: 1
     }
 	
 	
@@ -38,17 +38,8 @@ class Question extends MessageVotable {
 	 * Représentation sous forme de String
 	 * @return String
 	 */
-	/*String toString() {
-		String res = String.format("Title: \"%s\", Content: \"%s\", Date: %s, Author: %s", title, content, date, author.name)
-		res = res + ", Responses: ["
-		for (Response response : responses)
-			res += response.id + " "
-		res = res + "]"
-		res = res + ", Tags: ["
-		for (Tag tag : tags)
-			res = res + tag.id + " "
-		res = res + "]"
-		return res
-	}*/
+	String toString() {
+		return String.format("Question: id=%d, title=\"%s\", author=%d, tags=%s, responses=%s, commentaires=%s, votes=%s, date=\"%s\", content=\"%s\"", id, title, author.id, tags.collect{it.id}, responses.collect{it.id}, commentaires.collect{it.id}, votes.collect{it.id}, date.toString(), content);
+	}
 	
 }

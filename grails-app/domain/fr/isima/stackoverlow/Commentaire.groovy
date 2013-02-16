@@ -23,4 +23,13 @@ class Commentaire extends Message {
 		return messageVotable.getQuestion()
 	}*/
 	
+	
+	/**
+	 * Représentation sous forme de String
+	 * @return String
+	 */
+	String toString() {
+		return String.format('Commentaire: id=%d, messageVotable=%d, author=%d, date="%s", content="%s"', id, messageVotable.id, author.id, date.toString(), content);
+	}
+	
 }

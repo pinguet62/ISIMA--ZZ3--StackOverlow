@@ -21,4 +21,13 @@ class Tag {
 		description nullable: true
     }
 	
+	
+	/**
+	 * Représentation sous forme de String
+	 * @return String
+	 */
+	String toString() {
+		return String.format('Tag: id=%d, name="%s", questions=%s, description="%s"', id, name, questions.collect{it.id}, description)
+	}
+	
 }

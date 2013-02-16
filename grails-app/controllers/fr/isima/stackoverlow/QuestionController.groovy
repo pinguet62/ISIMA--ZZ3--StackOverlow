@@ -38,7 +38,7 @@ class QuestionController {
 		} catch (NumberFormatException e) {
 			return render(view: "/question/erreur", model: [error: "Nombre de questions par pages incorrect."])
 		} catch (NullPointerException e) {}
-		catch (GroovyCastException e) {} //TODO: bug
+		catch (GroovyCastException e) {}
 		if (! [15, 30, 50].contains(pagesize))
 			pagesize = defaultPagesize
 		session.question_pagesize = pagesize
@@ -46,7 +46,7 @@ class QuestionController {
 		Sort defaultSort = Sort.NEWEST
 		Sort sort = defaultSort
 		if (params.sort != null)
-			Sort.fromString(params.sort)
+			sort = Sort.fromString(params.sort)
 		else if (session.question_sort != null)
 			sort = session.question_sort
 		if (! [Sort.NEWEST, Sort.VOTES].contains(sort))
@@ -80,6 +80,8 @@ class QuestionController {
 		Question question = Question.findById(params.id)
 		if (question == null)
 			return render(view: "/question/erreur", model: [error: "Question inexistante."])
+			
+		println question
 		
 		// Paramètres
 		// - tri

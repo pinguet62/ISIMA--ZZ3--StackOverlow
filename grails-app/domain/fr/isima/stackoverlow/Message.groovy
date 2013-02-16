@@ -9,7 +9,6 @@ package fr.isima.stackoverlow
 	// Attributs
 	String content
 	Date date = new Date()
-	Boolean display = true
 	
 	// Liens avec la BDD
 	static belongsTo = [author: User]
@@ -22,6 +21,15 @@ package fr.isima.stackoverlow
 	
 	static mapping = {
 		content type: "text"
+	}
+	
+	
+	/**
+	 * Représentation sous forme de String
+	 * @return String
+	 */
+	String toString() {
+		return String.format('Message: id=%d, author=%d, date="%s", content="%s"', id, author.id, date.toString(), content);
 	}
 	
 }
