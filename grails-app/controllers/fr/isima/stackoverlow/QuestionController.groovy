@@ -17,7 +17,7 @@ class QuestionController {
 	 *         Page d'erreur si inexistante
 	 * @author Julien
 	 */
-	def all() {
+	def list() {
 		// Paramètres
 		// - numéro de page
 		int defaultPage = 1
@@ -63,7 +63,7 @@ class QuestionController {
 		int totalPages = Math.ceil(Question.count / pagesize)
 		def listPages = new Application().getListPages(page, totalPages)
 		
-		return render(view: "/question/all", model: [listQuestions: listQuestions, sort: sort, currentPage: page, listPages: listPages, pagesize: pagesize])
+		return render(view: "/question/list", model: [listQuestions: listQuestions, sort: sort, currentPage: page, listPages: listPages, pagesize: pagesize])
 	}
 	
 	

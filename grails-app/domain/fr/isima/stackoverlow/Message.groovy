@@ -15,7 +15,7 @@ package fr.isima.stackoverlow
 	
 	
     static constraints = {
-		content minSize: 1, length: 1..10240
+		content blank: false, length: 1..10240
     }
 	
 	

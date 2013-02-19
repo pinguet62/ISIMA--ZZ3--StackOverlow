@@ -14,7 +14,7 @@ class TagController {
 	 *         Page d'erreur si inexistante
 	 * @author Julien
 	 */
-	def all() {
+	def list() {
 		Sort.fromString(null)
 		// Paramètres
 		int pagesize = 36
@@ -43,7 +43,7 @@ class TagController {
 		int totalPages = Math.ceil(Tag.count / pagesize)
 		def listPages = new Application().getListPages(page, totalPages)
 		
-		return render(view: "/tag/all", model: [listTags: listTags, sort: sort, currentPage: page, listPages: listPages])
+		return render(view: "/tag/list", model: [listTags: listTags, sort: sort, currentPage: page, listPages: listPages])
 	}
 	
 	

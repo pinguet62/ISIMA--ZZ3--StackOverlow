@@ -48,7 +48,7 @@ class UserController {
 	{
 		session.user = user
 		log.info("user"+user.name + " logged in")
-		return redirect(controller: 'question', action:'all')
+		return redirect(controller: 'question', action:'list')
 	}
 	
 	/**
@@ -59,7 +59,7 @@ class UserController {
 	def logout() {
 		session.user = null
 		log.info("user loged out")
-		return redirect(controller: 'question', action:'all')
+		return redirect(controller: 'question', action:'list')
 	}
 	
 	

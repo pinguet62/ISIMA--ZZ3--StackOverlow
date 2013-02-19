@@ -12,7 +12,7 @@ class UrlMappings {
 		
 		// Question
 		// - afficher
-		"/question?"(controller: "question", action: "all")
+		"/question?"(controller: "question", action: "list")
 		"/question/$id"(controller: "question", action: "show") {
 			constraints {
 				id matches: /[0-9]+/
@@ -83,7 +83,7 @@ class UrlMappings {
 		
 		// Tag
 		// - afficher
-		"/tag?"(controller: "tag", action: "all")
+		"/tag?"(controller: "tag", action: "list")
 		"/tag/$id"(controller: "tag", action: "show") {
 			constraints {
 				id matches: /[0-9]+/
@@ -137,8 +137,8 @@ class UrlMappings {
 		
 		
 		// Accueil
-		"/index"(controller: "question", action: "all")
-		"/"(controller: "question", action: "all")
+		"/index"(controller: "question", action: "list")
+		"/"(controller: "question", action: "list")
 		
 		
 		// Erreurs

@@ -14,7 +14,7 @@ class Question extends MessageVotable {
 	
 	
     static constraints = {
-		title unique: true, minSize: 1
+		title unique: true, blank: false, length: 1..256
 		//tags unique: true, minSize: 1
     }
 	
