@@ -1,22 +1,22 @@
 StackOverlow
 ============
 
-StackOverflow par les nuls...
+
+
+Remarques :
+    CSS :
+        Nous avons utilisé le CSS du site Stack Overflow directement.
+        Nous avons jugé plus important d'avoir un projet solide au niveau fonctionnalité plutôt que de passer notre temps à faire du CSS.
+    Fonctionnalités :
+        Toutes les fonctionnalités de Stack Overflow n'ont pas été implémentées car cela nous aurait pris trop de temps...
+        Il est possible que le tri des messages ne fonctionne pas très bien, nous n'avons pas trouvé l'origine du problème...
+    Droits :
+        La gestion des droits se fait de cette manière : seuls les auteurs des messages ou les administrateurs peuvent les modifier (éditer ou supprimer).
 
 
 
-TODO :
-	Méthodes toString() des domains
-	Pages d'erreur des questions/tags/users
-
-
-
-Objectifs du projet :
-	Grails
-	Backend & frontend
-	Backend : use RESTful API
-	frontend : appli cliente HTML5 & JavaScript
-	admin 
+Dépot GitHub :
+    https://github.com/pinguet62/StackOverlow
 
 
 
@@ -43,40 +43,3 @@ Configuration de l'IDE :
                 "Add" ou "Edit"
                     Browse...
                     Chemin vers le répertoire d'installation de "Grails"
-
-
-
-Git :
-	Téléchercher dépot :
-		git clone http://github.com/pinguet62/StackOverlow.git
-	
-    Commandes :
-        git commit -a -m "message personnel"
-        	A faire régulièrement, avec chaque petite fonctionnalité que tu implémentes
-        git pull
-        	Il peut y avoir des conflits, une fois que tu les as corrigées tu peux refaire "git pull" et tester si ça marche encore
-        git push
-
-
-
-Fichier .gitgnore :
-	*.iws
-	*Db.properties
-	*Db.script
-	.settings
-	stacktrace.log
-	/*.zip
-	/plugin.xml
-	/*.log
-	/*DB.*
-	/cobertura.ser
-	.DS_Store
-	/target/
-	/out/
-	/web-app/plugins
-	/web-app/WEB-INF/classes
-	/.link_to_grails_plugins/
-	/target-eclipse/
-	
-	.classpath
-	.project
